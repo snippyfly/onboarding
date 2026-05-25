@@ -1,0 +1,855 @@
+/* ==========================================================
+   TenantManagementPage – content styles only
+   Scoped under .tenant-content (layout provided by OpsShell)
+   ========================================================== */
+
+/* --- content shell (maps from .content in source) --------- */
+.tenant-content {
+  padding: 18px 24px 24px;
+}
+
+/* --- hero row --------------------------------------------- */
+.tenant-content .hero-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: center;
+}
+
+.tenant-content .page-title h1 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.tenant-content .hero-actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+/* --- generic button --------------------------------------- */
+.tenant-content .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.tenant-content .button.primary {
+  background: linear-gradient(90deg, var(--blue), var(--blue-deep));
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(31, 107, 255, 0.2);
+}
+
+.tenant-content .button.ghost {
+  border-color: var(--line-strong);
+  background: #fff;
+  color: #3d4a65;
+}
+
+.tenant-content .add-button {
+  min-width: 132px;
+  min-height: 44px;
+  padding: 0 18px;
+}
+
+.tenant-content .button-icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* --- generic panel ---------------------------------------- */
+.tenant-content .panel {
+  border: 1px solid #edf2f9;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: var(--shadow);
+}
+
+.tenant-content .toolbar,
+.tenant-content .table-panel {
+  margin-top: 18px;
+}
+
+.tenant-content .toolbar {
+  padding: 18px;
+}
+
+/* --- filter grid ------------------------------------------ */
+.tenant-content .tenant-filter-grid {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) minmax(140px, 200px) minmax(140px, 200px) auto;
+  gap: 14px;
+  align-items: end;
+}
+
+.tenant-content .field {
+  display: grid;
+  gap: 8px;
+}
+
+.tenant-content .field > span:first-child {
+  color: #a5afc4;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tenant-content .input-shell,
+.tenant-content .select-shell {
+  height: 44px;
+  border: 1px solid #c7d2e5;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.tenant-content .input-shell {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  align-items: center;
+  padding: 0 14px;
+}
+
+.tenant-content .field-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: #6d7891;
+}
+
+.tenant-content .field input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  color: #26334e;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tenant-content .field input::placeholder {
+  color: #6f788b;
+}
+
+.tenant-content .select-shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+}
+
+.tenant-content .select-shell::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #596780;
+  border-bottom: 2px solid #596780;
+  transform: rotate(45deg);
+}
+
+.tenant-content .select-shell select {
+  width: 100%;
+  padding-right: 28px;
+  border: 0;
+  outline: none;
+  appearance: none;
+  background: transparent;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tenant-content .filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.tenant-content .filter-actions .button {
+  min-width: 88px;
+  min-height: 44px;
+}
+
+/* --- table ------------------------------------------------- */
+.tenant-content .table-panel {
+  overflow: hidden;
+}
+
+.tenant-content .table-scroll {
+  overflow-x: auto;
+}
+
+.tenant-content .tenant-table {
+  display: grid;
+  grid-template-columns:
+    minmax(180px, 0.82fr)
+    minmax(175px, 0.78fr)
+    minmax(175px, 0.82fr)
+    minmax(90px, 0.38fr)
+    minmax(80px, 0.32fr)
+    minmax(230px, 0.78fr);
+  gap: 12px;
+  align-items: center;
+  min-width: 960px;
+}
+
+.tenant-content .table-head {
+  min-height: 48px;
+  padding: 0 20px;
+  border-bottom: 1px solid #eef2f8;
+  background: #fbfcff;
+  color: #a5afc4;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.tenant-content .table-row {
+  min-height: 72px;
+  padding: 0 20px;
+  border-bottom: 1px solid #eef2f8;
+  background: #fff;
+}
+
+.tenant-content .table-row:hover {
+  background: #fbfdff;
+}
+
+.tenant-content .tenant-cell {
+  display: grid;
+  gap: 6px;
+}
+
+.tenant-content .tenant-name {
+  width: fit-content;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #0757cf;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 900;
+  text-align: left;
+}
+
+.tenant-content .tenant-name:hover {
+  color: var(--blue);
+}
+
+.tenant-content .tenant-cell span {
+  color: #b0bad0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.tenant-content .email-cell,
+.tenant-content .company-cell {
+  color: #1f2937;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.tenant-content .status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  min-height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.tenant-content .status-pill.success {
+  background: #e7f0ff;
+  color: #1463ff;
+}
+
+.tenant-content .status-pill.neutral {
+  background: #eef1f6;
+  color: #7a8497;
+}
+
+/* Tenant type pill in table */
+.tenant-content .type-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  min-height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.tenant-content .type-pill.customer {
+  background: #e7f0ff;
+  color: #1463ff;
+}
+
+.tenant-content .type-pill.partner {
+  background: #fef3e4;
+  color: #d88516;
+}
+
+.tenant-content .action-cell {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.tenant-content .action-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #0757cf;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.tenant-content .action-link.muted {
+  color: #606b80;
+}
+
+.tenant-content .action-divider {
+  width: 1px;
+  height: 18px;
+  background: #ccd5e4;
+}
+
+.tenant-content .table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  color: #64718a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tenant-content .pagination {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.tenant-content .page-button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #293349;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.tenant-content .page-button.active {
+  background: var(--blue);
+  color: #fff;
+  box-shadow: 0 8px 16px rgba(31, 107, 255, 0.18);
+}
+
+.tenant-content .page-button.icon-only {
+  color: #6d7891;
+}
+
+.tenant-content .page-button svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.6;
+}
+
+/* --- modal overlay (fixed, page-level) -------------------- */
+.tenant-content .modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: flex-end;
+  background: rgba(14, 29, 61, 0.16);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 160ms ease, visibility 0s linear 160ms;
+}
+
+/* When hidden attribute is absent, overlay is visible */
+.tenant-content .modal-overlay:not([hidden]) {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 160ms ease;
+}
+
+/* slide-in drawer */
+.tenant-content .tenant-modal {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  width: min(640px, 100vw);
+  height: 100%;
+  background: #fff;
+  box-shadow: -18px 0 42px rgba(24, 45, 93, 0.16);
+  transform: translateX(100%);
+  transition: transform 180ms ease;
+}
+
+.tenant-content .modal-overlay:not([hidden]) .tenant-modal {
+  transform: translateX(0);
+}
+
+.tenant-content .modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  padding: 0 22px 0 24px;
+  border-bottom: 1px solid #d8e1ef;
+}
+
+.tenant-content .modal-header h2 {
+  margin: 0;
+  color: #111827;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.tenant-content .modal-close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  color: #6f7788;
+}
+
+.tenant-content .modal-close svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.3;
+}
+
+.tenant-content .modal-body {
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.tenant-content .modal-section + .modal-section {
+  margin-top: 26px;
+}
+
+.tenant-content .modal-section h3 {
+  position: relative;
+  margin: 0 0 18px;
+  padding-left: 14px;
+  color: #1f2937;
+  font-size: 16px;
+  line-height: 1.35;
+  font-weight: 800;
+}
+
+.tenant-content .modal-section h3::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--blue);
+}
+
+/* --- modal fields ----------------------------------------- */
+.tenant-content .modal-field {
+  display: grid;
+  gap: 9px;
+  margin-top: 18px;
+}
+
+.tenant-content .modal-field > span:first-child {
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.tenant-content .modal-field input,
+.tenant-content .modal-select,
+.tenant-content .modal-field .select-shell {
+  height: 50px;
+  border-radius: 10px;
+}
+
+.tenant-content .modal-field input,
+.tenant-content .modal-select {
+  width: 100%;
+  border: 1px solid var(--line-strong);
+  background: #fff;
+}
+
+.tenant-content .modal-field input {
+  padding: 0 16px;
+  outline: none;
+  color: #111827;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.tenant-content .modal-field input::placeholder {
+  color: #758095;
+}
+
+.tenant-content .modal-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.tenant-content .modal-select::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #5d687b;
+  border-bottom: 2px solid #5d687b;
+  transform: rotate(45deg);
+}
+
+.tenant-content .modal-select select,
+.tenant-content .modal-field .select-shell select {
+  width: 100%;
+  padding-right: 34px;
+  border: 0;
+  outline: none;
+  appearance: none;
+  background: transparent;
+  color: #111827;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Disabled select in edit modal */
+.tenant-content .select-shell select:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+  background: #f9fafb;
+}
+
+/* Field hint */
+.tenant-content .field-hint {
+  color: #9ca3af;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* --- tenant type radio group ------------------------------ */
+.tenant-content .tenant-type-group {
+  margin-top: 18px;
+  border: 0;
+  padding: 0;
+}
+
+.tenant-content .tenant-type-group legend {
+  padding: 0;
+  margin-bottom: 9px;
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.tenant-content .type-radio-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.tenant-content .type-radio-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.tenant-content .type-radio-card:has(input:checked) {
+  border-color: var(--blue);
+  background: var(--blue-soft);
+}
+
+.tenant-content .type-radio-card input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tenant-content .type-radio-body {
+  display: grid;
+  gap: 4px;
+}
+
+.tenant-content .type-radio-body strong {
+  color: #111827;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.tenant-content .type-radio-body small {
+  color: #6b7280;
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+/* --- invite cards / toggle switches ----------------------- */
+.tenant-content .invite-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  margin-top: 20px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: #f1f4ff;
+}
+
+.tenant-content .invite-copy {
+  display: grid;
+  gap: 8px;
+}
+
+.tenant-content .invite-copy strong {
+  color: #111827;
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 800;
+}
+
+.tenant-content .invite-copy span {
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.tenant-content .switch-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tenant-content .switch-track {
+  position: relative;
+  width: 48px;
+  height: 27px;
+  border-radius: 999px;
+  background: #dfe5ef;
+  transition: background 160ms ease;
+  cursor: pointer;
+}
+
+.tenant-content .switch-track::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(37, 48, 68, 0.22);
+  transition: transform 160ms ease;
+}
+
+.tenant-content .switch-input:checked + .switch-track {
+  background: var(--blue);
+}
+
+.tenant-content .switch-input:checked + .switch-track::before {
+  transform: translateX(21px);
+}
+
+/* --- modal footer ----------------------------------------- */
+.tenant-content .modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  min-height: 66px;
+  padding: 12px 24px;
+  border-top: 1px solid #d8e1ef;
+  background: #f8fafc;
+}
+
+.tenant-content .modal-action {
+  min-width: 96px;
+  min-height: 42px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+/* ==========================================================
+   Responsive
+   ========================================================== */
+
+@media (max-width: 1280px) {
+  .tenant-content .tenant-filter-grid {
+    grid-template-columns: minmax(220px, 1fr) minmax(150px, 220px);
+  }
+
+  .tenant-content .filter-actions {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 980px) {
+  .tenant-content {
+    padding: 14px 14px 20px;
+  }
+
+  .tenant-content .hero-row,
+  .tenant-content .tenant-filter-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tenant-content .filter-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 620px) {
+  .tenant-content .button,
+  .tenant-content .filter-actions,
+  .tenant-content .hero-actions {
+    width: 100%;
+  }
+
+  .tenant-content .filter-actions {
+    flex-direction: column-reverse;
+  }
+
+  .tenant-content .filter-actions .button {
+    width: 100%;
+  }
+
+  .tenant-content .table-footer {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .tenant-content .table-scroll {
+    overflow-x: visible;
+  }
+
+  .tenant-content .table-head {
+    display: none;
+  }
+
+  .tenant-content .tenant-table.table-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    min-width: 0;
+    min-height: 0;
+    padding: 22px 24px;
+  }
+
+  .tenant-content .table-row > div {
+    display: grid;
+    gap: 5px;
+  }
+
+  .tenant-content .table-row > div::before {
+    content: attr(data-label);
+    color: #a5afc4;
+    font-size: 13px;
+    font-weight: 900;
+  }
+
+  .tenant-content .tenant-cell::before {
+    display: none;
+  }
+
+  .tenant-content .email-cell,
+  .tenant-content .company-cell {
+    font-size: 15px;
+    line-height: 1.45;
+    word-break: break-word;
+  }
+
+  .tenant-content .status-pill {
+    width: fit-content;
+  }
+
+  .tenant-content .table-row > .action-cell {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .tenant-content .table-row > .action-cell::before {
+    flex-basis: 100%;
+  }
+
+  .tenant-content .pagination {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .tenant-content .tenant-modal {
+    width: 100vw;
+  }
+
+  .tenant-content .modal-body {
+    padding: 26px 18px;
+  }
+
+  .tenant-content .modal-footer {
+    gap: 12px;
+  }
+
+  .tenant-content .modal-action {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .tenant-content .hero-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

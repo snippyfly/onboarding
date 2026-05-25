@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BAIWANG 用户管理</title>
+    <link rel="stylesheet" href="./tax-swift-user-management.css" />
+    <script>
+      if (window.top !== window.self) {
+        var f=document.createElement('style');
+        f.textContent='.sidebar,aside.sidebar,.topbar,header.topbar,.password-modal-overlay,#passwordModal,[class*="password-modal"],.brand-panel,.scope-switch,.sidebar-nav,.sidebar-footer,.side-footer,.user-menu,[class*="user-menu"],script{display:none!important}.dashboard-page,.enterprise-page,.app-page,.ops-page,[class$="-page"]{display:block!important;grid-template-columns:none!important;min-height:auto!important;height:auto!important}.main-shell,[class*="main-shell"]{width:100%!important;min-width:0!important}html,body{overflow:auto!important;height:auto!important;min-height:100%!important;background:#f7f9fd!important}body{zoom:1!important}';
+        document.head.appendChild(f);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="app-page">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">B</div>
+          <div class="brand-copy">
+            <strong>BAIWANG 百望</strong>
+            <span>全球智能税务合规平台</span>
+          </div>
+        </div>
+
+        <button class="scope-switch" type="button">
+          <span class="scope-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3.4 12h17.2M12 3.5c2.5 2.3 4 5.3 4 8.5s-1.5 6.2-4 8.5c-2.5-2.3-4-5.3-4-8.5s1.5-6.2 4-8.5Z" />
+            </svg>
+          </span>
+          <span>全球视角</span>
+          <span class="chevron" aria-hidden="true">
+            <svg viewBox="0 0 16 16"><path d="m4 6 4 4 4-4" /></svg>
+          </span>
+        </button>
+
+        <nav class="side-nav" aria-label="主导航">
+          <section class="nav-group">
+            <h2>OVERVIEW</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4.5 19.5V11m5 8.5v-15m5 15V7.5m5 12v-10" />
+                  <path d="M3.5 19.5h17" />
+                </svg>
+              </span>
+              <span>全球合规看板</span>
+            </a>
+          </section>
+
+          <section class="nav-group">
+            <h2>DATA CENTER</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M6 3.8h9.5L19 7.3v12.9H6Z" />
+                  <path d="M15.5 3.8v4h3.4M8.8 11.2h5.8M8.8 15.2h7.2" />
+                  <path d="m17.5 16.7 2.5 2.5" />
+                </svg>
+              </span>
+              <span>发票数据查询</span>
+            </a>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5.5 19.5v-10a2 2 0 0 1 2-2h2.4v12M14.1 19.5V5.8a2 2 0 0 1 2-2h.4a2 2 0 0 1 2 2v13.7" />
+                  <path d="M3.8 19.5h16.4M7.6 10.8h.1M7.6 14h.1M16.3 7h.1M16.3 10.3h.1M16.3 13.6h.1" />
+                </svg>
+              </span>
+              <span>公司列表</span>
+            </a>
+          </section>
+
+          <section class="nav-group">
+            <h2>OPEN PLATFORM</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5.5 5.5h7v7h-7Zm0 10h7v3h-7Zm10-10h3v7h-3Zm0 10h3v3h-3Z" />
+                  <path d="M8 8h2M16.5 8h.1M8 17h2M16.5 17h.1" />
+                </svg>
+              </span>
+              <span>API 应用管理</span>
+            </a>
+          </section>
+
+          <section class="nav-group">
+            <h2>SECURITY &amp; ACCESS</h2>
+            <a class="nav-item active" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="7.6" r="3.1" />
+                  <path d="M5.2 19.5c1.2-3.4 3.6-5.1 6.8-5.1s5.6 1.7 6.8 5.1" />
+                </svg>
+              </span>
+              <span>用户管理</span>
+            </a>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <rect x="5" y="4.5" width="14" height="15" rx="1.8" />
+                  <path d="M8.6 9h6.8M8.6 13h6.8M8.6 17h4.4" />
+                </svg>
+              </span>
+              <span>审计日志</span>
+            </a>
+          </section>
+        </nav>
+
+        <div class="side-footer">
+          <a class="nav-item" href="#">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3.5 8.6 4.9 6.2 7.3 4.8 10.7l1.4 3.4 2.4 2.4 3.4 1.4 3.4-1.4 2.4-2.4 1.4-3.4-1.4-3.4-2.4-2.4Z" />
+                <circle cx="12" cy="11.4" r="2.5" />
+              </svg>
+            </span>
+            <span>设置</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="8.5" />
+                <path d="M9.5 9.7a2.8 2.8 0 1 1 4.8 2c-.8.8-1.4 1.3-1.4 2.7M12 17.1h.1" />
+              </svg>
+            </span>
+            <span>帮助与支持</span>
+          </a>
+        </div>
+      </aside>
+
+      <div class="main-shell">
+        <header class="topbar">
+          <div class="topbar-actions">
+            <button class="top-action" type="button">
+              <span class="top-action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M7 4.8h10v15H7Z" />
+                  <path d="M9.2 3.5h5.6v3H9.2ZM9.5 11.6l1.6 1.6 3.6-4" />
+                </svg>
+              </span>
+              <span>任务中心</span>
+              <span class="badge">6</span>
+            </button>
+            <button class="top-action" type="button">
+              <span class="top-action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 4.2a4.7 4.7 0 0 1 4.7 4.7v2.5l1.5 3v1.2H5.8v-1.2l1.5-3V8.9A4.7 4.7 0 0 1 12 4.2Z" />
+                  <path d="M10 18a2 2 0 0 0 4 0" />
+                </svg>
+              </span>
+              <span>消息中心</span>
+              <span class="badge">3</span>
+            </button>
+          </div>
+          <div class="user-summary">
+            <div class="user-text">
+              <strong>Admin User</strong>
+              <span>Global Controller</span>
+            </div>
+            <div class="avatar" aria-hidden="true"></div>
+            <span class="top-chevron" aria-hidden="true">
+              <svg viewBox="0 0 16 16"><path d="m4 6 4 4 4-4" /></svg>
+            </span>
+          </div>
+        </header>
+
+        <main class="content">
+          <section class="title-row">
+            <div class="title-copy">
+              <h1>用户管理</h1>
+              <p>User management</p>
+            </div>
+            <button class="invite-button" type="button" id="openInviteModal">
+              <span aria-hidden="true">＋</span>
+              <span>邀请用户</span>
+            </button>
+          </section>
+
+          <div class="tabs" role="tablist" aria-label="用户状态">
+            <button class="tab active" type="button" role="tab" aria-selected="true" data-filter="all">全部用户</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-filter="active">已激活</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-filter="pending">待激活</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-filter="disabled">已禁用</button>
+          </div>
+
+          <section class="filters" aria-label="筛选用户">
+            <label class="search-box">
+              <span class="search-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="10.8" cy="10.8" r="6.4" />
+                  <path d="m16 16 4 4" />
+                </svg>
+              </span>
+              <input type="search" placeholder="搜索姓名或邮箱搜索..." />
+              <span class="search-tail" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="10.8" cy="10.8" r="6.4" />
+                  <path d="m16 16 4 4" />
+                </svg>
+              </span>
+            </label>
+            <div class="filter-actions">
+              <button class="query-button" type="button">查询</button>
+              <button class="reset-button" type="button">重置</button>
+            </div>
+          </section>
+
+          <section class="user-card">
+            <div class="table header-row">
+              <div><span class="check" aria-hidden="true"></span></div>
+              <div>用户</div>
+              <div>状态</div>
+              <div>最后活跃</div>
+              <div>操作</div>
+            </div>
+
+            <div class="table data-row" data-status="active">
+              <div><span class="check" aria-hidden="true"></span></div>
+              <div class="person-cell">
+                <span class="initial blue">张</span>
+                <div>
+                  <strong>张伟 (Zhang Wei)</strong>
+                  <span>wei.zhang@enterprise.com</span>
+                </div>
+              </div>
+              <div><span class="status active"><i></i>已激活</span></div>
+              <div class="last-cell">2023-11-24 14:20</div>
+              <div class="action-cell">
+                <button class="action-primary authorize-trigger" type="button" data-user-name="张伟 Zhang Wei" data-user-email="zhang.wei@enterprise.com" data-user-initial="张" data-user-tone="blue">授权</button>
+                <details class="action-more">
+                  <summary aria-label="更多操作"></summary>
+                  <div class="action-menu">
+                    <a href="#">编辑</a>
+                    <a href="#">禁用</a>
+                    <a class="danger" href="#">删除</a>
+                  </div>
+                </details>
+              </div>
+            </div>
+
+            <div class="table data-row" data-status="pending">
+              <div><span class="check" aria-hidden="true"></span></div>
+              <div class="person-cell">
+                <span class="initial orange">李</span>
+                <div>
+                  <strong>李娜 (Li Na)</strong>
+                  <span>na.li@enterprise.com</span>
+                </div>
+              </div>
+              <div><span class="status pending"><i></i>待激活</span></div>
+              <div class="last-cell">未登录</div>
+              <div class="action-cell danger-zone">
+                <a class="action-primary" href="#">重发邀请</a>
+                <details class="action-more">
+                  <summary aria-label="更多操作"></summary>
+                  <div class="action-menu">
+                    <a class="danger" href="#">删除</a>
+                  </div>
+                </details>
+              </div>
+            </div>
+
+            <div class="table data-row" data-status="disabled">
+              <div><span class="check" aria-hidden="true"></span></div>
+              <div class="person-cell">
+                <span class="initial gray">王</span>
+                <div>
+                  <strong>王芳 (Wang Fang)</strong>
+                  <span>fang.wang@enterprise.com</span>
+                </div>
+              </div>
+              <div><span class="status disabled">已禁用</span></div>
+              <div class="last-cell">2023-09-12 09:15</div>
+              <div class="action-cell danger-zone">
+                <a class="action-primary" href="#">启用</a>
+                <details class="action-more">
+                  <summary aria-label="更多操作"></summary>
+                  <div class="action-menu">
+                    <a class="danger" href="#">删除</a>
+                  </div>
+                </details>
+              </div>
+            </div>
+
+            <div class="table data-row" data-status="active">
+              <div><span class="check" aria-hidden="true"></span></div>
+              <div class="person-cell">
+                <span class="initial green">陈</span>
+                <div>
+                  <strong>陈思 (Chen Si)</strong>
+                  <span>si.chen@enterprise.com</span>
+                </div>
+              </div>
+              <div><span class="status active"><i></i>已激活</span></div>
+              <div class="last-cell">1小时前</div>
+              <div class="action-cell">
+                <button class="action-primary authorize-trigger" type="button" data-user-name="陈思 Chen Si" data-user-email="si.chen@enterprise.com" data-user-initial="陈" data-user-tone="green">授权</button>
+                <details class="action-more">
+                  <summary aria-label="更多操作"></summary>
+                  <div class="action-menu">
+                    <a href="#">编辑</a>
+                    <a href="#">禁用</a>
+                    <a class="danger" href="#">删除</a>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </section>
+
+          <footer class="table-footer">
+            <span id="tableSummary">显示 1 到 4，共 24 条数据</span>
+            <nav class="pagination" aria-label="分页">
+              <button class="page arrow" type="button" aria-label="上一页">‹</button>
+              <button class="page current" type="button">1</button>
+              <button class="page" type="button">2</button>
+              <button class="page" type="button">3</button>
+              <span>...</span>
+              <button class="page" type="button">6</button>
+              <button class="page arrow" type="button" aria-label="下一页">›</button>
+            </nav>
+          </footer>
+        </main>
+      </div>
+    </div>
+    <div class="modal-overlay" id="inviteModal" hidden>
+      <section class="invite-modal" role="dialog" aria-modal="true" aria-labelledby="inviteModalTitle">
+        <header class="invite-modal-head">
+          <h2 id="inviteModalTitle">邀请用户</h2>
+          <button class="modal-close" type="button" data-close-invite aria-label="关闭邀请用户弹层">×</button>
+        </header>
+
+        <div class="invite-modal-body">
+          <p class="invite-note">受邀者将收到一封包含激活链接的邮件。该链接将在 7 天后过期。</p>
+
+          <label class="invite-field">
+            <span>电子邮箱地址 <em>*</em></span>
+            <div class="email-input-shell">
+              <span class="email-chip">alice@company.com <button type="button" aria-label="移除 alice@company.com">×</button></span>
+              <input type="email" placeholder="输入邮箱地址..." />
+            </div>
+            <small>例如：alice@company.com, bob@company.com</small>
+          </label>
+
+          <label class="invite-field">
+            <span>预分配角色</span>
+            <span class="invite-select-shell">
+              <select>
+                <option>激活后再分配</option>
+                <option>管理员</option>
+                <option>开票员</option>
+                <option>财务审核</option>
+                <option>销售代表</option>
+              </select>
+            </span>
+            <small>如果设置，用户在激活账号后将立即获得该角色</small>
+          </label>
+
+          <label class="invite-field" id="enterpriseFieldTenant" hidden>
+            <span>所属企业</span>
+            <span class="invite-select-shell">
+              <select id="enterpriseSelect">
+                <option value="">无企业归属（租户级用户）</option>
+                <option disabled>──────────────</option>
+                <option value="vietnam">百望越南工业有限公司</option>
+                <option value="shanghai">上海分部</option>
+                <option value="guangzhou">广州办事处</option>
+                <option value="malaysia">马来西亚服务有限公司</option>
+              </select>
+            </span>
+            <small>留空则创建租户级用户，可访问租户下所有企业数据</small>
+          </label>
+
+          <label class="invite-field" id="enterpriseFieldAdmin" hidden>
+            <span>所属企业</span>
+            <span class="invite-enterprise-readonly">百望越南工业有限公司</span>
+            <small>企业管理员仅可邀请用户加入当前企业</small>
+          </label>
+        </div>
+
+        <footer class="invite-modal-footer">
+          <button class="modal-cancel" type="button" data-close-invite>取消</button>
+          <button class="modal-submit" type="button">
+            <span class="mail-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4.5 6.5h15v11h-15Z" />
+                <path d="m5.3 7.3 6.7 5 6.7-5" />
+              </svg>
+            </span>
+            <span>发送邀请</span>
+          </button>
+        </footer>
+      </section>
+    </div>
+    <div class="modal-overlay" id="authorizeModal" hidden>
+      <section class="authorize-modal" role="dialog" aria-modal="true" aria-labelledby="authorizeModalTitle">
+        <header class="authorize-head">
+          <h2 id="authorizeModalTitle">用户授权 (Authorize Roles)</h2>
+          <button class="modal-close" type="button" data-close-authorize aria-label="关闭用户授权弹层">×</button>
+        </header>
+
+        <section class="authorize-user">
+          <span class="auth-avatar blue" id="authorizeUserInitial">张</span>
+          <div>
+            <strong id="authorizeUserName">张伟 Zhang Wei</strong>
+            <span id="authorizeUserEmail">zhang.wei@enterprise.com</span>
+          </div>
+        </section>
+
+        <div class="authorize-tabs" role="tablist" aria-label="授权角色">
+          <button class="auth-tab active" type="button" role="tab" aria-selected="true" data-auth-panel="unassigned">未授权角色</button>
+          <button class="auth-tab" type="button" role="tab" aria-selected="false" data-auth-panel="assigned">已授权角色</button>
+        </div>
+
+        <div class="authorize-body">
+          <aside class="role-pane">
+            <div class="role-list" data-auth-content="unassigned">
+              <button class="role-item active" type="button">
+                <strong>租户管理员</strong>
+                <span>Tenant Admin</span>
+              </button>
+              <button class="role-item" type="button">
+                <strong>企业管理员（越南）</strong>
+                <span>Company Admin (VN)</span>
+              </button>
+              <button class="role-item" type="button">
+                <strong>开票员（越南）</strong>
+                <span>Billing Clerk (VN)</span>
+              </button>
+              <button class="role-item" type="button">
+                <strong>企业管理员（马来西亚）</strong>
+                <span>Company Admin (MY)</span>
+              </button>
+              <button class="role-item" type="button">
+                <strong>开票员（马来西亚）</strong>
+                <span>Billing Clerk (MY)</span>
+              </button>
+            </div>
+
+            <div class="role-list assigned-list" data-auth-content="assigned" hidden>
+              <button class="role-item active" type="button">
+                <strong>开票员（越南）</strong>
+                <span>Billing Clerk (VN)</span>
+                <em>取消授权</em>
+              </button>
+              <button class="role-item" type="button">
+                <strong>企业管理员（马来西亚）</strong>
+                <span>Company Admin (MY)</span>
+                <em>取消授权</em>
+              </button>
+            </div>
+          </aside>
+
+          <section class="scope-pane">
+            <div class="scope-head">
+              <div>
+                <h3>选择数据范围 <span>(SELECT DATA SCOPE)</span></h3>
+                <p>请勾选该角色适用的企业或部门</p>
+              </div>
+              <label class="scope-mode">
+                <span>全部企业</span>
+                <input type="checkbox" />
+              </label>
+            </div>
+
+            <div class="scope-list">
+              <label class="scope-card">
+                <input type="checkbox" />
+                <span>
+                  <strong>百望越南工业有限公司</strong>
+                  <em>Baiwang Vietnam Industrial Co., Ltd.</em>
+                </span>
+              </label>
+              <label class="scope-card">
+                <input type="checkbox" />
+                <span>
+                  <strong>上海分部</strong>
+                  <em>Shanghai Branch</em>
+                </span>
+              </label>
+              <label class="scope-card">
+                <input type="checkbox" />
+                <span>
+                  <strong>广州办事处</strong>
+                  <em>Guangzhou Office</em>
+                </span>
+              </label>
+              <label class="scope-card">
+                <input type="checkbox" />
+                <span>
+                  <strong>马来西亚服务有限公司</strong>
+                  <em>Baiwang Malaysia Services Sdn. Bhd.</em>
+                </span>
+              </label>
+            </div>
+          </section>
+        </div>
+
+        <footer class="authorize-footer">
+          <button class="modal-cancel" type="button" data-close-authorize>取消</button>
+          <button class="auth-save" type="button">保存</button>
+        </footer>
+      </section>
+    </div>
+    <script>
+      // --- User context (toggle to switch between tenant admin / enterprise admin) ---
+      var isTenantAdmin = true;
+
+      var inviteModal = document.querySelector("#inviteModal");
+      var authorizeModal = document.querySelector("#authorizeModal");
+      var openInviteModal = document.querySelector("#openInviteModal");
+      var closeInviteControls = document.querySelectorAll("[data-close-invite]");
+      var closeAuthorizeControls = document.querySelectorAll("[data-close-authorize]");
+      var authorizeTriggers = document.querySelectorAll(".authorize-trigger");
+      var authorizeUserInitial = document.querySelector("#authorizeUserInitial");
+      var authorizeUserName = document.querySelector("#authorizeUserName");
+      var authorizeUserEmail = document.querySelector("#authorizeUserEmail");
+      var authTabs = document.querySelectorAll(".auth-tab[data-auth-panel]");
+      var authContents = document.querySelectorAll("[data-auth-content]");
+      var roleItems = document.querySelectorAll(".role-item");
+      var tabs = document.querySelectorAll(".tab[data-filter]");
+      var rows = document.querySelectorAll(".data-row[data-status]");
+      var tableSummary = document.querySelector("#tableSummary");
+      var enterpriseFieldTenant = document.querySelector("#enterpriseFieldTenant");
+      var enterpriseFieldAdmin = document.querySelector("#enterpriseFieldAdmin");
+      var enterpriseSelect = document.querySelector("#enterpriseSelect");
+      const totalByStatus = {
+        all: 24,
+        active: 12,
+        pending: 7,
+        disabled: 5,
+      };
+
+      function applyStatusFilter(filter) {
+        let visibleCount = 0;
+
+        rows.forEach((row) => {
+          const shouldShow = filter === "all" || row.dataset.status === filter;
+          row.hidden = !shouldShow;
+          if (shouldShow) visibleCount += 1;
+        });
+
+        tabs.forEach((tab) => {
+          const isActive = tab.dataset.filter === filter;
+          tab.classList.toggle("active", isActive);
+          tab.setAttribute("aria-selected", String(isActive));
+        });
+
+        const total = totalByStatus[filter] ?? visibleCount;
+        tableSummary.textContent = visibleCount
+          ? `显示 1 到 ${visibleCount}，共 ${total} 条数据`
+          : `显示 0 到 0，共 ${total} 条数据`;
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => applyStatusFilter(tab.dataset.filter));
+      });
+
+      function setInviteModalOpen(isOpen) {
+        inviteModal.hidden = !isOpen;
+        document.body.classList.toggle("modal-open", isOpen);
+
+        if (isOpen) {
+          enterpriseFieldTenant.hidden = !isTenantAdmin;
+          enterpriseFieldAdmin.hidden = isTenantAdmin;
+          if (isTenantAdmin) {
+            enterpriseSelect.value = "";
+          }
+          inviteModal.querySelector("input").focus();
+        } else {
+          openInviteModal.focus();
+        }
+      }
+
+      function setAuthorizeModalOpen(isOpen, trigger) {
+        authorizeModal.hidden = !isOpen;
+        document.body.classList.toggle("modal-open", isOpen);
+
+        if (isOpen && trigger) {
+          authorizeUserInitial.textContent = trigger.dataset.userInitial;
+          authorizeUserInitial.className = `auth-avatar ${trigger.dataset.userTone || "blue"}`;
+          authorizeUserName.textContent = trigger.dataset.userName;
+          authorizeUserEmail.textContent = trigger.dataset.userEmail;
+          authorizeModal.querySelector(".auth-tab[data-auth-panel='unassigned']").click();
+          authorizeModal.querySelector(".role-item").focus();
+        } else if (!isOpen && trigger) {
+          trigger.focus();
+        }
+      }
+
+      function setAuthorizePanel(panel) {
+        authTabs.forEach((tab) => {
+          const isActive = tab.dataset.authPanel === panel;
+          tab.classList.toggle("active", isActive);
+          tab.setAttribute("aria-selected", String(isActive));
+        });
+
+        authContents.forEach((content) => {
+          content.hidden = content.dataset.authContent !== panel;
+        });
+      }
+
+      openInviteModal.addEventListener("click", () => setInviteModalOpen(true));
+
+      authorizeTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", () => setAuthorizeModalOpen(true, trigger));
+      });
+
+      closeInviteControls.forEach((control) => {
+        control.addEventListener("click", () => setInviteModalOpen(false));
+      });
+
+      closeAuthorizeControls.forEach((control) => {
+        control.addEventListener("click", () => setAuthorizeModalOpen(false, document.activeElement));
+      });
+
+      authTabs.forEach((tab) => {
+        tab.addEventListener("click", () => setAuthorizePanel(tab.dataset.authPanel));
+      });
+
+      roleItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          const group = item.closest(".role-list");
+          group.querySelectorAll(".role-item").forEach((role) => role.classList.remove("active"));
+          item.classList.add("active");
+        });
+      });
+
+      inviteModal.addEventListener("click", (event) => {
+        if (event.target === inviteModal) {
+          setInviteModalOpen(false);
+        }
+      });
+
+      authorizeModal.addEventListener("click", (event) => {
+        if (event.target === authorizeModal) {
+          setAuthorizeModalOpen(false, document.activeElement);
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+
+        if (!inviteModal.hidden) {
+          setInviteModalOpen(false);
+        }
+
+        if (!authorizeModal.hidden) {
+          setAuthorizeModalOpen(false, document.activeElement);
+        }
+      });
+    </script>
+  </body>
+</html>

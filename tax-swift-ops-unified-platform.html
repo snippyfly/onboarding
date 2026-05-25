@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tax-Swift 运营管理后台</title>
+  <style>
+    :root {
+      --bg: #f7f9fd;
+      --surface: #ffffff;
+      --line: #e8edf6;
+      --line-strong: #d9e3f3;
+      --text: #182338;
+      --muted: #69758e;
+      --blue: #1f6bff;
+      --blue-deep: #1452ea;
+      --blue-soft: #eef5ff;
+      --shadow: 0 10px 32px rgba(25, 58, 125, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #fdfefe, #f7f9fd);
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ---- Layout ---- */
+    .ops-page {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ---- Sidebar ---- */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      background: rgba(255, 255, 255, 0.92);
+      border-right: 1px solid var(--line);
+    }
+
+    .brand-panel {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 28px 22px 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #2d85ff, #1252e7);
+      color: #fff;
+      box-shadow: 0 12px 24px rgba(31, 107, 255, 0.2);
+    }
+
+    .brand-mark svg {
+      width: 34px;
+      height: 34px;
+      stroke-width: 2.5;
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 5px;
+    }
+
+    .brand-copy strong {
+      font-size: 25px;
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .scope-switch {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      height: 62px;
+      margin: 26px 22px 0;
+      padding: 0 18px;
+      border: 1px solid #edf2f8;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      color: #24324e;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .scope-icon,
+    .chevron,
+    .nav-icon,
+    .top-action-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scope-icon {
+      width: 26px;
+      height: 26px;
+      color: var(--blue);
+    }
+
+    .chevron {
+      width: 17px;
+      height: 17px;
+      margin-left: auto;
+      color: #68748c;
+    }
+
+    .sidebar-nav {
+      padding: 30px 16px 0;
+    }
+
+    .nav-group + .nav-group {
+      margin-top: 30px;
+    }
+
+    .nav-group h2 {
+      margin: 0 0 12px 12px;
+      color: #738098;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-height: 52px;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 14px;
+      background: transparent;
+      color: #43516c;
+      font-size: 17px;
+      font-weight: 800;
+      width: 100%;
+      text-align: left;
+    }
+
+    .nav-item + .nav-item {
+      margin-top: 8px;
+    }
+
+    .nav-item:hover {
+      background: #f5f8ff;
+    }
+
+    .nav-item.active {
+      background: linear-gradient(180deg, #edf5ff, #e8f1ff);
+      color: var(--blue);
+    }
+
+    .nav-icon {
+      width: 28px;
+      height: 28px;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 18px 16px 26px;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ---- Topbar ---- */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 96px;
+      padding: 0 30px;
+      background: rgba(255, 255, 255, 0.78);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #68758e;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .breadcrumb strong {
+      color: #27344f;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .topbar-actions {
+      display: flex;
+      gap: 26px;
+    }
+
+    .top-action {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 0;
+      background: transparent;
+      color: #1f2d48;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .top-action-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    .badge-dot {
+      position: absolute;
+      top: -8px;
+      right: -12px;
+      display: grid;
+      place-items: center;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      border-radius: 999px;
+      background: #ff3d3d;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .user-summary {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      position: relative;
+    }
+
+    .user-text {
+      display: grid;
+      gap: 2px;
+      text-align: right;
+    }
+
+    .user-text strong {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .user-text span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .avatar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .avatar {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #16203a, #28517f 68%, #1f6bff);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 900;
+      box-shadow: 0 0 0 3px rgba(31, 107, 255, 0.12);
+    }
+
+    .user-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      z-index: 50;
+      margin-top: 8px;
+      width: 248px;
+      padding: 8px;
+      border: 1px solid #e8edf6;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 14px 36px rgba(25, 58, 125, 0.14);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: opacity 120ms ease, transform 120ms ease, visibility 0s linear 120ms;
+    }
+
+    .user-menu.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      transition: opacity 120ms ease, transform 120ms ease;
+    }
+
+    .user-menu-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 10px 12px;
+      border-bottom: 1px solid #eef2f8;
+    }
+
+    .avatar-large {
+      width: 40px;
+      height: 40px;
+      font-size: 16px;
+    }
+
+    .user-menu-copy {
+      display: grid;
+      gap: 2px;
+    }
+
+    .user-menu-copy strong {
+      font-size: 15px;
+    }
+
+    .user-menu-copy span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .user-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      margin-top: 4px;
+      padding: 10px 12px;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+      color: #27344f;
+      font-size: 15px;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    .user-menu-item:hover {
+      background: #f5f7fb;
+    }
+
+    .user-menu-item.logout {
+      color: #c24a4a;
+    }
+
+    .menu-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+    }
+
+    /* ---- Main / Iframe ---- */
+    .main-shell {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .iframe-container {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      background: #f7f9fd;
+    }
+
+    .iframe-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ---- Password Modal ---- */
+    .password-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(14, 29, 61, 0.24);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 140ms ease, visibility 0s linear 140ms;
+    }
+
+    .password-modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 140ms ease;
+    }
+
+    .password-modal {
+      width: min(480px, 92vw);
+      padding: 0;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 20px 50px rgba(20, 45, 90, 0.22);
+    }
+
+    .password-modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px 0;
+    }
+
+    .password-modal-head h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .password-close {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border: 0;
+      background: transparent;
+      font-size: 22px;
+      color: #6f7788;
+    }
+
+    .password-modal-body {
+      padding: 16px 24px 8px;
+    }
+
+    .password-note {
+      margin: 0 0 16px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: #fef7e6;
+      color: #8d6b10;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .password-field {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .password-field span {
+      font-size: 14px;
+      font-weight: 800;
+      color: #374151;
+    }
+
+    .password-field em {
+      color: #e53e3e;
+      font-style: normal;
+    }
+
+    .password-input-shell {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 48px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .password-input-shell input {
+      width: 100%;
+      height: 100%;
+      padding: 0 52px 0 16px;
+      border: 0;
+      outline: none;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .password-eye {
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      background: transparent;
+      color: #9ca3af;
+    }
+
+    .password-eye svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 1.8;
+    }
+
+    .password-rules {
+      margin: 8px 0 0;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: #f8fafc;
+    }
+
+    .password-rules h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #374151;
+    }
+
+    .password-rules ul {
+      margin: 0;
+      padding: 0 0 0 18px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .password-rules li {
+      font-size: 13px;
+      font-weight: 600;
+      color: #6b7280;
+    }
+
+    .password-modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      padding: 16px 24px 20px;
+    }
+
+    .password-cancel {
+      min-width: 80px;
+      min-height: 42px;
+      padding: 0 18px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      background: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      color: #374151;
+    }
+
+    .password-submit {
+      min-width: 100px;
+      min-height: 42px;
+      padding: 0 22px;
+      border: 0;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-deep));
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 8px 16px rgba(31, 107, 255, 0.18);
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 1280px) {
+      .ops-page {
+        grid-template-columns: 280px minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .ops-page {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .topbar {
+        min-height: auto;
+        padding: 14px 16px;
+      }
+
+      .topbar-actions {
+        display: none;
+      }
+
+      .user-text {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="ops-page">
+    <!-- ====== Sidebar ====== -->
+    <aside class="sidebar" aria-label="运营后台导航">
+      <div class="brand-panel">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M4.8 7.5 12 3.5l7.2 4v8.8L12 20.5l-7.2-4.2Z" />
+            <path d="M8 9.4h8M8 12.3h8M8 15.2h5" />
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <strong>Tax-Swift</strong>
+          <span>运营管理后台</span>
+        </div>
+      </div>
+
+      <button class="scope-switch" type="button">
+        <span class="scope-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="8.6" />
+            <path d="M3.7 12h16.6M12 3.8c2.2 2.2 3.5 5.1 3.5 8.2s-1.3 6-3.5 8.2c-2.2-2.2-3.5-5.1-3.5-8.2s1.3-6 3.5-8.2Z" />
+          </svg>
+        </span>
+        <span>运营全局视角</span>
+        <span class="chevron" aria-hidden="true">
+          <svg viewBox="0 0 16 16"><path d="m4 6 4 4 4-4" /></svg>
+        </span>
+      </button>
+
+      <nav class="sidebar-nav">
+        <section class="nav-group">
+          <h2>OPERATIONS</h2>
+          <button class="nav-item active" data-page="tenant" type="button">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M5.4 19.5v-10a2 2 0 0 1 2-2h2.5v12M14.1 19.5V5.8a2 2 0 0 1 2-2h.6a2 2 0 0 1 2 2v13.7" />
+                <path d="M3.8 19.5h16.4M7.8 10.8h.1M7.8 14h.1M16.5 7.1h.1M16.5 10.4h.1M16.5 13.7h.1" />
+              </svg>
+            </span>
+            <span>租户管理</span>
+          </button>
+          <button class="nav-item" data-page="enterprise" type="button">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M5 5.5h14v13H5Z" />
+                <path d="M5 10h14M10 5.5v13M14 10v8" />
+              </svg>
+            </span>
+            <span>企业管理</span>
+          </button>
+          <button class="nav-item" data-page="isv" type="button">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M5 5.5h14v13H5Z" />
+                <path d="M8 9h8M8 13h5M8 16h7" />
+              </svg>
+            </span>
+            <span>ISV授权管理</span>
+          </button>
+        </section>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="nav-item" type="button">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3.7 8.6 5.1 6.1 7.6l-1.4 3.4 1.4 3.4 2.5 2.5 3.4 1.4 3.4-1.4 2.5-2.5 1.4-3.4-1.4-3.4-2.5-2.5Z" />
+              <circle cx="12" cy="11" r="2.4" />
+            </svg>
+          </span>
+          <span>后台设置</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ====== Main Shell ====== -->
+    <div class="main-shell">
+      <header class="topbar">
+        <div class="breadcrumb">
+          <span>运营平台</span>
+          <span>/</span>
+          <strong id="breadcrumbTitle">租户管理</strong>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-actions">
+            <button class="top-action" type="button">
+              <span class="top-action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 5.5h14v13H5Z" />
+                  <path d="M8 3.8V7M16 3.8V7M8.2 11h7.6" />
+                </svg>
+              </span>
+              <span>待办</span>
+              <span class="badge-dot">9</span>
+            </button>
+            <button class="top-action" type="button">
+              <span class="top-action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 4.5a4.5 4.5 0 0 1 4.5 4.5v2.2l1.5 3v1.3h-12v-1.3l1.5-3V9A4.5 4.5 0 0 1 12 4.5Z" />
+                  <path d="M10 18a2 2 0 0 0 4 0" />
+                </svg>
+              </span>
+              <span>消息</span>
+              <span class="badge-dot">4</span>
+            </button>
+          </div>
+          <div class="user-summary" id="userSummary">
+            <div class="user-text">
+              <strong>Ops Admin</strong>
+              <span>运营管理员</span>
+            </div>
+            <div class="avatar-wrap">
+              <div class="avatar">O</div>
+              <span class="chevron" aria-hidden="true">
+                <svg viewBox="0 0 16 16"><path d="m4 6 4 4 4-4" /></svg>
+              </span>
+            </div>
+            <div class="user-menu" id="userMenu">
+              <div class="user-menu-head">
+                <div class="avatar avatar-large">O</div>
+                <div class="user-menu-copy">
+                  <strong>Ops Admin</strong>
+                  <span>运营管理员</span>
+                </div>
+              </div>
+              <button class="user-menu-item" id="openPasswordModal" type="button">
+                <span class="menu-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M7.5 10V8.7a4.5 4.5 0 1 1 9 0V10" />
+                    <rect x="5" y="10" width="14" height="10.5" rx="2" />
+                  </svg>
+                </span>
+                <span>修改密码</span>
+              </button>
+              <a href="#" class="user-menu-item logout">
+                <span class="menu-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M10 5H6v14h4" />
+                    <path d="M13 8.2 18 12l-5 3.8M18 12H9" />
+                  </svg>
+                </span>
+                <span>退出登录</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="iframe-container">
+        <iframe id="contentFrame" src="./tax-swift-ops-tenant-management.html" title="内容区域"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Password Modal ====== -->
+  <div class="password-modal-overlay" id="passwordModal" hidden>
+    <section class="password-modal" role="dialog" aria-modal="true" aria-labelledby="passwordModalTitle">
+      <header class="password-modal-head">
+        <h2 id="passwordModalTitle">修改密码</h2>
+        <button class="password-close" type="button" data-close-password aria-label="关闭修改密码弹层">&times;</button>
+      </header>
+
+      <div class="password-modal-body">
+        <p class="password-note">为了保障账号安全，修改密码后需要重新登录。</p>
+
+        <label class="password-field">
+          <span>当前密码 <em>*</em></span>
+          <span class="password-input-shell">
+            <input type="password" placeholder="请输入当前密码" />
+            <button type="button" class="password-eye" aria-label="显示或隐藏当前密码">
+              <svg viewBox="0 0 24 24">
+                <path d="M3.5 12s3-5.5 8.5-5.5S20.5 12 20.5 12s-3 5.5-8.5 5.5S3.5 12 3.5 12Z" />
+                <circle cx="12" cy="12" r="2.4" />
+              </svg>
+            </button>
+          </span>
+        </label>
+
+        <label class="password-field">
+          <span>新密码 <em>*</em></span>
+          <span class="password-input-shell">
+            <input type="password" placeholder="请输入新密码" />
+            <button type="button" class="password-eye" aria-label="显示或隐藏新密码">
+              <svg viewBox="0 0 24 24">
+                <path d="M3.5 12s3-5.5 8.5-5.5S20.5 12 20.5 12s-3 5.5-8.5 5.5S3.5 12 3.5 12Z" />
+                <circle cx="12" cy="12" r="2.4" />
+              </svg>
+            </button>
+          </span>
+        </label>
+
+        <label class="password-field">
+          <span>确认新密码 <em>*</em></span>
+          <span class="password-input-shell">
+            <input type="password" placeholder="请再次输入新密码" />
+            <button type="button" class="password-eye" aria-label="显示或隐藏确认密码">
+              <svg viewBox="0 0 24 24">
+                <path d="M3.5 12s3-5.5 8.5-5.5S20.5 12 20.5 12s-3 5.5-8.5 5.5S3.5 12 3.5 12Z" />
+                <circle cx="12" cy="12" r="2.4" />
+              </svg>
+            </button>
+          </span>
+        </label>
+
+        <section class="password-rules" aria-label="密码要求">
+          <h3>密码要求</h3>
+          <ul>
+            <li>至少 8 个字符</li>
+            <li>包含大小写字母</li>
+            <li>包含数字或特殊字符</li>
+            <li>不能与当前密码相同</li>
+          </ul>
+        </section>
+      </div>
+
+      <footer class="password-modal-footer">
+        <button class="password-cancel" type="button" data-close-password>取消</button>
+        <button class="password-submit" type="button">确认修改</button>
+      </footer>
+    </section>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var iframe = document.getElementById('contentFrame');
+      var breadcrumbTitle = document.getElementById('breadcrumbTitle');
+      var navItems = document.querySelectorAll('.nav-item[data-page]');
+      var userSummary = document.getElementById('userSummary');
+      var userMenu = document.getElementById('userMenu');
+      var passwordModal = document.getElementById('passwordModal');
+      var openPasswordBtn = document.getElementById('openPasswordModal');
+      var closePasswordBtns = document.querySelectorAll('[data-close-password]');
+      var eyeButtons = document.querySelectorAll('.password-eye');
+
+      // Page configuration
+      var pageConfig = {
+        tenant: { src: './tax-swift-ops-tenant-management.html', title: '租户管理' },
+        enterprise: { src: './tax-swift-ops-enterprise-management.html', title: '企业管理' },
+        isv: { src: './isv-authorization-review-ui.html', title: 'ISV授权管理' }
+      };
+
+      // Navigate to a page
+      function navigateTo(page) {
+        var config = pageConfig[page];
+        if (!config) return;
+
+        navItems.forEach(function(item) {
+          item.classList.toggle('active', item.dataset.page === page);
+        });
+
+        breadcrumbTitle.textContent = config.title;
+        document.title = 'Tax-Swift 运营后台 - ' + config.title;
+        iframe.src = config.src;
+        history.replaceState(null, '', '#' + page);
+      }
+
+      // Nav click handlers
+      navItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+          navigateTo(item.dataset.page);
+        });
+      });
+
+      // ---- User Menu ----
+      userSummary.addEventListener('click', function(e) {
+        e.stopPropagation();
+        userMenu.classList.toggle('open');
+      });
+
+      document.addEventListener('click', function() {
+        userMenu.classList.remove('open');
+      });
+
+      // ---- Password Modal ----
+      function setPasswordModalOpen(open) {
+        passwordModal.hidden = !open;
+        passwordModal.classList.toggle('open', open);
+        document.body.classList.toggle('modal-open', open);
+        if (open) {
+          passwordModal.querySelector('input').focus();
+        } else {
+          openPasswordBtn.focus();
+        }
+      }
+
+      openPasswordBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        userMenu.classList.remove('open');
+        setPasswordModalOpen(true);
+      });
+
+      closePasswordBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() { setPasswordModalOpen(false); });
+      });
+
+      passwordModal.addEventListener('click', function(e) {
+        if (e.target === passwordModal) setPasswordModalOpen(false);
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !passwordModal.hidden) {
+          setPasswordModalOpen(false);
+        }
+      });
+
+      eyeButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var input = btn.parentElement.querySelector('input');
+          input.type = input.type === 'password' ? 'text' : 'password';
+        });
+      });
+
+      // ---- Hash-based navigation ----
+      function handleHashChange() {
+        var hash = location.hash.replace('#', '');
+        if (hash && pageConfig[hash]) navigateTo(hash);
+      }
+
+      window.addEventListener('hashchange', handleHashChange);
+
+      if (location.hash && pageConfig[location.hash.replace('#', '')]) {
+        handleHashChange();
+      }
+    });
+  </script>
+</body>
+</html>

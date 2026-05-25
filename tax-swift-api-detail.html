@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tax-Swift API 应用详情</title>
+    <link rel="stylesheet" href="./tax-swift-api-detail.css" />
+    <script>
+      if (window.top !== window.self) {
+        var f=document.createElement('style');
+        f.textContent='.sidebar,aside.sidebar,.topbar,header.topbar,.password-modal-overlay,#passwordModal,[class*="password-modal"],.brand-panel,.scope-switch,.sidebar-nav,.sidebar-footer,.side-footer,.user-menu,[class*="user-menu"],script{display:none!important}.dashboard-page,.enterprise-page,.app-page,.ops-page,[class$="-page"]{display:block!important;grid-template-columns:none!important;min-height:auto!important;height:auto!important}.main-shell,[class*="main-shell"]{width:100%!important;min-width:0!important}html,body{overflow:auto!important;height:auto!important;min-height:100%!important;background:#f7f9fd!important}body{zoom:1!important}';
+        document.head.appendChild(f);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="app-page">
+      <aside class="sidebar">
+        <div class="brand-panel">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 64 64">
+              <defs>
+                <linearGradient id="brandBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#2f91ff" />
+                  <stop offset="100%" stop-color="#1354ea" />
+                </linearGradient>
+              </defs>
+              <path d="M15 8h20c10.5 0 18 7.2 18 17.2 0 5.1-2 9.7-5.4 12.7 4.1 2.8 6.7 7.5 6.7 13.1C54.3 61.2 46.7 56 36 56H15a7 7 0 0 1-7-7V15a7 7 0 0 1 7-7Zm8.5 12.2v11.6h12.1c4.5 0 7.5-2.2 7.5-5.9 0-3.6-3-5.7-7.5-5.7H23.5Zm0 22.1v13.5h13.8c4.8 0 7.9-2.6 7.9-6.8s-3.1-6.7-7.9-6.7H23.5Z" fill="url(#brandBlue)" />
+              <path d="M22.5 18.8h13.4c5.3 0 8.9 2.8 8.9 7.1s-3.6 7.4-8.9 7.4H22.5v-14.5Zm0 21.6h15.4c5.7 0 9.4 3.2 9.4 8.2s-3.7 8.2-9.4 8.2H22.5V40.4Z" fill="#fafdff" opacity=".96" />
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <strong>BAIWANG 百望</strong>
+            <span>全球智能税务合规平台</span>
+          </div>
+        </div>
+
+        <div class="scope-switch">
+          <span class="scope-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3.2a8.8 8.8 0 1 0 0 17.6 8.8 8.8 0 0 0 0-17.6Z" />
+              <path d="M3.8 12h16.4M12 3.8c2.3 2.2 3.7 5.1 3.7 8.2s-1.4 6-3.7 8.2c-2.3-2.2-3.7-5.1-3.7-8.2S9.7 6 12 3.8Z" />
+            </svg>
+          </span>
+          <span>全球视角</span>
+          <span class="scope-chevron" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path d="m4 6 4 4 4-4" />
+            </svg>
+          </span>
+        </div>
+
+        <nav class="sidebar-nav">
+          <section class="nav-group">
+            <h2>OVERVIEW</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4.5 4.5h6v6h-6Zm9 0h6v6h-6Zm-9 9h6v6h-6Zm9 0h6v6h-6Z" />
+                </svg>
+              </span>
+              <span>全球合规看板</span>
+            </a>
+          </section>
+
+          <section class="nav-group">
+            <h2>DATA CENTER</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M6 4.5h12v15H6Z" />
+                  <path d="M9 8h6M9 12h6M9 16h4" />
+                </svg>
+              </span>
+              <span>发票数据查询</span>
+            </a>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 5.5h14v13H5Z" />
+                  <path d="M5 10h14M10 5.5v13M14 10v8" />
+                </svg>
+              </span>
+              <span>公司列表</span>
+            </a>
+          </section>
+
+          <section class="nav-group">
+            <h2>OPEN PLATFORM</h2>
+            <a class="nav-item active" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="9" cy="7" r="3" />
+                  <path d="M3.8 18c1.1-2.7 2.8-4 5.2-4s4.1 1.3 5.2 4" />
+                  <circle cx="17" cy="9.5" r="2.5" />
+                  <path d="M13.7 18.2c.8-2 2-3 3.3-3s2.5 1 3.3 3" />
+                </svg>
+              </span>
+              <span>API 应用管理</span>
+            </a>
+          </section>
+
+          <section class="nav-group">
+            <h2>SECURITY & ACCESS</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="9" cy="8" r="3" />
+                  <path d="M3.5 18.5c1.2-3 3.1-4.4 5.5-4.4s4.3 1.4 5.5 4.4" />
+                  <circle cx="17" cy="9.5" r="2.5" />
+                  <path d="M14 18.5c.8-2.4 1.8-3.6 3-3.6s2.2 1.2 3 3.6" />
+                </svg>
+              </span>
+              <span>用户管理</span>
+            </a>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M6 4.5h10.5l2.5 2.7v12.3H6Z" />
+                  <path d="M16.5 4.5v3h3M9 10h6M9 14h6M9 17h4" />
+                </svg>
+              </span>
+              <span>审计日志</span>
+            </a>
+          </section>
+        </nav>
+
+        <div class="sidebar-footer">
+          <a class="nav-item" href="#">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3.8 8.4 5.2 5.8 7.8 4.4 11.4l1.4 3.6 2.6 2.6 3.6 1.4 3.6-1.4 2.6-2.6 1.4-3.6-1.4-3.6-2.6-2.6Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </span>
+            <span>设置</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="8" />
+                <path d="M9.4 9.4a2.8 2.8 0 1 1 5 1.7c-.7.9-1.5 1.4-1.5 2.6M12 16.8h0" />
+              </svg>
+            </span>
+            <span>帮助与支持</span>
+          </a>
+        </div>
+      </aside>
+
+      <div class="main-shell">
+        <header class="topbar">
+          <div class="topbar-actions">
+            <button class="top-action" type="button">
+              <span class="top-action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 5.5h14v13H5Z" />
+                  <path d="M8 3.8V7M16 3.8V7M8.2 11h7.6" />
+                </svg>
+              </span>
+              <span>任务中心</span>
+              <span class="badge-dot">6</span>
+            </button>
+            <button class="top-action" type="button">
+              <span class="top-action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 4.5a4.5 4.5 0 0 1 4.5 4.5v2.2l1.5 3v1.3h-12v-1.3l1.5-3V9A4.5 4.5 0 0 1 12 4.5Z" />
+                  <path d="M10 18a2 2 0 0 0 4 0" />
+                </svg>
+              </span>
+              <span>消息中心</span>
+              <span class="badge-dot">3</span>
+            </button>
+          </div>
+          <div class="user-summary">
+            <div class="user-text">
+              <strong>Admin User</strong>
+              <span>Global Controller</span>
+            </div>
+            <div class="avatar-wrap">
+              <div class="avatar photo-avatar"></div>
+              <span class="scope-chevron" aria-hidden="true">
+                <svg viewBox="0 0 16 16">
+                  <path d="m4 6 4 4 4-4" />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </header>
+
+        <main class="content">
+          <nav class="breadcrumb" aria-label="面包屑">
+            <a href="#" class="current">API 应用管理</a>
+            <span class="crumb-chevron">-›</span>
+            <span id="breadcrumbAppName">生产系统对接</span>
+          </nav>
+
+          <section class="master-detail">
+            <aside class="app-master" aria-label="API 应用列表">
+              <div class="master-head">
+                <h2>API 应用</h2>
+                <button class="add-app" type="button" id="openCreateAppModal" aria-label="新增 API 应用">+</button>
+              </div>
+
+              <button class="app-list-item active" type="button" data-app-id="app_9f3kd72xmq" data-app-name="生产系统对接" data-app-type="企业内部应用" data-title-type="ISV 类型" data-enabled="true" data-credentials="3" data-created="2026-05-20 10:30:15" data-active-time="2026-05-20 09:48:22" data-description="用于租户内部 ERP 系统与 Tax Swift 平台的自动化对接，支持发票自动化开具与合规校验。">
+                <span class="app-list-title"><i class="state-dot enabled"></i>生产系统对接</span>
+                <span class="app-list-meta">已启用 · 3 个凭证</span>
+              </button>
+
+              <button class="app-list-item" type="button" data-app-id="app_isv_1455" data-app-name="ISV 对接应用" data-app-type="外途服务应用" data-title-type="ISV 类型" data-enabled="true" data-credentials="1" data-created="2026-05-18 16:20:31" data-active-time="2026-05-20 08:12:06" data-description="面向外部 ISV 服务商开放的标准对接应用，用于授权凭证、数据范围和白名单统一管理。">
+                <span class="app-list-title"><i class="state-dot enabled"></i>ISV 对接应用</span>
+                <span class="app-list-meta">已启用 · 1 个凭证</span>
+              </button>
+
+              <button class="app-list-item muted" type="button" data-app-id="app_disabled_8820" data-app-name="已停用应用" data-app-type="外途服务应用" data-title-type="历史应用" data-enabled="false" data-credentials="0" data-created="2026-04-28 14:05:18" data-active-time="2026-05-02 17:46:39" data-description="该应用已停用，保留历史凭证与审计信息，不再允许新的 API 请求访问业务数据。">
+                <span class="app-list-title"><i class="state-dot disabled"></i>已停用应用</span>
+                <span class="app-list-meta">已停用 · 0 个凭证</span>
+              </button>
+            </aside>
+
+            <section class="detail-pane">
+              <section class="title-row">
+                <div class="title-copy">
+                  <h1 id="appTitle">生产系统对接</h1>
+                  <p id="appTitleMeta">创建于 2026-05-20 10:30:15 <span>·</span> ISV 类型</p>
+                </div>
+                <div class="title-actions">
+                  <div class="more-menu-wrap">
+                    <button class="more-button" type="button" id="moreAppActions" aria-label="更多操作" aria-expanded="false">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </button>
+                    <div class="more-menu" id="appActionMenu" hidden>
+                      <button class="menu-item" type="button" id="toggleAppStatus">禁用</button>
+                      <button class="menu-item danger" type="button" id="deleteAppAction">删除</button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <nav class="tabs" aria-label="详情页签">
+                <button class="tab active" type="button" data-tab-target="basic">基本信息</button>
+                <button class="tab" type="button" data-tab-target="credentials">API 凭证（3）</button>
+                <button class="tab" type="button" data-tab-target="permissions">权限列表</button>
+                <button class="tab" type="button" data-tab-target="scope">数据范围</button>
+                <button class="tab" type="button" data-tab-target="whitelist">IP 白名单</button>
+              </nav>
+
+              <section class="info-card tab-panel active" data-tab-panel="basic">
+                <div class="card-head">
+                  <h2>基本信息</h2>
+                  <button class="outline-button card-edit" type="button">
+                    <span class="button-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M12 20h9" />
+                        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" />
+                      </svg>
+                    </span>
+                    <span>编辑基本信息</span>
+                  </button>
+                </div>
+
+                <div class="info-grid">
+                  <div class="info-item">
+                    <span>应用名称</span>
+                    <strong id="appNameValue">生产系统对接</strong>
+                  </div>
+                  <div class="info-item">
+                    <span>应用 ID</span>
+                    <strong class="copy-value" id="appIdValue">
+                      app_9f3kd72xmq
+                      <button class="copy-button" type="button" aria-label="复制应用 ID">
+                        <svg viewBox="0 0 24 24">
+                          <rect x="9" y="9" width="10" height="10" rx="1.5" />
+                          <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1" />
+                        </svg>
+                      </button>
+                    </strong>
+                  </div>
+                  <div class="info-item">
+                    <span>应用类型</span>
+                    <strong id="appTypeValue">企业内部应用</strong>
+                  </div>
+                  <div class="info-item">
+                    <span>状态</span>
+                    <strong class="state-value"><i></i>已启用</strong>
+                  </div>
+                  <div class="info-item">
+                    <span>创建时间</span>
+                    <strong id="appCreatedValue">2026-05-20 10:30:15</strong>
+                  </div>
+                  <div class="info-item">
+                    <span>最近活跃时间</span>
+                    <strong id="appActiveValue">2026-05-20 09:48:22</strong>
+                  </div>
+                  <div class="info-item full">
+                    <span>应用描述</span>
+                    <strong id="appDescValue">用于租户内部 ERP 系统与 Tax Swift 平台的自动化对接，支持发票自动化开具与合规校验。</strong>
+                  </div>
+                </div>
+              </section>
+
+              <section class="info-card tab-panel credential-panel" data-tab-panel="credentials" hidden>
+                <div class="card-head">
+                  <h2>API 凭证管理</h2>
+                  <button class="primary-button" type="button">
+                    <span class="button-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M12 5v14M5 12h14" />
+                      </svg>
+                    </span>
+                    <span>新增凭证</span>
+                  </button>
+                </div>
+
+                <div class="credential-table" role="table" aria-label="API 凭证管理">
+                  <div class="credential-row credential-head" role="row">
+                    <div role="columnheader">凭证名称</div>
+                    <div role="columnheader">凭证ID (App Key)</div>
+                    <div role="columnheader">凭证密钥 (Secret Key)</div>
+                    <div role="columnheader">创建时间</div>
+                    <div role="columnheader">过期时间</div>
+                    <div role="columnheader">操作</div>
+                  </div>
+
+                  <div class="credential-row" role="row">
+                    <div class="credential-name" role="cell">生产环境<br />主凭证</div>
+                    <div class="mono" role="cell">ak_live_782910</div>
+                    <div class="secret-cell" role="cell">
+                      <span>••••••••••••</span>
+                      <em>可选:</em>
+                      <button class="copy-button" type="button" aria-label="复制生产环境主凭证密钥">
+                        <svg viewBox="0 0 24 24">
+                          <rect x="9" y="9" width="10" height="10" rx="1.5" />
+                          <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1" />
+                        </svg>
+                      </button>
+                    </div>
+                    <div role="cell">2023-10-01</div>
+                    <div role="cell">永久有效</div>
+                    <div class="credential-actions" role="cell">
+                      <button type="button">禁用</button>
+                      <button class="danger" type="button">删除</button>
+                    </div>
+                  </div>
+
+                  <div class="credential-row" role="row">
+                    <div class="credential-name" role="cell">测试环境<br />凭证</div>
+                    <div class="mono" role="cell">ak_test_229103</div>
+                    <div class="secret-cell" role="cell">
+                      <span>••••••••••••</span>
+                      <button class="copy-button" type="button" aria-label="复制测试环境凭证密钥">
+                        <svg viewBox="0 0 24 24">
+                          <rect x="9" y="9" width="10" height="10" rx="1.5" />
+                          <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1" />
+                        </svg>
+                      </button>
+                    </div>
+                    <div role="cell">2023-11-15</div>
+                    <div role="cell">2024-11-15</div>
+                    <div class="credential-actions" role="cell">
+                      <button type="button">禁用</button>
+                      <button class="danger" type="button">删除</button>
+                    </div>
+                  </div>
+
+                  <div class="credential-row expired" role="row">
+                    <div class="credential-name" role="cell">备用凭证<br />_01</div>
+                    <div class="mono" role="cell">ak_live_110928</div>
+                    <div class="secret-cell" role="cell">
+                      <span>••••••••••••</span>
+                      <button class="copy-button" type="button" aria-label="复制备用凭证密钥">
+                        <svg viewBox="0 0 24 24">
+                          <rect x="9" y="9" width="10" height="10" rx="1.5" />
+                          <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1" />
+                        </svg>
+                      </button>
+                    </div>
+                    <div role="cell">2023-08-20</div>
+                    <div role="cell">已过期</div>
+                    <div class="credential-actions" role="cell">
+                      <button type="button">启用</button>
+                      <button class="danger" type="button">删除</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="security-tip">
+                  <span class="tip-icon" aria-hidden="true">i</span>
+                  <div>
+                    <strong>凭证安全建议</strong>
+                    <p>请妥善保管您的 Secret Key，一旦泄露可能导致数据风险。建议定期更换凭证，并为不同的业务场景使用独立的 API Key。</p>
+                  </div>
+                </div>
+              </section>
+
+              <section class="info-card tab-panel permission-panel" data-tab-panel="permissions" hidden>
+                <div class="card-head permission-head">
+                  <h2>权限列表管理</h2>
+                  <div class="permission-view-actions">
+                    <button class="primary-button" type="button" id="editPermissions">
+                      <span class="button-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                          <path d="M12 20h9" />
+                          <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" />
+                        </svg>
+                      </span>
+                      <span>编辑</span>
+                    </button>
+                  </div>
+                  <div class="permission-edit-actions" hidden>
+                    <button class="primary-button" type="button" id="savePermissions">保存更改</button>
+                    <button class="outline-button" type="button" id="cancelPermissions">取消更改</button>
+                  </div>
+                </div>
+
+                <div class="permission-table" role="table" aria-label="权限列表管理">
+                  <div class="permission-row permission-table-head" role="row">
+                    <div class="permission-check" role="columnheader">
+                      <input type="checkbox" aria-label="全选权限" disabled />
+                    </div>
+                    <div role="columnheader">接口名称</div>
+                    <div role="columnheader">描述</div>
+                    <div role="columnheader">状态</div>
+                  </div>
+
+                  <div class="permission-row" role="row">
+                    <div class="permission-check" role="cell">
+                      <input type="checkbox" checked disabled />
+                    </div>
+                    <div class="permission-name" role="cell">创建发票</div>
+                    <div role="cell">允许应用发起发票创建请求</div>
+                    <div role="cell"><span class="auth-pill">已授权</span></div>
+                  </div>
+
+                  <div class="permission-row" role="row">
+                    <div class="permission-check" role="cell">
+                      <input type="checkbox" checked disabled />
+                    </div>
+                    <div class="permission-name" role="cell">提交发票</div>
+                    <div role="cell">将已创建的发票提交至系统审核</div>
+                    <div role="cell"><span class="auth-pill">已授权</span></div>
+                  </div>
+
+                  <div class="permission-row" role="row">
+                    <div class="permission-check" role="cell">
+                      <input type="checkbox" checked disabled />
+                    </div>
+                    <div class="permission-name" role="cell">撤销发票</div>
+                    <div role="cell">撤销已提交或错误的申请单</div>
+                    <div role="cell"><span class="auth-pill">已授权</span></div>
+                  </div>
+
+                  <div class="permission-row" role="row">
+                    <div class="permission-check" role="cell">
+                      <input type="checkbox" checked disabled />
+                    </div>
+                    <div class="permission-name" role="cell">查询发票列表</div>
+                    <div role="cell">批量获取企业名下的发票记录</div>
+                    <div role="cell"><span class="auth-pill">已授权</span></div>
+                  </div>
+
+                  <div class="permission-row" role="row">
+                    <div class="permission-check" role="cell">
+                      <input type="checkbox" checked disabled />
+                    </div>
+                    <div class="permission-name" role="cell">查询发票详情</div>
+                    <div role="cell">查看单张发票的详细属性与状态</div>
+                    <div role="cell"><span class="auth-pill">已授权</span></div>
+                  </div>
+
+                  <div class="permission-row" role="row">
+                    <div class="permission-check" role="cell">
+                      <input type="checkbox" checked disabled />
+                    </div>
+                    <div class="permission-name" role="cell">交付发票</div>
+                    <div role="cell">执行发票的物理或电子交付动作</div>
+                    <div role="cell"><span class="auth-pill">已授权</span></div>
+                  </div>
+                </div>
+
+                <p class="permission-edit-note" hidden>勾选即代表授权，点击保存后生效</p>
+              </section>
+              <section class="info-card tab-panel scope-panel" data-tab-panel="scope" hidden>
+                <div class="scope-head">
+                  <div>
+                    <h2>数据范围管理</h2>
+                    <p>配置该 API 应用可访问的企业主体范围。您可以添加当前租户下的企业，或邀请外部合作伙伴授权。</p>
+                  </div>
+                  <div class="scope-actions">
+                    <button class="outline-button" type="button" id="addTenantCompany">
+                      <span class="button-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                          <circle cx="9" cy="8" r="3" />
+                          <path d="M3.5 18c1.2-2.8 3-4.2 5.5-4.2s4.3 1.4 5.5 4.2" />
+                          <path d="M18 8v6M15 11h6" />
+                        </svg>
+                      </span>
+                      <span>添加当前租户企业</span>
+                    </button>
+                    <button class="primary-button" type="button" id="inviteExternalCompany">
+                      <span class="button-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                          <path d="M4 6h16v12H4Z" />
+                          <path d="m4 7 8 6 8-6" />
+                        </svg>
+                      </span>
+                      <span>邀请外部企业</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="scope-filter">
+                  <label>
+                    <span>企业名称</span>
+                    <input type="text" placeholder="搜索名称或ID" />
+                  </label>
+                  <label>
+                    <span>国别</span>
+                    <span class="select-shell small-select">
+                      <select>
+                        <option>全部</option>
+                        <option>VN</option>
+                        <option>MY</option>
+                        <option>SG</option>
+                      </select>
+                    </span>
+                  </label>
+                  <label>
+                    <span>企业来源</span>
+                    <span class="select-shell small-select">
+                      <select>
+                        <option>全部</option>
+                        <option>当前租户</option>
+                        <option>外部邀请</option>
+                      </select>
+                    </span>
+                  </label>
+                  <label>
+                    <span>授权状态</span>
+                    <span class="select-shell small-select">
+                      <select>
+                        <option>全部</option>
+                        <option>已生效</option>
+                        <option>审核中</option>
+                        <option>审核拒绝</option>
+                      </select>
+                    </span>
+                  </label>
+                  <div class="scope-filter-actions">
+                    <button class="primary-button" type="button">查询</button>
+                    <button class="outline-button" type="button">重置</button>
+                  </div>
+                </div>
+
+                <div class="scope-table" role="table" aria-label="数据范围管理">
+                  <div class="scope-row scope-table-head" role="row">
+                    <div role="columnheader">企业名称</div>
+                    <div role="columnheader">国别</div>
+                    <div role="columnheader">企业来源</div>
+                    <div role="columnheader">授权状态</div>
+                    <div role="columnheader">税务合规状态</div>
+                    <div role="columnheader">添加/申请时间</div>
+                    <div role="columnheader">操作</div>
+                  </div>
+
+                  <div class="scope-row" role="row">
+                    <div class="scope-company" role="cell">Vietnam Enterprise A</div>
+                    <div role="cell">VN</div>
+                    <div role="cell"><span class="scope-tag blue">当前租户</span></div>
+                    <div role="cell"><span class="scope-tag green">已生效</span></div>
+                    <div role="cell"><span class="scope-tag green">已配置</span></div>
+                    <div role="cell">2023-11-20 10:22</div>
+                    <div class="scope-row-actions" role="cell"><button class="danger" type="button" data-delete-scope>删除</button></div>
+                  </div>
+
+                  <div class="scope-row" role="row">
+                    <div class="scope-company" role="cell">Partner Logistics MY</div>
+                    <div role="cell">MY</div>
+                    <div role="cell"><span class="scope-tag purple">外部邀请</span></div>
+                    <div role="cell"><span class="scope-tag blue">审核中</span></div>
+                    <div role="cell">-</div>
+                    <div role="cell">2023-11-23 15:45</div>
+                    <div class="scope-row-actions" role="cell"><button class="danger" type="button" data-delete-scope>删除</button></div>
+                  </div>
+
+                  <div class="scope-row" role="row">
+                    <div class="scope-company" role="cell">Singapore Retail Group</div>
+                    <div role="cell">SG</div>
+                    <div role="cell"><span class="scope-tag blue">当前租户</span></div>
+                    <div role="cell"><span class="scope-tag red">审核拒绝</span></div>
+                    <div role="cell"><span class="scope-tag yellow">未配置</span></div>
+                    <div role="cell">2023-11-24 09:10</div>
+                    <div class="scope-row-actions" role="cell"><button class="danger" type="button" data-delete-scope>删除</button></div>
+                  </div>
+                </div>
+
+                <div class="security-tip scope-tip">
+                  <span class="tip-icon" aria-hidden="true">i</span>
+                  <div>
+                    <strong>使用须知</strong>
+                    <p>API 仅能访问已通过授权审核且状态为“已生效”的企业数据。若企业税务合规信息未配置，部分敏感接口调用可能会返回 403 错误。MVP 阶段授权暂不设有效期限，所有授权默认为长期有效。</p>
+                  </div>
+                </div>
+              </section>
+              <section class="info-card tab-panel whitelist-panel" data-tab-panel="whitelist" hidden>
+                <div class="card-head whitelist-head">
+                  <h2>IP 白名单管理</h2>
+                  <button class="primary-button" type="button" id="addWhitelistIp">
+                    <span class="button-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M12 5v14M5 12h14" />
+                      </svg>
+                    </span>
+                    <span>添加 IP</span>
+                  </button>
+                </div>
+
+                <form class="whitelist-form" id="whitelistForm" hidden>
+                  <label>
+                    <span>IP 地址 / CIDR</span>
+                    <input id="whitelistIpInput" type="text" placeholder="例如：192.168.1.1 或 10.0.0.0/24" />
+                  </label>
+                  <label>
+                    <span>描述</span>
+                    <input id="whitelistDescInput" type="text" placeholder="请输入描述" />
+                  </label>
+                  <div class="whitelist-form-actions">
+                    <button class="primary-button" type="submit">保存</button>
+                    <button class="outline-button" type="button" id="cancelWhitelistForm">取消</button>
+                  </div>
+                </form>
+
+                <div class="whitelist-table" role="table" aria-label="IP 白名单管理">
+                  <div class="whitelist-row whitelist-table-head" role="row">
+                    <div role="columnheader">IP 地址 / CIDR</div>
+                    <div role="columnheader">描述</div>
+                    <div role="columnheader">添加时间</div>
+                    <div role="columnheader">操作</div>
+                  </div>
+
+                  <div class="whitelist-row" role="row">
+                    <div class="mono" role="cell">192.168.1.1</div>
+                    <div role="cell">办公室出口网关</div>
+                    <div role="cell">2023-11-20</div>
+                    <div class="whitelist-actions" role="cell">
+                      <button type="button" data-edit-ip>编辑</button>
+                      <button class="danger" type="button" data-delete-ip>删除</button>
+                    </div>
+                  </div>
+
+                  <div class="whitelist-row" role="row">
+                    <div class="mono" role="cell">10.0.0.0/24</div>
+                    <div role="cell">生产内网段</div>
+                    <div role="cell">2023-10-15</div>
+                    <div class="whitelist-actions" role="cell">
+                      <button type="button" data-edit-ip>编辑</button>
+                      <button class="danger" type="button" data-delete-ip>删除</button>
+                    </div>
+                  </div>
+
+                  <div class="whitelist-row" role="row">
+                    <div class="mono" role="cell">203.0.113.42</div>
+                    <div role="cell">备份服务器 IP</div>
+                    <div role="cell">2023-11-22</div>
+                    <div class="whitelist-actions" role="cell">
+                      <button type="button" data-edit-ip>编辑</button>
+                      <button class="danger" type="button" data-delete-ip>删除</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="security-tip whitelist-tip">
+                  <span class="tip-icon" aria-hidden="true">i</span>
+                  <div>
+                    <strong>IP 白名单安全建议</strong>
+                    <p>开启 IP 白名单后，只有来自列表中的 IP 请求才会被允许。为了提升安全性，建议您为关键业务应用配置严格的 IP 访问限制。</p>
+                  </div>
+                </div>
+              </section>
+            </section>
+          </section>
+        </main>
+      </div>
+    </div>
+    <div class="modal-overlay" id="tenantCompanyModal" hidden>
+      <section class="tenant-modal" role="dialog" aria-modal="true" aria-labelledby="tenantModalTitle">
+        <div class="tenant-modal-head">
+          <div>
+            <h2 id="tenantModalTitle">添加当前租户企业</h2>
+            <p>从当前租户下已存在的企业中选择需要加入 API 数据范围的企业。添加后立即生效。</p>
+          </div>
+          <button class="modal-close" type="button" id="closeTenantModal" aria-label="关闭">×</button>
+        </div>
+
+        <div class="tenant-modal-body">
+          <div class="tenant-filter">
+            <label>
+              <span>企业名称</span>
+              <span class="modal-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="10.5" cy="10.5" r="5.5" />
+                  <path d="m15 15 4 4" />
+                </svg>
+                <input type="text" placeholder="搜索企业..." />
+              </span>
+            </label>
+            <label>
+              <span>国别筛选</span>
+              <span class="select-shell modal-select">
+                <select>
+                  <option>全部国家</option>
+                  <option>VN</option>
+                  <option>SG</option>
+                  <option>MY</option>
+                  <option>TH</option>
+                </select>
+              </span>
+            </label>
+            <label>
+              <span>税务合规状态</span>
+              <span class="select-shell modal-select">
+                <select>
+                  <option>全部状态</option>
+                  <option>已配置</option>
+                  <option>未配置</option>
+                </select>
+              </span>
+            </label>
+          </div>
+
+          <div class="tenant-table" role="table" aria-label="当前租户企业">
+            <div class="tenant-row tenant-table-head" role="row">
+              <div role="columnheader"><input type="checkbox" aria-label="全选企业" /></div>
+              <div role="columnheader">企业名称</div>
+              <div role="columnheader">国别</div>
+              <div role="columnheader">税务合规状态</div>
+              <div role="columnheader"></div>
+            </div>
+            <label class="tenant-row" role="row">
+              <div role="cell"><input class="tenant-company-check" type="checkbox" checked data-company="Vietnam Logistics Co., Ltd." data-country="VN" data-tax="已配置" /></div>
+              <div class="tenant-company-name" role="cell">Vietnam Logistics Co., Ltd.</div>
+              <div role="cell"><span class="flag">🇻🇳</span> VN</div>
+              <div role="cell"><span class="scope-tag green">已配置</span></div>
+              <div role="cell"></div>
+            </label>
+            <label class="tenant-row already-added" role="row">
+              <div role="cell"><input type="checkbox" disabled /></div>
+              <div class="tenant-company-name" role="cell">Global Trade Singapore Branch</div>
+              <div role="cell"><span class="flag">🇸🇬</span> SG</div>
+              <div role="cell"><span class="scope-tag green">已配置</span></div>
+              <div role="cell"><span class="already-text">已添加</span></div>
+            </label>
+            <label class="tenant-row" role="row">
+              <div role="cell"><input class="tenant-company-check" type="checkbox" data-company="Malaysia Digital Services Group" data-country="MY" data-tax="未配置" /></div>
+              <div class="tenant-company-name" role="cell">Malaysia Digital Services Group</div>
+              <div role="cell"><span class="flag">🇲🇾</span> MY</div>
+              <div role="cell"><span class="scope-tag yellow">未配置</span></div>
+              <div role="cell"></div>
+            </label>
+            <label class="tenant-row" role="row">
+              <div role="cell"><input class="tenant-company-check" type="checkbox" data-company="Stratos Tech (Thailand)" data-country="TH" data-tax="未配置" /></div>
+              <div class="tenant-company-name" role="cell">Stratos Tech (Thailand)</div>
+              <div role="cell"><span class="flag">🇹🇭</span> TH</div>
+              <div role="cell"><span class="scope-tag yellow">未配置</span></div>
+              <div role="cell"></div>
+            </label>
+          </div>
+
+          <div class="tenant-modal-footnote">
+            <span id="selectedTenantCount">已选择 1 个企业</span>
+            <div class="tenant-pagination">
+              <button type="button">‹</button>
+              <button class="active" type="button">1</button>
+              <button type="button">›</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tenant-modal-actions">
+          <button class="outline-button" type="button" id="cancelTenantCompany">取消</button>
+          <button class="primary-button" type="button" id="confirmTenantCompany">添加所选企业</button>
+        </div>
+      </section>
+    </div>
+    <div class="modal-overlay" id="externalInviteModal" hidden>
+      <section class="invite-modal" role="dialog" aria-modal="true" aria-labelledby="inviteModalTitle">
+        <div class="invite-modal-head">
+          <h2 id="inviteModalTitle">邀请外部企业授权</h2>
+          <button class="modal-close" type="button" id="closeInviteModal" aria-label="关闭">×</button>
+        </div>
+
+        <div class="invite-modal-body">
+          <div class="invite-alert">
+            <span class="tip-icon" aria-hidden="true">i</span>
+            <p>提交外部企业授权申请后，需要等待运营审核。审核通过前，该企业不会生效到 API 数据范围。</p>
+          </div>
+
+          <div class="invite-form">
+            <label>
+              <span>受邀企业国别 <em>*</em></span>
+              <span class="select-shell modal-select">
+                <select id="inviteCountrySelect">
+                  <option value="">请选择企业所属国家</option>
+                  <option value="VN">越南 / VN</option>
+                  <option value="MY">马来西亚 / MY</option>
+                  <option value="SG">新加坡 / SG</option>
+                  <option value="TH">泰国 / TH</option>
+                </select>
+              </span>
+            </label>
+
+            <label>
+              <span>受邀企业名称 <em>*</em></span>
+              <span class="modal-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="10.5" cy="10.5" r="5.5" />
+                  <path d="m15 15 4 4" />
+                </svg>
+                <input id="inviteCompanyInput" type="text" placeholder="搜索并选择平台内已有企业" />
+              </span>
+            </label>
+
+            <div class="invite-field">
+              <span>授权资料</span>
+              <div class="upload-dropzone">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 15V4" />
+                  <path d="m8 8 4-4 4 4" />
+                  <path d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" />
+                </svg>
+                <strong>点击上传或将文件拖拽至此</strong>
+                <p>支持 PDF, JPG, PNG 格式，单个文件不超过 10MB</p>
+              </div>
+              <div class="upload-file">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+                  <path d="M14 2v6h6" />
+                  <path d="M8 13h8M8 17h6" />
+                </svg>
+                <div>
+                  <strong>authorization_letter_v2.pdf</strong>
+                  <span>1.2 MB</span>
+                </div>
+                <button type="button" aria-label="删除授权资料">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 6h18" />
+                    <path d="M8 6V4h8v2" />
+                    <path d="M19 6l-1 14H6L5 6" />
+                    <path d="M10 11v5M14 11v5" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <label>
+              <span>申请说明</span>
+              <textarea id="inviteReason" placeholder="请输入申请背景或补充信息..."></textarea>
+            </label>
+          </div>
+        </div>
+
+        <div class="invite-modal-actions">
+          <p>MVP 阶段外部企业授权不设置有效期。审核通过后授权持续有效，直到管理员主动删除。</p>
+          <div>
+            <button class="outline-button" type="button" id="cancelInviteCompany">取消</button>
+            <button class="primary-button" type="button" id="submitInviteCompany">提交审核</button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="modal-overlay drawer-overlay" id="createAppModal" hidden>
+      <section class="create-app-drawer" role="dialog" aria-modal="true" aria-labelledby="createAppTitle">
+        <div class="create-app-head">
+          <div>
+            <h2 id="createAppTitle">新增应用</h2>
+            <p>为当前租户创建一个新的 API 应用，用于集成外部系统。</p>
+          </div>
+          <button class="modal-close" type="button" id="closeCreateAppModal" aria-label="关闭">×</button>
+        </div>
+
+        <div class="create-app-body">
+          <form class="create-app-form" id="createAppForm">
+            <label>
+              <span>应用名称 <em>*</em></span>
+              <input id="createAppName" type="text" placeholder="请输入应用名称，例如：ERP 生产对接" />
+            </label>
+
+            <label>
+              <span>应用描述（选填）</span>
+              <textarea id="createAppDesc" placeholder="请输入应用用途说明"></textarea>
+            </label>
+
+            <fieldset>
+              <legend>应用类型 <em>*</em></legend>
+              <label class="app-type-option">
+                <input type="radio" name="createAppType" value="内部集成应用" checked />
+                <span>
+                  <strong>内部集成应用</strong>
+                  <small>用于 ERP、触点系统、订单系统、BI 等内部系统对接</small>
+                </span>
+              </label>
+              <label class="app-type-option">
+                <input type="radio" name="createAppType" value="外途服务应用" />
+                <span>
+                  <strong>外途服务应用</strong>
+                  <small>面向 ISV、服务商、集团共享服务中心等场景</small>
+                </span>
+              </label>
+            </fieldset>
+          </form>
+        </div>
+
+        <div class="create-app-actions">
+          <button class="outline-button" type="button" id="cancelCreateApp">取消</button>
+          <button class="primary-button" type="submit" form="createAppForm">确定创建</button>
+        </div>
+      </section>
+    </div>
+    <script>
+      const tabButtons = document.querySelectorAll("[data-tab-target]");
+      const tabPanels = document.querySelectorAll("[data-tab-panel]");
+      const permissionsPanel = document.querySelector("[data-tab-panel='permissions']");
+      const editPermissions = document.getElementById("editPermissions");
+      const savePermissions = document.getElementById("savePermissions");
+      const cancelPermissions = document.getElementById("cancelPermissions");
+      const permissionCheckboxes = permissionsPanel.querySelectorAll("input[type='checkbox']");
+      const permissionViewActions = permissionsPanel.querySelector(".permission-view-actions");
+      const permissionEditActions = permissionsPanel.querySelector(".permission-edit-actions");
+      const permissionEditNote = permissionsPanel.querySelector(".permission-edit-note");
+      const whitelistForm = document.getElementById("whitelistForm");
+      const addWhitelistIp = document.getElementById("addWhitelistIp");
+      const cancelWhitelistForm = document.getElementById("cancelWhitelistForm");
+      const whitelistIpInput = document.getElementById("whitelistIpInput");
+      const whitelistDescInput = document.getElementById("whitelistDescInput");
+      const whitelistTable = document.querySelector(".whitelist-table");
+      let editingWhitelistRow = null;
+      const scopeTable = document.querySelector(".scope-table");
+      const addTenantCompany = document.getElementById("addTenantCompany");
+      const inviteExternalCompany = document.getElementById("inviteExternalCompany");
+      const tenantCompanyModal = document.getElementById("tenantCompanyModal");
+      const closeTenantModal = document.getElementById("closeTenantModal");
+      const cancelTenantCompany = document.getElementById("cancelTenantCompany");
+      const confirmTenantCompany = document.getElementById("confirmTenantCompany");
+      const tenantCompanyChecks = document.querySelectorAll(".tenant-company-check");
+      const selectedTenantCount = document.getElementById("selectedTenantCount");
+      const externalInviteModal = document.getElementById("externalInviteModal");
+      const closeInviteModal = document.getElementById("closeInviteModal");
+      const cancelInviteCompany = document.getElementById("cancelInviteCompany");
+      const submitInviteCompany = document.getElementById("submitInviteCompany");
+      const inviteCountrySelect = document.getElementById("inviteCountrySelect");
+      const inviteCompanyInput = document.getElementById("inviteCompanyInput");
+      const appMaster = document.querySelector(".app-master");
+      const openCreateAppModal = document.getElementById("openCreateAppModal");
+      const createAppModal = document.getElementById("createAppModal");
+      const closeCreateAppModal = document.getElementById("closeCreateAppModal");
+      const cancelCreateApp = document.getElementById("cancelCreateApp");
+      const createAppForm = document.getElementById("createAppForm");
+      const createAppName = document.getElementById("createAppName");
+      const moreAppActions = document.getElementById("moreAppActions");
+      const appActionMenu = document.getElementById("appActionMenu");
+      const toggleAppStatus = document.getElementById("toggleAppStatus");
+      const deleteAppAction = document.getElementById("deleteAppAction");
+      const breadcrumbAppName = document.getElementById("breadcrumbAppName");
+      const appTitle = document.getElementById("appTitle");
+      const appTitleMeta = document.getElementById("appTitleMeta");
+      const appNameValue = document.getElementById("appNameValue");
+      const appIdValue = document.getElementById("appIdValue");
+      const appTypeValue = document.getElementById("appTypeValue");
+      const stateValue = document.querySelector(".state-value");
+      const appCreatedValue = document.getElementById("appCreatedValue");
+      const appActiveValue = document.getElementById("appActiveValue");
+      const appDescValue = document.getElementById("appDescValue");
+      let activeAppItem = document.querySelector(".app-list-item.active");
+      let appEnabled = activeAppItem?.dataset.enabled !== "false";
+
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const target = button.dataset.tabTarget;
+          tabButtons.forEach((item) => item.classList.toggle("active", item === button));
+          tabPanels.forEach((panel) => {
+            const active = panel.dataset.tabPanel === target;
+            panel.classList.toggle("active", active);
+            panel.hidden = !active;
+          });
+        });
+      });
+
+      function setPermissionEditing(editing) {
+        permissionsPanel.classList.toggle("editing", editing);
+        permissionViewActions.hidden = editing;
+        permissionEditActions.hidden = !editing;
+        permissionEditNote.hidden = !editing;
+        permissionCheckboxes.forEach((checkbox) => {
+          checkbox.disabled = !editing;
+        });
+      }
+
+      editPermissions.addEventListener("click", () => setPermissionEditing(true));
+      savePermissions.addEventListener("click", () => setPermissionEditing(false));
+      cancelPermissions.addEventListener("click", () => {
+        permissionCheckboxes.forEach((checkbox) => {
+          checkbox.checked = true;
+        });
+        setPermissionEditing(false);
+      });
+
+      function openWhitelistForm(row = null) {
+        editingWhitelistRow = row;
+        whitelistForm.hidden = false;
+        addWhitelistIp.hidden = true;
+        if (row) {
+          whitelistIpInput.value = row.children[0].textContent.trim();
+          whitelistDescInput.value = row.children[1].textContent.trim();
+        } else {
+          whitelistIpInput.value = "";
+          whitelistDescInput.value = "";
+        }
+        whitelistIpInput.focus();
+      }
+
+      function closeWhitelistForm() {
+        editingWhitelistRow = null;
+        whitelistForm.hidden = true;
+        addWhitelistIp.hidden = false;
+      }
+
+      function bindWhitelistRow(row) {
+        row.querySelector("[data-edit-ip]").addEventListener("click", () => openWhitelistForm(row));
+        row.querySelector("[data-delete-ip]").addEventListener("click", () => row.remove());
+      }
+
+      document.querySelectorAll(".whitelist-row:not(.whitelist-table-head)").forEach(bindWhitelistRow);
+      addWhitelistIp.addEventListener("click", () => openWhitelistForm());
+      cancelWhitelistForm.addEventListener("click", closeWhitelistForm);
+      whitelistForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const ip = whitelistIpInput.value.trim() || "0.0.0.0";
+        const desc = whitelistDescInput.value.trim() || "未命名访问来源";
+
+        if (editingWhitelistRow) {
+          editingWhitelistRow.children[0].textContent = ip;
+          editingWhitelistRow.children[1].textContent = desc;
+          closeWhitelistForm();
+          return;
+        }
+
+        const row = document.createElement("div");
+        row.className = "whitelist-row";
+        row.setAttribute("role", "row");
+        row.innerHTML = `
+          <div class="mono" role="cell">${ip}</div>
+          <div role="cell">${desc}</div>
+          <div role="cell">2026-05-20</div>
+          <div class="whitelist-actions" role="cell">
+            <button type="button" data-edit-ip>编辑</button>
+            <button class="danger" type="button" data-delete-ip>删除</button>
+          </div>
+        `;
+        whitelistTable.appendChild(row);
+        bindWhitelistRow(row);
+        closeWhitelistForm();
+      });
+
+      function bindScopeRow(row) {
+        row.querySelector("[data-delete-scope]").addEventListener("click", () => row.remove());
+      }
+
+      document.querySelectorAll(".scope-row:not(.scope-table-head)").forEach(bindScopeRow);
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function createScopeRow(company, country, taxStatus) {
+        const row = document.createElement("div");
+        row.className = "scope-row";
+        row.setAttribute("role", "row");
+        const taxTag = taxStatus === "已配置"
+          ? '<span class="scope-tag green">已配置</span>'
+          : '<span class="scope-tag yellow">未配置</span>';
+        row.innerHTML = `
+          <div class="scope-company" role="cell">${company}</div>
+          <div role="cell">${country}</div>
+          <div role="cell"><span class="scope-tag blue">当前租户</span></div>
+          <div role="cell"><span class="scope-tag green">已生效</span></div>
+          <div role="cell">${taxTag}</div>
+          <div role="cell">2026-05-20 11:30</div>
+          <div class="scope-row-actions" role="cell"><button class="danger" type="button" data-delete-scope>删除</button></div>
+        `;
+        scopeTable.appendChild(row);
+        bindScopeRow(row);
+      }
+
+      function createExternalScopeRow(company, country) {
+        const row = document.createElement("div");
+        row.className = "scope-row";
+        row.setAttribute("role", "row");
+        row.innerHTML = `
+          <div class="scope-company" role="cell">${escapeHtml(company)}</div>
+          <div role="cell">${escapeHtml(country)}</div>
+          <div role="cell"><span class="scope-tag purple">外部邀请</span></div>
+          <div role="cell"><span class="scope-tag blue">审核中</span></div>
+          <div role="cell">-</div>
+          <div role="cell">2026-05-20 11:30</div>
+          <div class="scope-row-actions" role="cell"><button class="danger" type="button" data-delete-scope>删除</button></div>
+        `;
+        scopeTable.appendChild(row);
+        bindScopeRow(row);
+      }
+
+      function updateTenantSelectionCount() {
+        const count = [...tenantCompanyChecks].filter((checkbox) => checkbox.checked).length;
+        selectedTenantCount.textContent = `已选择 ${count} 个企业`;
+      }
+
+      function openTenantModal() {
+        tenantCompanyModal.hidden = false;
+        document.body.classList.add("modal-open");
+        updateTenantSelectionCount();
+      }
+
+      function closeTenantCompanyModal() {
+        tenantCompanyModal.hidden = true;
+        document.body.classList.remove("modal-open");
+      }
+
+      addTenantCompany.addEventListener("click", openTenantModal);
+      closeTenantModal.addEventListener("click", closeTenantCompanyModal);
+      cancelTenantCompany.addEventListener("click", closeTenantCompanyModal);
+      tenantCompanyModal.addEventListener("click", (event) => {
+        if (event.target === tenantCompanyModal) closeTenantCompanyModal();
+      });
+      tenantCompanyChecks.forEach((checkbox) => checkbox.addEventListener("change", updateTenantSelectionCount));
+      confirmTenantCompany.addEventListener("click", () => {
+        tenantCompanyChecks.forEach((checkbox) => {
+          if (!checkbox.checked) return;
+          createScopeRow(checkbox.dataset.company, checkbox.dataset.country, checkbox.dataset.tax);
+          checkbox.checked = false;
+        });
+        closeTenantCompanyModal();
+      });
+
+      function openInviteModal() {
+        externalInviteModal.hidden = false;
+        document.body.classList.add("modal-open");
+        inviteCompanyInput.focus();
+      }
+
+      function closeInviteCompanyModal() {
+        externalInviteModal.hidden = true;
+        document.body.classList.remove("modal-open");
+      }
+
+      inviteExternalCompany.addEventListener("click", openInviteModal);
+      closeInviteModal.addEventListener("click", closeInviteCompanyModal);
+      cancelInviteCompany.addEventListener("click", closeInviteCompanyModal);
+      externalInviteModal.addEventListener("click", (event) => {
+        if (event.target === externalInviteModal) closeInviteCompanyModal();
+      });
+      submitInviteCompany.addEventListener("click", () => {
+        const country = inviteCountrySelect.value || "VN";
+        const company = inviteCompanyInput.value.trim() || "External Partner Draft";
+        createExternalScopeRow(company, country);
+        inviteCountrySelect.value = "";
+        inviteCompanyInput.value = "";
+        closeInviteCompanyModal();
+      });
+
+      function getAppData(item) {
+        return {
+          id: item.dataset.appId,
+          name: item.dataset.appName,
+          type: item.dataset.appType,
+          titleType: item.dataset.titleType,
+          enabled: item.dataset.enabled !== "false",
+          credentials: item.dataset.credentials || "0",
+          created: item.dataset.created,
+          activeTime: item.dataset.activeTime || "-",
+          description: item.dataset.description || "暂无应用描述。"
+        };
+      }
+
+      function updateAppListItem(item) {
+        const app = getAppData(item);
+        item.classList.toggle("muted", !app.enabled);
+        item.querySelector(".state-dot").classList.toggle("enabled", app.enabled);
+        item.querySelector(".state-dot").classList.toggle("disabled", !app.enabled);
+        item.querySelector(".app-list-meta").textContent = `${app.enabled ? "已启用" : "已停用"} · ${app.credentials} 个凭证`;
+      }
+
+      function renderActiveApp() {
+        if (!activeAppItem) return;
+        const app = getAppData(activeAppItem);
+        appEnabled = app.enabled;
+        breadcrumbAppName.textContent = app.name;
+        appTitle.textContent = app.name;
+        appTitleMeta.innerHTML = `创建于 ${escapeHtml(app.created)} <span>·</span> ${escapeHtml(app.titleType)}`;
+        appNameValue.textContent = app.name;
+        appIdValue.innerHTML = `
+          ${escapeHtml(app.id)}
+          <button class="copy-button" type="button" aria-label="复制应用 ID">
+            <svg viewBox="0 0 24 24">
+              <rect x="9" y="9" width="10" height="10" rx="1.5" />
+              <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1" />
+            </svg>
+          </button>
+        `;
+        appTypeValue.textContent = app.type;
+        appCreatedValue.textContent = app.created;
+        appActiveValue.textContent = app.activeTime;
+        appDescValue.textContent = app.description;
+        setAppEnabled(app.enabled, { persist: false });
+      }
+
+      function selectAppItem(item) {
+        if (!item) return;
+        document.querySelectorAll(".app-list-item").forEach((listItem) => {
+          listItem.classList.toggle("active", listItem === item);
+        });
+        activeAppItem = item;
+        closeAppActionMenu();
+        renderActiveApp();
+      }
+
+      function bindAppListItem(item) {
+        item.addEventListener("click", () => selectAppItem(item));
+      }
+
+      function setAppEnabled(enabled, options = {}) {
+        appEnabled = enabled;
+        if (activeAppItem && options.persist !== false) {
+          activeAppItem.dataset.enabled = String(enabled);
+          updateAppListItem(activeAppItem);
+        }
+        toggleAppStatus.textContent = enabled ? "禁用" : "启用";
+        toggleAppStatus.classList.toggle("status-disabled", enabled);
+        toggleAppStatus.classList.toggle("status-enabled", !enabled);
+        if (stateValue) {
+          stateValue.innerHTML = enabled ? "<i></i>已启用" : "<i></i>已停用";
+          stateValue.classList.toggle("disabled", !enabled);
+        }
+      }
+
+      function closeAppActionMenu() {
+        appActionMenu.hidden = true;
+        moreAppActions.setAttribute("aria-expanded", "false");
+      }
+
+      moreAppActions.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const open = appActionMenu.hidden;
+        appActionMenu.hidden = !open;
+        moreAppActions.setAttribute("aria-expanded", String(open));
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!appActionMenu.hidden && !appActionMenu.contains(event.target)) closeAppActionMenu();
+      });
+
+      toggleAppStatus.addEventListener("click", () => {
+        setAppEnabled(!appEnabled);
+        closeAppActionMenu();
+      });
+      deleteAppAction.addEventListener("click", () => {
+        const nextItem = activeAppItem?.nextElementSibling?.classList?.contains("app-list-item")
+          ? activeAppItem.nextElementSibling
+          : activeAppItem?.previousElementSibling?.classList?.contains("app-list-item")
+            ? activeAppItem.previousElementSibling
+            : document.querySelector(".app-list-item:not(.active)");
+        activeAppItem?.remove();
+        activeAppItem = null;
+        if (nextItem) selectAppItem(nextItem);
+        closeAppActionMenu();
+      });
+      document.querySelectorAll(".app-list-item").forEach((item) => {
+        bindAppListItem(item);
+        updateAppListItem(item);
+      });
+      renderActiveApp();
+
+      function openCreateAppDrawer() {
+        createAppModal.hidden = false;
+        document.body.classList.add("modal-open");
+        createAppName.focus();
+      }
+
+      function closeCreateAppDrawer() {
+        createAppModal.hidden = true;
+        document.body.classList.remove("modal-open");
+        createAppForm.reset();
+      }
+
+      function appendCreatedApp(name, type) {
+        const id = `app_${Date.now().toString(36)}`;
+        const item = document.createElement("button");
+        item.className = "app-list-item";
+        item.type = "button";
+        item.dataset.appId = id;
+        item.dataset.appName = name;
+        item.dataset.appType = type;
+        item.dataset.titleType = type === "外途服务应用" ? "ISV 类型" : "内部应用";
+        item.dataset.enabled = "true";
+        item.dataset.credentials = "0";
+        item.dataset.created = "2026-05-20 11:30:00";
+        item.dataset.activeTime = "-";
+        item.dataset.description = document.getElementById("createAppDesc").value.trim() || "新建 API 应用，尚未补充应用用途说明。";
+        item.innerHTML = `
+          <span class="app-list-title"><i class="state-dot enabled"></i>${escapeHtml(name)}</span>
+          <span class="app-list-meta">已启用 · 0 个凭证</span>
+        `;
+        appMaster.appendChild(item);
+        bindAppListItem(item);
+        selectAppItem(item);
+      }
+
+      openCreateAppModal.addEventListener("click", openCreateAppDrawer);
+      closeCreateAppModal.addEventListener("click", closeCreateAppDrawer);
+      cancelCreateApp.addEventListener("click", closeCreateAppDrawer);
+      createAppModal.addEventListener("click", (event) => {
+        if (event.target === createAppModal) closeCreateAppDrawer();
+      });
+      createAppForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const name = createAppName.value.trim() || "ERP 生产对接";
+        const type = new FormData(createAppForm).get("createAppType") || "内部集成应用";
+        appendCreatedApp(name, type);
+        closeCreateAppDrawer();
+      });
+    </script>
+  </body>
+</html>
