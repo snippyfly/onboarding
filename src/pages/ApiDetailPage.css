@@ -818,7 +818,7 @@
 
 .api-content .whitelist-row {
   display: grid;
-  grid-template-columns: minmax(220px, 1.2fr) minmax(240px, 1.3fr) minmax(160px, .9fr) minmax(120px, .6fr);
+  grid-template-columns: minmax(220px, 1.2fr) minmax(240px, 1.3fr) minmax(120px, .6fr);
   align-items: center;
   min-height: 52px;
   border-bottom: 1px solid #d7e0ef;

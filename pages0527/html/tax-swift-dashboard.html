@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tax-Swift 全球合规看板</title>
+    <link rel="stylesheet" href="./tax-swift-dashboard.css" />
+    <script>
+      if (window.top !== window.self) {
+        var f=document.createElement('style');
+        f.textContent='.sidebar,aside.sidebar,.topbar,header.topbar,.password-modal-overlay,#passwordModal,[class*="password-modal"],.brand-panel,.scope-switch,.sidebar-nav,.sidebar-footer,.side-footer,.user-menu,[class*="user-menu"],script{display:none!important}.dashboard-page,.enterprise-page,.app-page,.ops-page,[class$="-page"]{display:block!important;grid-template-columns:none!important;min-height:auto!important;height:auto!important}.main-shell,[class*="main-shell"]{width:100%!important;min-width:0!important}html,body{overflow:auto!important;height:auto!important;min-height:100%!important;background:#f7f9fd!important}body{zoom:1!important}';
+        document.head.appendChild(f);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="dashboard-page">
+      <aside class="sidebar">
+        <div class="brand-panel">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 56 56">
+              <defs>
+                <linearGradient id="brandBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#2d85ff" />
+                  <stop offset="100%" stop-color="#1352e8" />
+                </linearGradient>
+              </defs>
+              <rect x="0" y="0" width="56" height="56" rx="14" fill="url(#brandBg)" />
+              <path d="M14 20h28M18 20v16M38 20v16M12 36h32M21 17l7-6 7 6" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <strong>Tax-Swift</strong>
+            <span>全球智能税务合规平台</span>
+          </div>
+        </div>
+
+        <button class="scope-switch" id="contextSwitch" type="button" aria-haspopup="dialog" aria-expanded="false">
+          <span class="scope-icon" id="contextIcon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3.2a8.8 8.8 0 1 0 0 17.6 8.8 8.8 0 0 0 0-17.6Z" />
+              <path d="M3.8 12h16.4M12 3.8c2.3 2.2 3.7 5.1 3.7 8.2S14.3 18 12 20.2c-2.3-2.2-3.7-5.1-3.7-8.2S9.7 6 12 3.8Z" />
+            </svg>
+          </span>
+          <span class="scope-copy">
+            <strong id="contextTitle">全球视角</strong>
+            <small id="contextSubtitle">租户域管理工作台</small>
+          </span>
+          <span class="scope-chevron" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path d="m4 6 4 4 4-4" />
+            </svg>
+          </span>
+        </button>
+
+        <section class="context-popover" id="contextPopover" hidden aria-label="切换工作视角">
+          <div class="context-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="6.5" />
+              <path d="m16 16 4 4" />
+            </svg>
+            <input id="contextSearch" type="search" placeholder="搜索企业名称 / 国家" />
+          </div>
+          <div class="context-list" id="contextList"></div>
+        </section>
+
+        <nav class="sidebar-nav" id="sidebarNav">
+          <section class="nav-group">
+            <h2>OVERVIEW</h2>
+            <a class="nav-item active" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4.5 4.5h6v6h-6Zm9 0h6v6h-6Zm-9 9h6v6h-6Zm9 3h6v3h-6Zm0-6h6v3h-6Z" />
+                </svg>
+              </span>
+              <span>全球合规看板</span>
+            </a>
+          </section>
+
+          <section class="nav-group">
+            <h2>DATA CENTER</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M6 4.5h12v15H6Z" />
+                  <path d="M9 8h6M9 12h6M9 16h4" />
+                </svg>
+              </span>
+              <span>发票数据查询</span>
+            </a>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 5.5h14v13H5Z" />
+                  <path d="M5 10h14M10 5.5v13M14 10v8" />
+                </svg>
+              </span>
+              <span>公司列表</span>
+            </a>
+          </section>
+
+          <section class="nav-group">
+            <h2>OPEN PLATFORM</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                  <path d="M4.5 18.5c1.5-2.9 4.2-4.5 7.5-4.5s6 1.6 7.5 4.5" />
+                  <path d="M18.8 7.4h1.7m-1.7 3.3h1.7m-3.4-1.7h5.1" />
+                </svg>
+              </span>
+              <span>API应用管理</span>
+            </a>
+          </section>
+
+          <section class="nav-group">
+            <h2>SECURITY & ACCESS</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M7.5 10V8.7a4.5 4.5 0 1 1 9 0V10" />
+                  <rect x="5" y="10" width="14" height="10.5" rx="2" />
+                  <path d="M12 14v2.8" />
+                </svg>
+              </span>
+              <span>审计日志</span>
+            </a>
+          </section>
+        </nav>
+
+        <div class="sidebar-footer">
+          <a class="nav-item" href="#">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3.8 8.4 5.2 5.8 7.8 4.4 11.4l1.4 3.6 2.6 2.6 3.6 1.4 3.6-1.4 2.6-2.6 1.4-3.6-1.4-3.6-2.6-2.6Z" />
+              </svg>
+            </span>
+            <span>设置</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="8" />
+                <path d="M9.3 9.5a2.8 2.8 0 1 1 5.1 1.6c-.8 1-1.6 1.4-1.6 2.7M12 16.9h0" />
+              </svg>
+            </span>
+            <span>帮助与支持</span>
+          </a>
+        </div>
+      </aside>
+
+      <div class="main-shell">
+        <header class="topbar">
+          <div class="top-context" id="topContext">
+            <span>当前上下文</span>
+            <strong>全球视角 / 租户域</strong>
+          </div>
+
+          <div class="topbar-actions">
+            <button class="top-action" type="button">
+              <span class="top-action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 5.5h14v13H5Z" />
+                  <path d="M8 3.8V7M16 3.8V7M8.2 11h7.6" />
+                </svg>
+              </span>
+              <span>任务中心</span>
+              <span class="badge-dot">6</span>
+            </button>
+            <button class="top-action" type="button">
+              <span class="top-action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 4.5a4.5 4.5 0 0 1 4.5 4.5v2.2l1.5 3v1.3h-12v-1.3l1.5-3V9A4.5 4.5 0 0 1 12 4.5Z" />
+                  <path d="M10 18a2 2 0 0 0 4 0" />
+                </svg>
+              </span>
+              <span>消息中心</span>
+              <span class="badge-dot">3</span>
+            </button>
+          </div>
+
+          <div class="user-summary">
+            <div class="user-text">
+              <strong>Admin User</strong>
+              <span>Global Controller</span>
+            </div>
+            <div class="avatar-wrap">
+              <div class="avatar">M</div>
+              <span class="scope-chevron" aria-hidden="true">
+                <svg viewBox="0 0 16 16">
+                  <path d="m4 6 4 4 4-4" />
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="user-menu">
+            <div class="user-menu-head">
+              <div class="avatar avatar-large">M</div>
+              <div class="user-menu-copy">
+                <strong>Admin User</strong>
+                <span>Global Controller</span>
+              </div>
+            </div>
+            <button class="user-menu-item" id="openPasswordModal" type="button">
+              <span class="menu-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M7.5 10V8.7a4.5 4.5 0 1 1 9 0V10" />
+                  <rect x="5" y="10" width="14" height="10.5" rx="2" />
+                </svg>
+              </span>
+              <span>修改密码</span>
+            </button>
+            <a href="#" class="user-menu-item logout">
+              <span class="menu-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M10 5H6v14h4" />
+                  <path d="M13 8.2 18 12l-5 3.8M18 12H9" />
+                </svg>
+              </span>
+              <span>退出登录</span>
+            </a>
+          </div>
+        </header>
+
+        <main class="dashboard-content">
+          <section class="page-title">
+            <h1>全球合规看板</h1>
+            <p>监控全部国家和企业的电子发票合规状态</p>
+          </section>
+
+          <section class="kpi-row">
+            <article class="kpi-card">
+              <div class="kpi-head">
+                <span class="metric-icon blue">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17Z" />
+                    <path d="M3.7 12h16.6M12 4c2 2.1 3.2 5 3.2 8s-1.2 5.9-3.2 8c-2-2.1-3.2-5-3.2-8S10 6.1 12 4Z" />
+                  </svg>
+                </span>
+                <span class="metric-label">覆盖国家数</span>
+              </div>
+              <div class="metric-value">14</div>
+              <div class="metric-trend positive"><strong>↑ 2</strong><span>比上月</span></div>
+            </article>
+
+            <article class="kpi-card">
+              <div class="kpi-head">
+                <span class="metric-icon green">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M5.5 4.5h13v15h-13Z" />
+                    <path d="M9 8.2h6M9 12h6M9 15.8h6" />
+                  </svg>
+                </span>
+                <span class="metric-label">已接入公司数</span>
+              </div>
+              <div class="metric-value">1,248</div>
+              <div class="metric-trend positive"><strong>↑ 18</strong><span>比上月</span></div>
+            </article>
+
+            <article class="kpi-card">
+              <div class="kpi-head">
+                <span class="metric-icon sky">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M6 4.5h12v15H6Z" />
+                    <path d="M9 8h6M9 12h6M9 16h4" />
+                  </svg>
+                </span>
+                <span class="metric-label">今日开票量</span>
+              </div>
+              <div class="metric-value">82,401</div>
+              <div class="metric-trend positive"><strong>↑ 12.5%</strong><span>比昨日</span></div>
+            </article>
+
+            <article class="kpi-card">
+              <div class="kpi-head">
+                <span class="metric-icon mint">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2.8 5.3 5.8v5.1c0 4 2.8 7.7 6.7 8.7 3.9-1 6.7-4.7 6.7-8.7V5.8Z" />
+                    <path d="m8.8 11.8 2 2 4.5-4.6" />
+                  </svg>
+                </span>
+                <span class="metric-label">提交成功率</span>
+              </div>
+              <div class="metric-value">99.8%</div>
+              <div class="metric-trend positive"><strong>↑ 0.6%</strong><span>比上月</span></div>
+            </article>
+
+            <article class="kpi-card">
+              <div class="kpi-head">
+                <span class="metric-icon amber">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 4.2 20 18H4Z" />
+                    <path d="M12 9v4.8M12 17h0" />
+                  </svg>
+                </span>
+                <span class="metric-label">异常发票数</span>
+              </div>
+              <div class="metric-value">142</div>
+              <div class="metric-trend warning"><strong>↑ 8</strong><span>比上月</span></div>
+            </article>
+          </section>
+
+          <section class="content-grid">
+            <article class="panel world-panel">
+              <div class="panel-head">
+                <h2>全球税局运营状态</h2>
+                <span class="info-dot">i</span>
+              </div>
+              <div class="legend-row">
+                <span><i class="dot green"></i>合规正常</span>
+                <span><i class="dot orange"></i>需要处理</span>
+                <span><i class="dot red"></i>行动必要</span>
+                <span><i class="dot gray"></i>维护中</span>
+                <span><i class="dot blue"></i>运营中</span>
+              </div>
+              <div class="world-body">
+                <div class="world-map">
+                  <div class="map-shape"></div>
+                  <span class="map-marker marker-blue"></span>
+                  <span class="map-marker marker-green"></span>
+                  <span class="map-marker marker-orange"></span>
+                  <span class="map-marker marker-red"></span>
+                </div>
+                <div class="country-list">
+                  <div class="country-item">
+                    <span class="flag vn"></span>
+                    <span class="country-name">越南</span>
+                    <span class="state-pill ok">合规正常</span>
+                    <strong>99.9%</strong>
+                  </div>
+                  <div class="country-item">
+                    <span class="flag sg"></span>
+                    <span class="country-name">新加坡</span>
+                    <span class="state-pill ok">合规正常</span>
+                    <strong>100%</strong>
+                  </div>
+                  <div class="country-item">
+                    <span class="flag my"></span>
+                    <span class="country-name">马来西亚</span>
+                    <span class="state-pill warn">需处理</span>
+                    <strong>96.1%</strong>
+                  </div>
+                  <div class="country-item">
+                    <span class="flag de"></span>
+                    <span class="country-name">德国</span>
+                    <span class="state-pill run">运营中</span>
+                    <strong>99.2%</strong>
+                  </div>
+                  <a class="link-more" href="#">查看全部国家</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel alert-panel">
+              <div class="panel-head split">
+                <h2>合规预警中心</h2>
+                <a href="#">查看全部</a>
+              </div>
+              <div class="alert-list">
+                <div class="alert-item">
+                  <span class="alert-icon critical"></span>
+                  <span class="flag vn"></span>
+                  <span class="alert-country">越南</span>
+                  <span class="alert-text">XML签名验证失败</span>
+                  <span class="severity severe">严重</span>
+                  <span class="alert-time">2 分钟前</span>
+                </div>
+                <div class="alert-item">
+                  <span class="alert-icon warning"></span>
+                  <span class="flag my"></span>
+                  <span class="alert-country">马来西亚</span>
+                  <span class="alert-text">纳税人验证失败</span>
+                  <span class="severity high">高</span>
+                  <span class="alert-time">15 分钟前</span>
+                </div>
+                <div class="alert-item">
+                  <span class="alert-icon warning"></span>
+                  <span class="flag sg"></span>
+                  <span class="alert-country">新加坡</span>
+                  <span class="alert-text">发票格式不符合规范</span>
+                  <span class="severity high">高</span>
+                  <span class="alert-time">30 分钟前</span>
+                </div>
+                <div class="alert-item">
+                  <span class="alert-icon warning"></span>
+                  <span class="flag th"></span>
+                  <span class="alert-country">泰国</span>
+                  <span class="alert-text">税局响应超时</span>
+                  <span class="severity medium">中</span>
+                  <span class="alert-time">1 小时前</span>
+                </div>
+                <div class="alert-item">
+                  <span class="alert-icon info"></span>
+                  <span class="flag de"></span>
+                  <span class="alert-country">德国</span>
+                  <span class="alert-text">税率配置即将更新</span>
+                  <span class="severity low">低</span>
+                  <span class="alert-time">2 小时前</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel flow-panel">
+              <div class="panel-head">
+                <h2>发票处理流转总览</h2>
+              </div>
+              <div class="flow-row">
+                <div class="flow-step">
+                  <span class="step-icon blue"></span>
+                  <span class="step-name">草稿</span>
+                  <strong>12,348</strong>
+                  <small>15.0%</small>
+                  <i class="flow-bar green"></i>
+                </div>
+                <span class="step-arrow">→</span>
+                <div class="flow-step">
+                  <span class="step-icon green"></span>
+                  <span class="step-name">已提交</span>
+                  <strong>32,146</strong>
+                  <small>39.2%</small>
+                  <i class="flow-bar green"></i>
+                </div>
+                <span class="step-arrow">→</span>
+                <div class="flow-step">
+                  <span class="step-icon blue"></span>
+                  <span class="step-name">处理中</span>
+                  <strong>8,732</strong>
+                  <small>10.6%</small>
+                  <i class="flow-bar green"></i>
+                </div>
+                <span class="step-arrow">→</span>
+                <div class="flow-step">
+                  <span class="step-icon mint"></span>
+                  <span class="step-name">已成功</span>
+                  <strong>27,856</strong>
+                  <small>33.9%</small>
+                  <i class="flow-bar green"></i>
+                </div>
+                <span class="step-arrow">→</span>
+                <div class="flow-step">
+                  <span class="step-icon red"></span>
+                  <span class="step-name">已拒绝</span>
+                  <strong>1,319</strong>
+                  <small>1.6%</small>
+                  <i class="flow-bar red"></i>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel trend-panel">
+              <div class="panel-head split">
+                <h2>发票趋势（按金额）</h2>
+                <button class="month-switch" type="button">本月</button>
+              </div>
+              <div class="chart-wrap">
+                <div class="chart-axis-left">
+                  <span>金额 (USD)</span>
+                  <span>150K</span>
+                  <span>100K</span>
+                  <span>50K</span>
+                  <span>0</span>
+                </div>
+                <div class="chart-area">
+                  <svg viewBox="0 0 460 205" preserveAspectRatio="none">
+                    <path d="M0 28h460M0 86h460M0 144h460M0 202h460" class="grid-line" />
+                    <path d="M18 118 35 121 52 98 69 86 86 92 103 116 120 128 137 109 154 124 171 118 188 110 205 95 222 104 239 117 256 91 273 102 290 76 307 61 324 18 341 8 358 39 375 28 392 46 409 53 426 74 443 75 460 68" class="trend-line" />
+                  </svg>
+                  <div class="chart-labels">
+                    <span>05-01</span>
+                    <span>05-07</span>
+                    <span>05-14</span>
+                    <span>05-21</span>
+                    <span>05-28</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <section class="panel activity-panel">
+            <div class="panel-head split">
+              <h2>最近活动</h2>
+              <a href="#">查看全部</a>
+            </div>
+            <div class="activity-row">
+              <div class="activity-item">
+                <span class="activity-icon green"></span>
+                <div>
+                  <strong>越南税局已成功接收发票 INV-20240528-001</strong>
+                  <span>越南子公司 · 2 分钟前</span>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="activity-icon blue"></span>
+                <div>
+                  <strong>API Key 已创建：Production Key</strong>
+                  <span>System Admin · 15 分钟前</span>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="activity-icon orange"></span>
+                <div>
+                  <strong>更新马来西亚税务队员验证规则</strong>
+                  <span>Tax Admin · 30 分钟前</span>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="activity-icon red"></span>
+                <div>
+                  <strong>发票 INV-20240528-156 被拒绝</strong>
+                  <span>马来西亚子公司 · 1 小时前</span>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="activity-icon blue"></span>
+                <div>
+                  <strong>用户权限已更新：John Doe</strong>
+                  <span>Admin User · 2 小时前</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div class="password-modal-overlay" id="passwordModal" hidden>
+      <section class="password-modal" role="dialog" aria-modal="true" aria-labelledby="passwordModalTitle">
+        <header class="password-modal-head">
+          <h2 id="passwordModalTitle">修改密码</h2>
+          <button class="password-close" type="button" data-close-password aria-label="关闭修改密码弹层">×</button>
+        </header>
+
+        <div class="password-modal-body">
+          <p class="password-note">为了保障账号安全，修改密码后需要重新登录。</p>
+
+          <label class="password-field">
+            <span>当前密码 <em>*</em></span>
+            <span class="password-input-shell">
+              <input type="password" placeholder="请输入当前密码" />
+              <button type="button" class="password-eye" aria-label="显示或隐藏当前密码">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3.5 12s3-5.5 8.5-5.5S20.5 12 20.5 12s-3 5.5-8.5 5.5S3.5 12 3.5 12Z" />
+                  <circle cx="12" cy="12" r="2.4" />
+                </svg>
+              </button>
+            </span>
+          </label>
+
+          <label class="password-field">
+            <span>新密码 <em>*</em></span>
+            <span class="password-input-shell">
+              <input type="password" placeholder="请输入新密码" />
+              <button type="button" class="password-eye" aria-label="显示或隐藏新密码">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3.5 12s3-5.5 8.5-5.5S20.5 12 20.5 12s-3 5.5-8.5 5.5S3.5 12 3.5 12Z" />
+                  <circle cx="12" cy="12" r="2.4" />
+                </svg>
+              </button>
+            </span>
+          </label>
+
+          <label class="password-field">
+            <span>确认新密码 <em>*</em></span>
+            <span class="password-input-shell">
+              <input type="password" placeholder="请再次输入新密码" />
+              <button type="button" class="password-eye" aria-label="显示或隐藏确认密码">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3.5 12s3-5.5 8.5-5.5S20.5 12 20.5 12s-3 5.5-8.5 5.5S3.5 12 3.5 12Z" />
+                  <circle cx="12" cy="12" r="2.4" />
+                </svg>
+              </button>
+            </span>
+          </label>
+
+          <section class="password-rules" aria-label="密码要求">
+            <h3>密码要求</h3>
+            <ul>
+              <li>至少 8 个字符</li>
+              <li>包含大小写字母</li>
+              <li>包含数字或特殊字符</li>
+              <li>不能与当前密码相同</li>
+            </ul>
+          </section>
+        </div>
+
+        <footer class="password-modal-footer">
+          <button class="password-cancel" type="button" data-close-password>取消</button>
+          <button class="password-submit" type="button">确认修改</button>
+        </footer>
+      </section>
+    </div>
+
+    <script>
+
+      const contextSwitch = document.querySelector("#contextSwitch");
+      const contextPopover = document.querySelector("#contextPopover");
+      const contextSearch = document.querySelector("#contextSearch");
+      const contextList = document.querySelector("#contextList");
+      const contextTitle = document.querySelector("#contextTitle");
+      const contextSubtitle = document.querySelector("#contextSubtitle");
+      const contextIcon = document.querySelector("#contextIcon");
+      const sidebarNav = document.querySelector("#sidebarNav");
+      const topContext = document.querySelector("#topContext");
+      const pageHeading = document.querySelector(".page-title h1");
+      const pageDescription = document.querySelector(".page-title p");
+
+      const contexts = {
+        global: {
+          id: "global",
+          type: "global",
+          title: "全球视角",
+          subtitle: "租户域管理工作台",
+          top: "全球视角 / 租户域",
+          heading: "全球合规看板",
+          description: "监控全部国家和企业的电子发票合规状态",
+          icon: "globe",
+          menu: [
+            { group: "TENANT DOMAIN", items: ["全球统计", "企业管理", "用户管理", "API 应用管理"] },
+            { group: "CONFIGURATION", items: ["租户配置", "授权管理", "审计日志"] }
+          ]
+        },
+        enterprises: [
+          {
+            id: "vn-baiwang",
+            type: "enterprise",
+            country: "Vietnam",
+            flag: "🇻🇳",
+            initials: "VN",
+            title: "Baiwang Vietnam Industrial Co., Ltd.",
+            subtitle: "Vietnam · 企业发票生命周期工作台",
+            top: "Vietnam / Baiwang Vietnam Industrial Co., Ltd.",
+            heading: "Vietnam 企业发票工作台",
+            description: "处理 Baiwang Vietnam 的开票、异常、查询和税务配置",
+            menu: [
+              { group: "INVOICE LIFECYCLE", items: ["首页", "发票管理", "异常发票管理", "发票查询"] },
+              { group: "TAX OPERATION", items: ["客户管理", "商品管理", "税务信息", "集成配置"] }
+            ]
+          },
+          {
+            id: "my-test",
+            type: "enterprise",
+            country: "Malaysia",
+            flag: "🇲🇾",
+            initials: "MY",
+            title: "Malaysia Test Branch",
+            subtitle: "Malaysia · 企业发票生命周期工作台",
+            top: "Malaysia / Malaysia Test Branch",
+            heading: "Malaysia 企业发票工作台",
+            description: "处理 Malaysia Test Branch 的发票生命周期和税务配置",
+            menu: [
+              { group: "INVOICE LIFECYCLE", items: ["首页", "发票管理", "异常发票管理", "发票查询"] },
+              { group: "TAX OPERATION", items: ["客户管理", "商品管理", "税务信息", "集成配置"] }
+            ]
+          },
+          {
+            id: "sg-tech",
+            type: "enterprise",
+            country: "Singapore",
+            flag: "🇸🇬",
+            initials: "SG",
+            title: "Baiwang Technology Singapore Pte. Ltd.",
+            subtitle: "Singapore · 企业发票生命周期工作台",
+            top: "Singapore / Baiwang Technology Singapore Pte. Ltd.",
+            heading: "Singapore 企业发票工作台",
+            description: "处理 Singapore 企业的发票查询、异常跟进和税务配置",
+            menu: [
+              { group: "INVOICE LIFECYCLE", items: ["首页", "发票管理", "异常发票管理", "发票查询"] },
+              { group: "TAX OPERATION", items: ["客户管理", "商品管理", "税务信息", "集成配置"] }
+            ]
+          }
+        ]
+      };
+
+      let currentContext = contexts.global;
+
+      function iconSvg(name) {
+        if (name === "building") {
+          return '<svg viewBox="0 0 24 24"><path d="M5.5 20V5.5h8V20"/><path d="M13.5 9.5h5V20"/><path d="M8.5 8.5h2M8.5 12h2M8.5 15.5h2M16 13h1"/></svg>';
+        }
+        return '<svg viewBox="0 0 24 24"><path d="M12 3.2a8.8 8.8 0 1 0 0 17.6 8.8 8.8 0 0 0 0-17.6Z"/><path d="M3.8 12h16.4M12 3.8c2.3 2.2 3.7 5.1 3.7 8.2S14.3 18 12 20.2c-2.3-2.2-3.7-5.1-3.7-8.2S9.7 6 12 3.8Z"/></svg>';
+      }
+
+      function navIconSvg() {
+        return '<span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5.5h14v13H5Z"/><path d="M8.5 9h7M8.5 12.5h7M8.5 16h4"/></svg></span>';
+      }
+
+      function renderSidebarMenus(context) {
+        sidebarNav.innerHTML = context.menu.map((section, sectionIndex) => `
+          <section class="nav-group">
+            <h2>${section.group}</h2>
+            ${section.items.map((item, itemIndex) => `
+              <a class="nav-item ${sectionIndex === 0 && itemIndex === 0 ? "active" : ""}" href="#">
+                ${navIconSvg()}
+                <span>${item}</span>
+              </a>
+            `).join("")}
+          </section>
+        `).join("");
+      }
+
+      function applyContext(context) {
+        currentContext = context;
+        contextTitle.textContent = context.title;
+        contextSubtitle.textContent = context.subtitle;
+        contextIcon.innerHTML = iconSvg(context.type === "enterprise" ? "building" : "globe");
+        topContext.querySelector("strong").textContent = context.top;
+        pageHeading.textContent = context.heading;
+        pageDescription.textContent = context.description;
+        renderSidebarMenus(context);
+        closeContextPopover();
+      }
+
+      function renderContextList(filter = "") {
+        const normalized = filter.trim().toLowerCase();
+        const enterprises = contexts.enterprises.filter((item) => {
+          return [item.title, item.country, item.subtitle].join(" ").toLowerCase().includes(normalized);
+        });
+        const globalSelected = currentContext.id === contexts.global.id;
+        contextList.innerHTML = `
+          <div class="context-section-label">管理视角</div>
+          <button class="context-option ${globalSelected ? "selected" : ""}" type="button" data-context-id="global">
+            <span class="context-option-icon globe">${iconSvg("globe")}</span>
+            <span class="context-option-copy">
+              <strong>全球视角</strong>
+              <small>租户域统计、企业管理、用户管理、API 应用、租户配置</small>
+            </span>
+            <span class="context-check">✓</span>
+          </button>
+          <div class="context-section-label">企业视角</div>
+          ${enterprises.length ? enterprises.map((item) => `
+            <button class="context-option ${currentContext.id === item.id ? "selected" : ""}" type="button" data-context-id="${item.id}">
+              <span class="context-option-icon enterprise">${item.initials}</span>
+              <span class="context-option-copy">
+                <strong>${item.flag} ${item.title}</strong>
+                <small>${item.country} · 发票生命周期管理</small>
+              </span>
+              <span class="context-check">✓</span>
+            </button>
+          `).join("") : '<div class="context-empty">没有匹配的企业</div>'}
+        `;
+      }
+
+      function openContextPopover() {
+        renderContextList(contextSearch.value);
+        contextPopover.hidden = false;
+        contextSwitch.setAttribute("aria-expanded", "true");
+        contextSearch.focus();
+      }
+
+      function closeContextPopover() {
+        contextPopover.hidden = true;
+        contextSwitch.setAttribute("aria-expanded", "false");
+      }
+
+      contextSwitch.addEventListener("click", () => {
+        if (contextPopover.hidden) {
+          openContextPopover();
+        } else {
+          closeContextPopover();
+        }
+      });
+
+      contextSearch.addEventListener("input", () => renderContextList(contextSearch.value));
+
+      contextList.addEventListener("click", (event) => {
+        const option = event.target.closest("[data-context-id]");
+        if (!option) return;
+        const id = option.dataset.contextId;
+        const nextContext = id === "global" ? contexts.global : contexts.enterprises.find((item) => item.id === id);
+        if (nextContext) applyContext(nextContext);
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!contextPopover.hidden && !contextPopover.contains(event.target) && !contextSwitch.contains(event.target)) {
+          closeContextPopover();
+        }
+      });
+
+      applyContext(contexts.global);
+
+      const passwordModal = document.querySelector("#passwordModal");
+      const openPasswordModal = document.querySelector("#openPasswordModal");
+      const closePasswordControls = document.querySelectorAll("[data-close-password]");
+
+      function setPasswordModalOpen(isOpen) {
+        passwordModal.hidden = !isOpen;
+        document.body.classList.toggle("modal-open", isOpen);
+
+        if (isOpen) {
+          passwordModal.querySelector("input").focus();
+        } else {
+          openPasswordModal.focus();
+        }
+      }
+
+      openPasswordModal.addEventListener("click", () => setPasswordModalOpen(true));
+
+      closePasswordControls.forEach((control) => {
+        control.addEventListener("click", () => setPasswordModalOpen(false));
+      });
+
+      passwordModal.addEventListener("click", (event) => {
+        if (event.target === passwordModal) {
+          setPasswordModalOpen(false);
+        }
+      });
+
+      document.querySelectorAll(".password-eye").forEach((button) => {
+        button.addEventListener("click", () => {
+          const input = button.parentElement.querySelector("input");
+          input.type = input.type === "password" ? "text" : "password";
+        });
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !passwordModal.hidden) {
+          setPasswordModalOpen(false);
+        }
+      });
+    </script>
+  </body>
+</html>

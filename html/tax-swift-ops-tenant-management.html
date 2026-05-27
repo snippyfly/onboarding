@@ -203,12 +203,12 @@
               </label>
 
               <label class="field type-field">
-                <span>租户类型</span>
+                <span>上户类型</span>
                 <span class="select-shell">
                   <select>
                     <option>全部</option>
-                    <option>客户租户</option>
-                    <option>伙伴租户</option>
+                    <option>客户上户</option>
+                    <option>ISV上户</option>
                   </select>
                 </span>
               </label>
@@ -226,7 +226,7 @@
                 <div>租户名称</div>
                 <div>租户联系人邮箱</div>
                 <div>关联企业名称</div>
-                <div>租户类型</div>
+                <div>上户类型</div>
                 <div>状态</div>
                 <div>操作</div>
               </div>
@@ -238,14 +238,14 @@
                 </div>
                 <div class="email-cell" data-label="租户联系人邮箱">admin@alpha.vn</div>
                 <div class="company-cell" data-label="关联企业名称">Alpha Tech Group</div>
-                <div data-label="租户类型">
-                  <span class="type-pill customer">客户租户</span>
+                <div data-label="上户类型">
+                  <span class="type-pill direct">客户上户</span>
                 </div>
                 <div data-label="状态">
                   <span class="status-pill success">启用</span>
                 </div>
                 <div class="action-cell" data-label="操作">
-                  <button class="action-link" type="button" data-open-edit data-tenant="Alpha Services" data-admin-email="admin@alpha.vn" data-country="越南 VN" data-company="Alpha Tech Group" data-company-email="admin@alpha.vn" data-tenant-type="customer">编辑</button>
+                  <button class="action-link" type="button" data-open-edit data-tenant="Alpha Services" data-admin-email="admin@alpha.vn" data-country="越南 VN" data-company="Alpha Tech Group" data-company-email="admin@alpha.vn" data-tenant-type="direct">编辑</button>
                   <span class="action-divider" aria-hidden="true"></span>
                   <button class="action-link" type="button">重发邀请</button>
                   <span class="action-divider" aria-hidden="true"></span>
@@ -260,14 +260,14 @@
                 </div>
                 <div class="email-cell" data-label="租户联系人邮箱">contact@beta.my</div>
                 <div class="company-cell" data-label="关联企业名称">Beta MY Corp</div>
-                <div data-label="租户类型">
-                  <span class="type-pill partner">伙伴租户</span>
+                <div data-label="上户类型">
+                  <span class="type-pill isv">ISV上户</span>
                 </div>
                 <div data-label="状态">
                   <span class="status-pill neutral">禁用</span>
                 </div>
                 <div class="action-cell" data-label="操作">
-                  <button class="action-link" type="button" data-open-edit data-tenant="Beta Logistics" data-admin-email="contact@beta.my" data-country="马来西亚 MY" data-company="Beta MY Corp" data-company-email="contact@beta.my" data-tenant-type="partner">编辑</button>
+                  <button class="action-link" type="button" data-open-edit data-tenant="Beta Logistics" data-admin-email="contact@beta.my" data-country="马来西亚 MY" data-company="Beta MY Corp" data-company-email="contact@beta.my" data-tenant-type="isv">编辑</button>
                   <span class="action-divider" aria-hidden="true"></span>
                   <button class="action-link" type="button">重发邀请</button>
                   <span class="action-divider" aria-hidden="true"></span>
@@ -282,14 +282,14 @@
                 </div>
                 <div class="email-cell" data-label="租户联系人邮箱">ops@gamma.sg</div>
                 <div class="company-cell" data-label="关联企业名称">Gamma Global Holdings</div>
-                <div data-label="租户类型">
-                  <span class="type-pill customer">客户租户</span>
+                <div data-label="上户类型">
+                  <span class="type-pill direct">客户上户</span>
                 </div>
                 <div data-label="状态">
                   <span class="status-pill success">启用</span>
                 </div>
                 <div class="action-cell" data-label="操作">
-                  <button class="action-link" type="button" data-open-edit data-tenant="Gamma Consulting" data-admin-email="ops@gamma.sg" data-country="新加坡 SG" data-company="Gamma Global Holdings" data-company-email="ops@gamma.sg" data-tenant-type="customer">编辑</button>
+                  <button class="action-link" type="button" data-open-edit data-tenant="Gamma Consulting" data-admin-email="ops@gamma.sg" data-country="新加坡 SG" data-company="Gamma Global Holdings" data-company-email="ops@gamma.sg" data-tenant-type="direct">编辑</button>
                   <span class="action-divider" aria-hidden="true"></span>
                   <button class="action-link" type="button">重发邀请</button>
                   <span class="action-divider" aria-hidden="true"></span>
@@ -339,20 +339,20 @@
             </label>
 
             <fieldset class="modal-field tenant-type-group">
-              <legend>租户类型</legend>
+              <legend>上户类型</legend>
               <div class="type-radio-row">
                 <label class="type-radio-card">
-                  <input type="radio" name="tenantType" value="customer" checked />
+                  <input type="radio" name="tenantType" value="direct" checked />
                   <span class="type-radio-body">
-                    <strong>客户租户</strong>
-                    <small>企业自用，API 应用默认为内部集成应用</small>
+                    <strong>客户上户</strong>
+                    <small>企业客户直接签约上户，API 应用默认为企业应用</small>
                   </span>
                 </label>
                 <label class="type-radio-card">
-                  <input type="radio" name="tenantType" value="partner" />
+                  <input type="radio" name="tenantType" value="isv" />
                   <span class="type-radio-body">
-                    <strong>伙伴租户</strong>
-                    <small>ISV / 服务商，API 应用默认为外途服务应用</small>
+                    <strong>ISV上户</strong>
+                    <small>ISV/服务商接入上户，API 应用默认为ISV应用</small>
                   </span>
                 </label>
               </div>
@@ -361,7 +361,7 @@
             <label class="invite-card">
               <span class="invite-copy">
                 <strong>是否自动创建 API 应用</strong>
-                <span>开启后将根据租户类型自动创建对应的 API 应用</span>
+                <span>开启后将根据上户类型自动创建对应的 API 应用</span>
               </span>
               <input class="switch-input" id="autoCreateApiApp" type="checkbox" checked aria-label="是否自动创建 API 应用" />
               <span class="switch-track" aria-hidden="true"></span>
@@ -380,9 +380,9 @@
           <section class="modal-section" aria-labelledby="enterpriseInfoTitle">
             <h3 id="enterpriseInfoTitle">关联企业信息</h3>
             <label class="modal-field">
-              <span>国家/地区</span>
+              <span>国家/地区 <em style="color:#e84b4b;font-style:normal">*</em></span>
               <span class="modal-select">
-                <select>
+                <select required>
                   <option>越南 VN</option>
                   <option>马来西亚 MY</option>
                   <option>新加坡 SG</option>
@@ -390,12 +390,16 @@
               </span>
             </label>
             <label class="modal-field">
-              <span>企业名称</span>
-              <input type="text" placeholder="请输入企业名称" />
+              <span>企业编码 <em style="color:#e84b4b;font-style:normal">*</em></span>
+              <input type="text" placeholder="请输入企业编码" required />
             </label>
             <label class="modal-field">
-              <span>企业联系邮箱</span>
-              <input type="email" placeholder="请输入企业联系邮箱" />
+              <span>企业名称 <em style="color:#e84b4b;font-style:normal">*</em></span>
+              <input type="text" placeholder="请输入企业名称" required />
+            </label>
+            <label class="modal-field">
+              <span>企业联系邮箱 <em style="color:#e84b4b;font-style:normal">*</em></span>
+              <input type="email" placeholder="请输入企业联系邮箱" required />
             </label>
           </section>
         </form>
@@ -428,14 +432,14 @@
               <input id="editTenantAdminEmail" type="email" value="admin@alpha.vn" />
             </label>
             <label class="modal-field">
-              <span>租户类型</span>
+              <span>上户类型</span>
               <span class="select-shell">
                 <select id="editTenantType" disabled>
-                  <option value="customer">客户租户</option>
-                  <option value="partner">伙伴租户</option>
+                  <option value="direct">客户上户</option>
+                  <option value="isv">ISV上户</option>
                 </select>
               </span>
-              <span class="field-hint">租户类型创建后不可修改</span>
+              <span class="field-hint">上户类型创建后不可修改</span>
             </label>
           </section>
 
@@ -509,7 +513,7 @@
           editTenantCountry.value = trigger.dataset.country || "越南 VN";
           editTenantCompany.value = trigger.dataset.company || "";
           editTenantCompanyEmail.value = trigger.dataset.companyEmail || "";
-          editTenantType.value = trigger.dataset.tenantType || "customer";
+          editTenantType.value = trigger.dataset.tenantType || "direct";
           editTenantName.focus();
         } else if (!open && lastEditTrigger) {
           lastEditTrigger.focus();

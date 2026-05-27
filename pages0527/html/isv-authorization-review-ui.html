@@ -1,0 +1,1722 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ISV 授权审批</title>
+  <style>
+    :root {
+      --blue: #1463e8;
+      --blue-2: #1b6fff;
+      --ink: #101a33;
+      --text: #263552;
+      --muted: #667896;
+      --line: #dbe3f1;
+      --soft: #f5f8fd;
+      --panel: #ffffff;
+      --shadow: 0 18px 48px rgba(16, 42, 92, 0.08);
+      --sidebar: 344px;
+      --topbar: 110px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 1280px;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at 1px 1px, rgba(55, 79, 124, 0.08) 1px, transparent 0) 0 0 / 4px 4px,
+        linear-gradient(180deg, #fbfdff 0%, #f6f9fe 100%);
+    }
+
+    .app { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: var(--sidebar);
+      background: rgba(255, 255, 255, 0.95);
+      border-right: 1px solid var(--line);
+      box-shadow: 8px 0 28px rgba(26, 49, 91, 0.03);
+      z-index: 3;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      height: 111px;
+      padding: 22px 22px 19px;
+    }
+
+    .brand-mark {
+      width: 50px;
+      height: 66px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 70px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -8px;
+      text-shadow: -4px 0 0 #1463e8;
+      position: relative;
+    }
+
+    .brand-mark::before {
+      content: "B";
+      color: #1463e8;
+      font-weight: 950;
+      font-size: 72px;
+      letter-spacing: -10px;
+    }
+
+    .brand-title {
+      color: #111827;
+      font-size: 30px;
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-sub {
+      margin-top: 8px;
+      color: #1c2740;
+      font-size: 16px;
+      font-weight: 750;
+    }
+
+    .nav {
+      padding: 34px 14px 0 14px;
+      font-weight: 800;
+    }
+
+    .nav-item {
+      height: 66px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 19px;
+      border-radius: 9px;
+      color: #536580;
+      font-size: 24px;
+      margin-left: -6px;
+    }
+
+    .nav-item svg { width: 27px; height: 27px; stroke-width: 2.2; flex: 0 0 auto; }
+
+    .nav-item.active {
+      color: var(--blue);
+      background: linear-gradient(90deg, rgba(20, 99, 232, 0.14), rgba(20, 99, 232, 0.06));
+    }
+
+    .topbar {
+      position: fixed;
+      left: var(--sidebar);
+      right: 0;
+      top: 0;
+      height: var(--topbar);
+      display: flex;
+      align-items: center;
+      padding: 0 30px 0 47px;
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+      z-index: 2;
+    }
+
+    .hamburger {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      color: #182642;
+      margin-right: 47px;
+    }
+
+    .global-search {
+      width: 520px;
+      height: 62px;
+      border: 1px solid #d7e0ef;
+      border-radius: 11px;
+      background: #f7f9fd;
+      display: flex;
+      align-items: center;
+      padding: 0 19px;
+      gap: 16px;
+      box-shadow: inset 0 1px 2px rgba(38, 53, 82, 0.04);
+    }
+
+    .global-search span {
+      color: #8b9ab3;
+      font-size: 21px;
+      font-weight: 750;
+    }
+
+    .keycap {
+      margin-left: auto;
+      height: 31px;
+      min-width: 42px;
+      border: 1px solid #d8e0ed;
+      border-radius: 7px;
+      color: #93a0b6;
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .top-actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 52px;
+      color: #111827;
+      font-size: 20px;
+      font-weight: 850;
+    }
+
+    .top-action {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      white-space: nowrap;
+    }
+
+    .badge {
+      position: absolute;
+      top: -16px;
+      left: 25px;
+      min-width: 21px;
+      height: 21px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      background: #ff3d42;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 900;
+      border: 2px solid #fff;
+    }
+
+    .userbox {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-left: 8px;
+    }
+
+    .user-text strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.1;
+      color: #111827;
+      letter-spacing: -0.2px;
+    }
+
+    .user-text span {
+      display: block;
+      margin-top: 5px;
+      font-size: 15px;
+      color: #687891;
+      font-weight: 700;
+    }
+
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 999px;
+      border: 3px solid #1c2740;
+      background:
+        radial-gradient(circle at 50% 29%, #f3c09e 0 10%, transparent 11%),
+        linear-gradient(155deg, #0e2347 0 48%, #203f79 49% 100%);
+      box-shadow: 0 2px 7px rgba(15, 34, 70, 0.22);
+    }
+
+    main {
+      margin-left: var(--sidebar);
+      padding-top: var(--topbar);
+      width: calc(100% - var(--sidebar));
+    }
+
+    .content {
+      min-height: calc(100vh - var(--topbar));
+      padding: 49px 16px 0 51px;
+    }
+
+    h1 {
+      margin: 0;
+      color: #0d1930;
+      font-size: 46px;
+      line-height: 1.1;
+      font-weight: 950;
+      letter-spacing: -1.1px;
+    }
+
+    .subtitle {
+      margin: 18px 0 0 2px;
+      color: #5b6c88;
+      font-size: 22px;
+      font-weight: 760;
+    }
+
+    .filter-card {
+      margin-top: 45px;
+      width: calc(100% - 2px);
+      height: 196px;
+      padding: 40px 28px;
+      border: 1px solid #dbe3f0;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: minmax(240px, 1.25fr) minmax(130px, 0.55fr) minmax(250px, 0.9fr) max-content;
+      align-items: end;
+      gap: 22px;
+    }
+
+    .field {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .field label {
+      color: #54647f;
+      font-size: 18px;
+      font-weight: 880;
+    }
+
+    .control {
+      height: 64px;
+      border: 1px solid #d8e1ef;
+      border-radius: 10px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      color: #182642;
+      font-size: 20px;
+      font-weight: 800;
+      box-shadow: 0 1px 2px rgba(17, 36, 69, 0.03);
+    }
+
+    .search-control {
+      width: 100%;
+      padding: 0 21px;
+      gap: 15px;
+      color: #91a0b8;
+    }
+
+    .search-control span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .select-control {
+      width: 100%;
+      padding: 0 22px;
+    }
+
+    .date-control {
+      width: 100%;
+      padding: 0 21px;
+      color: #8d9bb3;
+      gap: 18px;
+      white-space: nowrap;
+    }
+
+    .date-control .cal { margin-left: auto; color: #24324e; }
+
+    .filter-buttons {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      height: 64px;
+    }
+
+    .btn {
+      height: 64px;
+      border-radius: 9px;
+      border: 1px solid #d9e1ee;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      font-size: 18px;
+      font-weight: 900;
+      cursor: default;
+      user-select: none;
+    }
+
+    .btn.primary {
+      width: 120px;
+      color: #fff;
+      border-color: transparent;
+      background: linear-gradient(180deg, #166df1 0%, #105bd8 100%);
+      box-shadow: 0 9px 20px rgba(20, 99, 232, 0.23);
+    }
+
+    .btn.ghost {
+      width: 108px;
+      color: #233250;
+      background: #fff;
+    }
+
+    .table-card {
+      margin-top: 42px;
+      width: calc(100% - 2px);
+      border: 1px solid #dbe3f0;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    thead {
+      height: 85px;
+      background: #f7f9fd;
+      color: #233250;
+    }
+
+    th {
+      text-align: left;
+      font-size: 19px;
+      font-weight: 950;
+      padding: 0 32px;
+    }
+
+    tbody tr {
+      height: 140px;
+      border-top: 1px solid #e0e6f1;
+    }
+
+    td {
+      padding: 0 32px;
+      vertical-align: middle;
+      color: #1e2c49;
+      font-size: 21px;
+      font-weight: 820;
+    }
+
+    .company-cell {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .letter {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      font-weight: 950;
+    }
+
+    .letter.a { color: #3c4ee4; background: linear-gradient(135deg, #dfe2ff, #cfcfff); }
+    .letter.g { color: #0d9c55; background: linear-gradient(135deg, #ddf9e6, #c9f0db); }
+    .letter.f { color: #ff6a2f; background: linear-gradient(135deg, #ffe5d6, #ffd8bd); }
+
+    .main-line { display: block; color: #1b2742; line-height: 1.2; }
+    .sub-line {
+      display: block;
+      margin-top: 11px;
+      color: #647693;
+      font-size: 18px;
+      font-weight: 750;
+      line-height: 1.1;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 38px;
+      padding: 0 15px;
+      border-radius: 999px;
+      font-size: 17px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .status::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .pending { color: #0f66f2; background: #dceaff; }
+    .pending::before { background: #126bff; }
+    .approved { color: #14885b; background: #d9f7e9; }
+    .approved::before { background: #19a269; box-shadow: inset 0 0 0 3px rgba(255,255,255,0.65); }
+    .rejected { color: #f33c44; background: #ffe0e4; }
+    .rejected::before { background: #ff3f46; box-shadow: inset 0 0 0 3px rgba(255,255,255,0.65); }
+
+    .action {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      color: #5c6d88;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .action-button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .action-button.review { color: var(--blue); }
+    .action-button.view { color: #536580; }
+
+    .action-button:focus-visible {
+      outline: 3px solid rgba(20, 99, 232, 0.24);
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+
+    .pagination {
+      height: 121px;
+      border-top: 1px solid #e0e6f1;
+      display: flex;
+      align-items: center;
+      padding: 0 31px;
+      color: #536580;
+      font-size: 20px;
+      font-weight: 850;
+    }
+
+    .pager {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .page-size {
+      width: 173px;
+      height: 58px;
+      border: 1px solid #d8e1ef;
+      border-radius: 10px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      color: #17233d;
+    }
+
+    .page-btn {
+      width: 55px;
+      height: 56px;
+      border: 1px solid #d8e1ef;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      color: #24324e;
+      font-size: 21px;
+      font-weight: 850;
+    }
+
+    .page-btn.active {
+      color: #fff;
+      background: var(--blue);
+      border-color: var(--blue);
+      box-shadow: 0 5px 13px rgba(20, 99, 232, 0.25);
+    }
+
+    .page-btn.disabled { color: #9eabc0; background: #f9fbff; }
+    .dots { padding: 0 10px; color: #536580; }
+
+    .footer {
+      margin-top: 97px;
+      height: 76px;
+      border-top: 1px solid #dce4f0;
+      display: flex;
+      align-items: center;
+      padding: 0 17px 0 0;
+      color: #637491;
+      font-size: 18px;
+      font-weight: 780;
+    }
+
+    .footer-links {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 51px;
+      color: #536580;
+    }
+
+    .api-dot {
+      display: inline-block;
+      width: 11px;
+      height: 11px;
+      margin-left: 8px;
+      border-radius: 50%;
+      background: #16a75d;
+    }
+
+    .review-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: none;
+    }
+
+    .review-layer.open { display: block; }
+
+    .review-mask {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.34);
+      backdrop-filter: blur(3px);
+    }
+
+    .review-panel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 620px;
+      max-width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background:
+        radial-gradient(circle at 1px 1px, rgba(55, 79, 124, 0.07) 1px, transparent 0) 0 0 / 4px 4px,
+        #fff;
+      box-shadow: -26px 0 64px rgba(15, 34, 70, 0.24);
+      transform: translateX(100%);
+      transition: transform 180ms ease;
+    }
+
+    .review-layer.open .review-panel { transform: translateX(0); }
+
+    .review-head {
+      height: 112px;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 21px 23px 0;
+      border-bottom: 1px solid #cfd8e7;
+      background: rgba(255, 255, 255, 0.94);
+    }
+
+    .review-title {
+      color: #111827;
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .review-code {
+      margin-top: 12px;
+      color: #39425a;
+      font-size: 18px;
+      font-weight: 850;
+      letter-spacing: 1.2px;
+    }
+
+    .review-close {
+      appearance: none;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      background: transparent;
+      color: #374151;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .review-body {
+      flex: 1 1 auto;
+      overflow: auto;
+      padding: 30px 23px 112px;
+    }
+
+    .status-banner {
+      height: 101px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 21px;
+      padding: 0 22px;
+      color: #fff;
+      background: linear-gradient(135deg, #0f6bff 0%, #0454ee 100%);
+      box-shadow: 0 16px 32px rgba(20, 99, 232, 0.22);
+    }
+
+    .status-banner .info-dot {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.27);
+      color: #fff;
+      font-size: 20px;
+      font-weight: 950;
+      flex: 0 0 auto;
+    }
+
+    .status-banner strong {
+      display: block;
+      font-size: 17px;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    .status-banner span {
+      display: block;
+      margin-top: 7px;
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    .review-section {
+      margin-top: 42px;
+    }
+
+    .review-section h2 {
+      margin: 0 0 20px;
+      color: #7a8395;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.2px;
+    }
+
+    .detail-box,
+    .meta-box,
+    .note-box,
+    .attachment-row {
+      border: 1px solid #b8c3d9;
+      border-radius: 12px;
+      background: rgba(248, 250, 255, 0.82);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    }
+
+    .detail-box {
+      padding: 18px 21px;
+    }
+
+    .detail-row {
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid #dde3ef;
+      color: #252d3f;
+      font-size: 19px;
+      font-weight: 850;
+    }
+
+    .detail-row:last-child { border-bottom: 0; }
+    .detail-label { color: #3f495e; font-weight: 800; }
+    .detail-value { text-align: right; color: #161b28; font-weight: 930; }
+
+    .api-value {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .api-diamond {
+      width: 18px;
+      height: 18px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .api-diamond::before,
+    .api-diamond::after {
+      content: "";
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      background: #0b63e5;
+      transform: rotate(45deg);
+    }
+
+    .api-diamond::before { left: 2px; top: 2px; box-shadow: 9px 0 0 #0b63e5, 4.5px 4.5px 0 #0b63e5; }
+    .api-diamond::after { left: 6.5px; top: 11px; }
+
+    .meta-box {
+      min-height: 104px;
+      padding: 23px 21px;
+      color: #111827;
+      font-size: 21px;
+      font-weight: 860;
+    }
+
+    .meta-box .label {
+      display: block;
+      margin-bottom: 14px;
+      color: #384356;
+      font-size: 19px;
+      font-weight: 850;
+    }
+
+    .note-box {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      padding: 0 23px;
+      color: #374151;
+      font-size: 20px;
+      font-style: italic;
+      font-weight: 650;
+    }
+
+    .attachment-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .attachment-row {
+      min-height: 70px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: #111827;
+      font-size: 19px;
+      font-weight: 850;
+    }
+
+    .attachment-row .links {
+      margin-left: auto;
+      display: flex;
+      gap: 19px;
+      color: var(--blue);
+      font-size: 18px;
+      font-weight: 930;
+    }
+
+    .review-footer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 108px;
+      display: grid;
+      grid-template-columns: 1fr 1.69fr;
+      gap: 18px;
+      padding: 30px 22px 16px;
+      border-top: 1px solid #cfd8e7;
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    .review-footer button {
+      border-radius: 8px;
+      font-size: 20px;
+      font-weight: 930;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      cursor: pointer;
+    }
+
+    .reject-btn {
+      color: #dc2626;
+      background: #fff;
+      border: 1.5px solid #dc2626;
+    }
+
+    .approve-btn {
+      color: #fff;
+      border: 1.5px solid transparent;
+      background: linear-gradient(135deg, #126fff 0%, #0756d8 100%);
+      box-shadow: 0 12px 26px rgba(20, 99, 232, 0.28);
+    }
+
+    .review-layer.view-mode .review-footer { display: none; }
+    .review-layer.view-mode .review-body { padding-bottom: 40px; }
+
+    svg { display: block; }
+    .icon,
+    .icon-sm,
+    .icon-lg {
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .icon { width: 27px; height: 27px; }
+    .icon-sm { width: 22px; height: 22px; }
+    .icon-lg { width: 31px; height: 31px; }
+
+    @media (max-width: 1500px) {
+      :root { --sidebar: 300px; }
+      .brand-title { font-size: 25px; }
+      .brand-sub { font-size: 14px; }
+      .nav-item { font-size: 20px; }
+      .top-actions { gap: 28px; }
+      .global-search { width: 420px; }
+      .filter-card {
+        grid-template-columns: minmax(220px, 1.18fr) minmax(120px, 0.5fr) minmax(230px, 0.86fr) max-content;
+        gap: 16px;
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+      .btn.primary { width: 106px; }
+      .btn.ghost { width: 96px; }
+      .btn { gap: 9px; }
+      .date-control { gap: 12px; padding: 0 16px; }
+    }
+
+    /* Dashboard density alignment for ISV authorization review */
+    :root {
+      --sidebar: 280px;
+      --topbar: 80px;
+    }
+
+    body {
+      min-width: 0;
+    }
+
+    .brand {
+      gap: 16px;
+      height: 96px;
+      padding: 22px 16px 20px;
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      font-size: 64px;
+      letter-spacing: -8px;
+    }
+
+    .brand-mark::before {
+      font-size: 64px;
+      letter-spacing: -8px;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      line-height: 1.15;
+      font-weight: 700;
+    }
+
+    .brand-sub {
+      margin-top: 4px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav {
+      padding: 22px 16px 0;
+    }
+
+    .nav-item {
+      gap: 14px;
+      height: 48px;
+      padding: 0 12px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-left: 0;
+    }
+
+    .nav-item svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .topbar {
+      height: var(--topbar);
+      padding: 0 28px 0 34px;
+    }
+
+    .hamburger {
+      width: 22px;
+      height: 22px;
+      margin-right: 24px;
+    }
+
+    .global-search {
+      width: 360px;
+      height: 44px;
+      padding: 0 14px;
+      gap: 10px;
+      border-radius: 12px;
+    }
+
+    .global-search span {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .keycap {
+      height: 24px;
+      min-width: 32px;
+      font-size: 12px;
+    }
+
+    .top-actions {
+      gap: 26px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .top-action {
+      gap: 10px;
+    }
+
+    .badge {
+      top: -8px;
+      left: 18px;
+      min-width: 18px;
+      height: 18px;
+      font-size: 11px;
+      border-width: 1px;
+    }
+
+    .userbox {
+      gap: 14px;
+    }
+
+    .user-text strong {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .user-text span {
+      margin-top: 2px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-width: 2px;
+    }
+
+    .content {
+      padding: 18px 24px 24px;
+    }
+
+    h1 {
+      font-size: 22px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .filter-card {
+      margin-top: 22px;
+      height: auto;
+      min-height: 92px;
+      padding: 18px;
+      border-radius: 16px;
+      grid-template-columns: minmax(220px, 1fr) minmax(130px, 180px) minmax(220px, 280px) auto;
+      gap: 14px;
+    }
+
+    .field {
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .control {
+      height: 44px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .search-control,
+    .date-control {
+      padding: 0 14px;
+      gap: 10px;
+    }
+
+    .select-control {
+      padding: 0 14px;
+    }
+
+    .filter-buttons {
+      height: 44px;
+      gap: 12px;
+    }
+
+    .btn {
+      height: 44px;
+      border-radius: 12px;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .btn.primary {
+      width: 88px;
+    }
+
+    .btn.ghost {
+      width: 82px;
+    }
+
+    .table-card {
+      margin-top: 18px;
+      border-radius: 16px;
+    }
+
+    thead {
+      height: 48px;
+    }
+
+    th {
+      padding: 0 20px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    tbody tr {
+      height: 82px;
+    }
+
+    td {
+      padding: 0 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .company-cell {
+      gap: 12px;
+    }
+
+    .letter {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .sub-line {
+      margin-top: 4px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .status {
+      height: 26px;
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .status::before {
+      width: 8px;
+      height: 8px;
+    }
+
+    .action {
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .pagination {
+      height: 56px;
+      padding: 0 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .pager {
+      gap: 8px;
+    }
+
+    .page-size {
+      width: 132px;
+      height: 36px;
+      gap: 10px;
+    }
+
+    .page-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 32px;
+      height: 56px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .footer-links {
+      gap: 24px;
+    }
+
+    .review-panel {
+      width: 560px;
+    }
+
+    .review-head {
+      height: 84px;
+      padding: 18px 20px 0;
+    }
+
+    .review-title {
+      font-size: 17px;
+    }
+
+    .review-code {
+      margin-top: 6px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .review-close {
+      width: 34px;
+      height: 34px;
+      margin-top: 4px;
+    }
+
+    .review-body {
+      padding: 20px 20px 88px;
+    }
+
+    .status-banner {
+      height: 76px;
+      gap: 14px;
+      padding: 0 18px;
+      border-radius: 10px;
+    }
+
+    .status-banner .info-dot {
+      width: 40px;
+      height: 40px;
+      font-size: 16px;
+    }
+
+    .status-banner strong {
+      font-size: 14px;
+    }
+
+    .status-banner span {
+      margin-top: 4px;
+      font-size: 16px;
+    }
+
+    .review-section {
+      margin-top: 24px;
+    }
+
+    .review-section h2 {
+      margin-bottom: 12px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .detail-box {
+      padding: 12px 16px;
+    }
+
+    .detail-row {
+      min-height: 44px;
+      gap: 16px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .meta-box {
+      min-height: 72px;
+      padding: 16px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .meta-box .label {
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .note-box {
+      min-height: 52px;
+      padding: 0 16px;
+      font-size: 14px;
+    }
+
+    .attachment-row {
+      min-height: 52px;
+      padding: 0 16px;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .attachment-row .links {
+      gap: 12px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .review-footer {
+      height: 76px;
+      gap: 12px;
+      padding: 16px 20px;
+    }
+
+    .review-footer button {
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .icon { width: 22px; height: 22px; }
+    .icon-sm { width: 18px; height: 18px; }
+    .icon-lg { width: 24px; height: 24px; }
+
+    @media (max-width: 1500px) {
+      :root { --sidebar: 260px; }
+      .brand-title { font-size: 18px; }
+      .brand-sub { font-size: 13px; }
+      .nav-item { font-size: 15px; }
+      .global-search { width: 320px; }
+      .filter-card {
+        grid-template-columns: minmax(200px, 1fr) minmax(120px, 160px) minmax(200px, 260px) auto;
+      }
+    }
+
+    @media (max-width: 980px) {
+      :root {
+        --sidebar: 0px;
+        --topbar: 72px;
+      }
+
+      body {
+        min-width: 0;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .topbar {
+        left: 0;
+        padding: 14px 16px;
+      }
+
+      .global-search,
+      .user-text {
+        display: none;
+      }
+
+      main {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .content {
+        padding: 14px;
+      }
+
+      .filter-card {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-buttons {
+        justify-content: flex-start;
+      }
+
+      .table-card {
+        overflow-x: auto;
+      }
+
+      table {
+        min-width: 900px;
+      }
+
+      .review-panel {
+        width: 100vw;
+      }
+    }
+  </style>
+  <script>
+    if (window.top !== window.self) {
+      var f=document.createElement('style');
+      f.textContent='.sidebar,aside.sidebar,.topbar,header.topbar,.password-modal-overlay,#passwordModal,[class*="password-modal"],.brand,.sidebar-nav,.sidebar-footer,.side-footer,.user-menu,[class*="user-menu"],script{display:none!important}.app{display:block!important;min-height:auto!important;height:auto!important}main,.main-content{width:100%!important;min-width:0!important;margin-left:0!important}html,body{overflow:auto!important;height:auto!important;min-height:100%!important;background:#f7f9fd!important}body{zoom:1!important}';
+      document.head.appendChild(f);
+    }
+  </script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div>
+          <div class="brand-title">BAIWANG 百望</div>
+          <div class="brand-sub">全球智能税务合规平台</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <div class="nav-item active">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/></svg>
+          <span>ISV 授权审批</span>
+        </div>
+      </nav>
+    </aside>
+
+    <header class="topbar">
+      <div class="hamburger">
+        <svg class="icon-lg" viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+      </div>
+      <div class="global-search">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <span>搜索菜单、功能、帮助...</span>
+        <div class="keycap">⌘K</div>
+      </div>
+      <div class="top-actions">
+        <div class="top-action">
+          <svg class="icon-lg" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>任务中心</span><b class="badge">6</b>
+        </div>
+        <div class="top-action">
+          <svg class="icon-lg" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span>消息中心</span><b class="badge">3</b>
+        </div>
+        <div class="top-action">
+          <svg class="icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 1 1 5.82 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg>
+          <span>帮助</span>
+        </div>
+        <div class="userbox">
+          <div class="user-text"><strong>Admin User</strong><span>Global Controller</span></div>
+          <div class="avatar" aria-hidden="true"></div>
+          <svg class="icon-sm" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="content">
+        <h1>ISV 授权审批</h1>
+        <p class="subtitle">管理 ISV 提交的授权申请，查看授权状态、受邀企业及 API 应用信息。</p>
+
+        <section class="filter-card">
+          <div class="field">
+            <label>搜索</label>
+            <div class="control search-control">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <span>搜索申请企业、受邀企业或 API 应用名称/ID</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>状态</label>
+            <div class="control select-control">
+              <span>全部</span>
+              <svg class="icon-sm" style="margin-left:auto" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+          </div>
+          <div class="field">
+            <label>创建时间范围</label>
+            <div class="control date-control">
+              <span>年/月/日</span>
+              <span>~</span>
+              <span>年/月/日</span>
+              <svg class="cal icon" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg>
+            </div>
+          </div>
+          <div class="filter-buttons">
+            <div class="btn primary">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <span>查询</span>
+            </div>
+            <div class="btn ghost">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+              <span>重置</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="table-card">
+          <table>
+            <colgroup>
+              <col style="width: 21%">
+              <col style="width: 23%">
+              <col style="width: 22%">
+              <col style="width: 19%">
+              <col style="width: 10%">
+              <col style="width: 9%">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>申请企业</th>
+                <th>API 应用</th>
+                <th>受邀企业</th>
+                <th>创建时间 <svg class="icon-sm" style="display:inline-block;vertical-align:-5px;margin-left:4px" viewBox="0 0 24 24"><path d="m8 15 4 4 4-4"/><path d="m16 9-4-4-4 4"/></svg></th>
+                <th>状态</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="company-cell">
+                    <div class="letter a">A</div>
+                    <div><span class="main-line">Alpha ISV Services</span><span class="sub-line">alpha@isv.com</span></div>
+                  </div>
+                </td>
+                <td><span class="main-line">ERP Production API</span><span class="sub-line">API-ERP-PROD-001</span></td>
+                <td><span class="main-line">Vietnam Manufacturing Ltd.</span><span class="sub-line">VN-MANU-001</span></td>
+                <td>2026-05-20 10:24</td>
+                <td><span class="status pending">待审核</span></td>
+                <td><div class="action"><button class="action-button review" type="button" data-open-review data-auth-code="AUTH-2026-00824" data-applicant="Alpha ISV Services" data-api="ERP Production API" data-api-id="API-ERP-PROD-001" data-enterprise="Vietnam Manufacturing Ltd." data-enterprise-id="VN-MANU-001" data-time="2026-05-20 10:24" data-status="pending" data-status-text="待审核" data-note="Integration for real-time invoice synchronization.">审核</button></div></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="company-cell">
+                    <div class="letter g">G</div>
+                    <div><span class="main-line">Global Tax Connector</span><span class="sub-line">contact@gtc.com</span></div>
+                  </div>
+                </td>
+                <td><span class="main-line">POS Sandbox API</span><span class="sub-line">API-POS-SBX-002</span></td>
+                <td><span class="main-line">Masan Group</span><span class="sub-line">MASAN-001</span></td>
+                <td>2026-05-19 16:08</td>
+                <td><span class="status approved">已通过</span></td>
+                <td><div class="action"><button class="action-button view" type="button" data-open-view data-auth-code="AUTH-2026-00795" data-applicant="Global Tax Connector" data-api="POS Sandbox API" data-api-id="API-POS-SBX-002" data-enterprise="Masan Group" data-enterprise-id="MASAN-001" data-time="2026-05-19 16:08" data-status="approved" data-status-text="已通过" data-note="Approved after compliance review.">查看</button></div></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="company-cell">
+                    <div class="letter f">F</div>
+                    <div><span class="main-line">Fintech Integration Co.</span><span class="sub-line">service@fintech.com</span></div>
+                  </div>
+                </td>
+                <td><span class="main-line">Reporting Export API</span><span class="sub-line">API-REP-EXP-003</span></td>
+                <td><span class="main-line">Demo Trading Sdn. Bhd.</span><span class="sub-line">DEMO-TRD-001</span></td>
+                <td>2026-05-18 09:40</td>
+                <td><span class="status rejected">已拒绝</span></td>
+                <td><div class="action"><button class="action-button view" type="button" data-open-view data-auth-code="AUTH-2026-00642" data-applicant="Fintech Integration Co." data-api="Reporting Export API" data-api-id="API-REP-EXP-003" data-enterprise="Demo Trading Sdn. Bhd." data-enterprise-id="DEMO-TRD-001" data-time="2026-05-18 09:40" data-status="rejected" data-status-text="已拒绝" data-note="Insufficient documentation.">查看</button></div></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pagination">
+            <span>共 1,340 条记录，当前显示第 1 ~ 3 条</span>
+            <div class="pager">
+              <div class="page-size">10 条/页 <svg class="icon-sm" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
+              <div class="page-btn disabled"><svg class="icon-sm" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></div>
+              <div class="page-btn active">1</div>
+              <div class="page-btn">2</div>
+              <div class="page-btn">3</div>
+              <div class="dots">...</div>
+              <div class="page-btn">45</div>
+              <div class="page-btn"><svg class="icon-sm" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <span>© 2026 Baiwang. All rights reserved.</span>
+          <div class="footer-links">
+            <span>文档中心</span>
+            <span>隐私政策</span>
+            <span>API 状态 <i class="api-dot"></i></span>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <div class="review-layer" id="reviewLayer" aria-hidden="true">
+    <div class="review-mask" data-close-review></div>
+    <aside class="review-panel" role="dialog" aria-modal="true" aria-labelledby="reviewDialogTitle">
+      <header class="review-head">
+        <div>
+          <div class="review-title" id="reviewDialogTitle">授权申请审核</div>
+          <div class="review-code" id="reviewAuthCode">AUTH-2026-00824</div>
+        </div>
+        <button class="review-close" type="button" aria-label="关闭审核弹层" data-close-review>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </header>
+
+      <div class="review-body">
+        <section class="status-banner">
+          <div class="info-dot">i</div>
+          <div>
+            <strong>当前状态</strong>
+            <span id="reviewStatusText">待审核 (Pending Review)</span>
+          </div>
+        </section>
+
+        <section class="review-section">
+          <h2>实体详情</h2>
+          <div class="detail-box">
+            <div class="detail-row">
+              <span class="detail-label">申请企业</span>
+              <span class="detail-value" id="reviewApplicant">Alpha ISV Services</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">API应用</span>
+              <span class="detail-value api-value" id="reviewApi"><i class="api-diamond"></i>ERP Production API</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">受邀企业</span>
+              <span class="detail-value" id="reviewEnterprise">Vietnam Manufacturing Ltd.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="review-section">
+          <h2>申请元数据</h2>
+          <div class="meta-box">
+            <span class="label">创建时间</span>
+            <span id="reviewTime">2026-05-20 10:24</span>
+          </div>
+        </section>
+
+        <section class="review-section">
+          <h2>申请说明</h2>
+          <div class="note-box" id="reviewNote">"Integration for real-time invoice synchronization."</div>
+        </section>
+
+        <section class="review-section">
+          <h2>附件信息</h2>
+          <div class="attachment-list">
+            <div class="attachment-row">
+              <svg class="icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h2"/><path d="M8 17h8"/><path d="M12 13h4"/></svg>
+              <span>营业执照.pdf</span>
+              <div class="links"><span>下载</span></div>
+            </div>
+            <div class="attachment-row">
+              <svg class="icon-sm" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="m21 15-5-5L5 19"/></svg>
+              <span>授权委托书.jpg</span>
+              <div class="links"><span>预览</span><span>下载</span></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="review-footer">
+        <button class="reject-btn" type="button">
+          <svg class="icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
+          <span>拒绝</span>
+        </button>
+        <button class="approve-btn" type="button">
+          <svg class="icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>通过审核</span>
+        </button>
+      </footer>
+    </aside>
+  </div>
+
+  <script>
+    var reviewLayer = document.getElementById('reviewLayer');
+    var reviewDialogTitle = document.getElementById('reviewDialogTitle');
+    var reviewAuthCode = document.getElementById('reviewAuthCode');
+    var reviewStatusText = document.getElementById('reviewStatusText');
+    var reviewApplicant = document.getElementById('reviewApplicant');
+    var reviewApi = document.getElementById('reviewApi');
+    var reviewEnterprise = document.getElementById('reviewEnterprise');
+    var reviewTime = document.getElementById('reviewTime');
+    var reviewNote = document.getElementById('reviewNote');
+
+    var openReviewButton = document.querySelector('[data-open-review]');
+    var openViewButtons = document.querySelectorAll('[data-open-view]');
+    var closeReviewButtons = document.querySelectorAll('[data-close-review]');
+
+    function populatePanel(btn) {
+      reviewAuthCode.textContent = btn.dataset.authCode || '';
+      reviewApplicant.textContent = btn.dataset.applicant || '';
+      reviewApi.innerHTML = '<i class="api-diamond"></i>' + (btn.dataset.api || '') + ' <small style="color:#667896;font-size:14px;">' + (btn.dataset.apiId || '') + '</small>';
+      reviewEnterprise.innerHTML = (btn.dataset.enterprise || '') + ' <small style="color:#667896;font-size:14px;">' + (btn.dataset.enterpriseId || '') + '</small>';
+      reviewTime.textContent = btn.dataset.time || '';
+      reviewNote.textContent = '"' + (btn.dataset.note || '') + '"';
+
+      var statusText = btn.dataset.statusText || '';
+      var status = btn.dataset.status || '';
+      if (status === 'pending') {
+        reviewStatusText.textContent = statusText + ' (Pending Review)';
+      } else if (status === 'approved') {
+        reviewStatusText.textContent = statusText + ' (Approved)';
+      } else if (status === 'rejected') {
+        reviewStatusText.textContent = statusText + ' (Rejected)';
+      }
+    }
+
+    function openReviewLayer(mode, btn) {
+      populatePanel(btn);
+      if (mode === 'view') {
+        reviewLayer.classList.add('view-mode');
+        reviewDialogTitle.textContent = '授权详情';
+      } else {
+        reviewLayer.classList.remove('view-mode');
+        reviewDialogTitle.textContent = '授权申请审核';
+      }
+      reviewLayer.classList.add('open');
+      reviewLayer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeReviewLayer() {
+      reviewLayer.classList.remove('open', 'view-mode');
+      reviewLayer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    openReviewButton.addEventListener('click', function() {
+      openReviewLayer('review', openReviewButton);
+    });
+
+    openViewButtons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        openReviewLayer('view', btn);
+      });
+    });
+
+    closeReviewButtons.forEach(function(button) {
+      button.addEventListener('click', closeReviewLayer);
+    });
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' && reviewLayer.classList.contains('open')) {
+        closeReviewLayer();
+      }
+    });
+  </script>
+</body>
+</html>

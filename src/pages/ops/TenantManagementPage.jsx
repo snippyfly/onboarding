@@ -2,9 +2,9 @@ import { useState } from 'react';
 import './TenantManagementPage.css';
 
 const TENANTS = [
-  { id: 'TX-100293', name: 'Alpha Services', email: 'admin@alpha.vn', company: 'Alpha Tech Group', type: 'customer', typeLabel: '客户租户', status: 'enabled', country: '越南 VN', companyEmail: 'admin@alpha.vn' },
-  { id: 'TX-100294', name: 'Beta Logistics', email: 'contact@beta.my', company: 'Beta MY Corp', type: 'partner', typeLabel: '伙伴租户', status: 'disabled', country: '马来西亚 MY', companyEmail: 'contact@beta.my' },
-  { id: 'TX-100295', name: 'Gamma Consulting', email: 'ops@gamma.sg', company: 'Gamma Global Holdings', type: 'customer', typeLabel: '客户租户', status: 'enabled', country: '新加坡 SG', companyEmail: 'ops@gamma.sg' },
+  { id: 'TX-100293', name: 'Alpha Services', email: 'admin@alpha.vn', company: 'Alpha Tech Group', type: 'customer', typeLabel: '客户上户', status: 'enabled', country: '越南 VN', companyEmail: 'admin@alpha.vn', companyCode: 'ENT-VN-10001' },
+  { id: 'TX-100294', name: 'Beta Logistics', email: 'contact@beta.my', company: 'Beta MY Corp', type: 'partner', typeLabel: 'ISV上户', status: 'disabled', country: '马来西亚 MY', companyEmail: 'contact@beta.my', companyCode: 'ENT-MY-10002' },
+  { id: 'TX-100295', name: 'Gamma Consulting', email: 'ops@gamma.sg', company: 'Gamma Global Holdings', type: 'customer', typeLabel: '客户上户', status: 'enabled', country: '新加坡 SG', companyEmail: 'ops@gamma.sg', companyCode: 'ENT-SG-10003' },
 ];
 
 const COUNTRIES = ['越南 VN', '马来西亚 MY', '新加坡 SG'];
@@ -32,6 +32,7 @@ export default function TenantManagementPage() {
   const [autoCreateApi, setAutoCreateApi] = useState(true);
   const [autoSendInvite, setAutoSendInvite] = useState(false);
   const [addCountry, setAddCountry] = useState('越南 VN');
+  const [addCompanyCode, setAddCompanyCode] = useState('');
   const [addCompany, setAddCompany] = useState('');
   const [addCompanyEmail, setAddCompanyEmail] = useState('');
 
@@ -54,8 +55,8 @@ export default function TenantManagementPage() {
       (statusFilter === '禁用' && t.status === 'disabled');
     const matchesType =
       typeFilter === '全部' ||
-      (typeFilter === '客户租户' && t.type === 'customer') ||
-      (typeFilter === '伙伴租户' && t.type === 'partner');
+      (typeFilter === '客户上户' && t.type === 'customer') ||
+      (typeFilter === 'ISV上户' && t.type === 'partner');
     return matchesSearch && matchesStatus && matchesType;
   });
 
@@ -67,6 +68,7 @@ export default function TenantManagementPage() {
     setAutoCreateApi(true);
     setAutoSendInvite(false);
     setAddCountry('越南 VN');
+    setAddCompanyCode('');
     setAddCompany('');
     setAddCompanyEmail('');
     setAddModalOpen(true);
@@ -169,12 +171,12 @@ export default function TenantManagementPage() {
           </label>
 
           <label className="field type-field">
-            <span>租户类型</span>
+            <span>上户类型</span>
             <span className="select-shell">
               <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
                 <option>全部</option>
-                <option>客户租户</option>
-                <option>伙伴租户</option>
+                <option>客户上户</option>
+                <option>ISV上户</option>
               </select>
             </span>
           </label>
@@ -193,7 +195,7 @@ export default function TenantManagementPage() {
             <div>租户名称</div>
             <div>租户联系人邮箱</div>
             <div>关联企业名称</div>
-            <div>租户类型</div>
+            <div>上户类型</div>
             <div>状态</div>
             <div>操作</div>
           </div>
@@ -206,7 +208,7 @@ export default function TenantManagementPage() {
               </div>
               <div className="email-cell" data-label="租户联系人邮箱">{t.email}</div>
               <div className="company-cell" data-label="关联企业名称">{t.company}</div>
-              <div data-label="租户类型">
+              <div data-label="上户类型">
                 <span className={`type-pill ${typeClass(t.type)}`}>{t.typeLabel}</span>
               </div>
               <div data-label="状态">
@@ -268,20 +270,20 @@ export default function TenantManagementPage() {
               </label>
 
               <fieldset className="modal-field tenant-type-group">
-                <legend>租户类型</legend>
+                <legend>上户类型</legend>
                 <div className="type-radio-row">
                   <label className="type-radio-card">
                     <input type="radio" name="addTenantType" value="customer" checked={addType === 'customer'} onChange={() => setAddType('customer')} />
                     <span className="type-radio-body">
-                      <strong>客户租户</strong>
-                      <small>企业自用，API 应用默认为内部集成应用</small>
+                      <strong>客户上户</strong>
+                      <small>企业客户直接签约上户，API 应用默认为企业应用</small>
                     </span>
                   </label>
                   <label className="type-radio-card">
                     <input type="radio" name="addTenantType" value="partner" checked={addType === 'partner'} onChange={() => setAddType('partner')} />
                     <span className="type-radio-body">
-                      <strong>伙伴租户</strong>
-                      <small>ISV / 服务商，API 应用默认为外途服务应用</small>
+                      <strong>ISV上户</strong>
+                      <small>ISV/服务商接入上户，API 应用默认为ISV应用</small>
                     </span>
                   </label>
                 </div>
@@ -290,7 +292,7 @@ export default function TenantManagementPage() {
               <label className="invite-card">
                 <span className="invite-copy">
                   <strong>是否自动创建 API 应用</strong>
-                  <span>开启后将根据租户类型自动创建对应的 API 应用</span>
+                  <span>开启后将根据上户类型自动创建对应的 API 应用</span>
                 </span>
                 <input className="switch-input" type="checkbox" checked={autoCreateApi} onChange={(e) => setAutoCreateApi(e.target.checked)} aria-label="是否自动创建 API 应用" />
                 <span className="switch-track" aria-hidden="true" onClick={() => setAutoCreateApi((v) => !v)} />
@@ -310,22 +312,27 @@ export default function TenantManagementPage() {
               <h3 id="enterpriseInfoTitle">关联企业信息</h3>
 
               <label className="modal-field">
-                <span>国家/地区</span>
+                <span>国家/地区 <em style={{color:'#e84b4b',fontStyle:'normal'}}>*</em></span>
                 <span className="modal-select">
-                  <select value={addCountry} onChange={(e) => setAddCountry(e.target.value)}>
+                  <select value={addCountry} onChange={(e) => setAddCountry(e.target.value)} required>
                     {COUNTRIES.map((c) => <option key={c}>{c}</option>)}
                   </select>
                 </span>
               </label>
 
               <label className="modal-field">
-                <span>企业名称</span>
-                <input type="text" placeholder="请输入企业名称" value={addCompany} onChange={(e) => setAddCompany(e.target.value)} />
+                <span>企业编码 <em style={{color:'#e84b4b',fontStyle:'normal'}}>*</em></span>
+                <input type="text" placeholder="请输入企业编码" value={addCompanyCode} onChange={(e) => setAddCompanyCode(e.target.value)} required />
               </label>
 
               <label className="modal-field">
-                <span>企业联系邮箱</span>
-                <input type="email" placeholder="请输入企业联系邮箱" value={addCompanyEmail} onChange={(e) => setAddCompanyEmail(e.target.value)} />
+                <span>企业名称 <em style={{color:'#e84b4b',fontStyle:'normal'}}>*</em></span>
+                <input type="text" placeholder="请输入企业名称" value={addCompany} onChange={(e) => setAddCompany(e.target.value)} required />
+              </label>
+
+              <label className="modal-field">
+                <span>企业联系邮箱 <em style={{color:'#e84b4b',fontStyle:'normal'}}>*</em></span>
+                <input type="email" placeholder="请输入企业联系邮箱" value={addCompanyEmail} onChange={(e) => setAddCompanyEmail(e.target.value)} required />
               </label>
             </section>
           </form>
@@ -364,14 +371,14 @@ export default function TenantManagementPage() {
               </label>
 
               <label className="modal-field">
-                <span>租户类型</span>
+                <span>上户类型</span>
                 <span className="select-shell">
                   <select value={editTenantData.tenantType || editTenantData.type} disabled>
-                    <option value="customer">客户租户</option>
-                    <option value="partner">伙伴租户</option>
+                    <option value="customer">客户上户</option>
+                    <option value="partner">ISV上户</option>
                   </select>
                 </span>
-                <span className="field-hint">租户类型创建后不可修改</span>
+                <span className="field-hint">上户类型创建后不可修改</span>
               </label>
             </section>
 

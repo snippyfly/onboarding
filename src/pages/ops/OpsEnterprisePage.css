@@ -801,6 +801,20 @@
   width: min(940px, 94vw);
 }
 
+/* Edit drawer header: centered title, close at top-right */
+.ops-enterprise-content .edit-drawer .drawer-header {
+  position: relative;
+  display: block;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.ops-enterprise-content .edit-drawer .drawer-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .ops-enterprise-content .edit-form {
   display: grid;
   gap: 18px;
@@ -982,4 +996,87 @@
     width: 100vw;
     padding: 18px 14px;
   }
+}
+
+/* ── Invoice Config Section ── */
+.ops-enterprise-content .invoice-config-section {
+  display: none;
+}
+.ops-enterprise-content .invoice-config-section.active {
+  display: block;
+}
+.ops-enterprise-content .invoice-group-list {
+  display: grid;
+  gap: 16px;
+}
+.ops-enterprise-content .invoice-group-card {
+  padding: 18px;
+  border: 1px solid #e2eaf5;
+  border-radius: 14px;
+  background: #fbfdff;
+}
+.ops-enterprise-content .invoice-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.ops-enterprise-content .invoice-group-head .field {
+  flex: 1;
+  max-width: 320px;
+}
+.ops-enterprise-content .invoice-group-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ffd0d0;
+  border-radius: 10px;
+  background: #fff;
+  color: #e84b4b;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 26px;
+}
+.ops-enterprise-content .serial-list {
+  display: grid;
+  gap: 10px;
+}
+.ops-enterprise-content .serial-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ops-enterprise-content .serial-row .field {
+  flex: 1;
+  max-width: 380px;
+}
+.ops-enterprise-content .serial-label {
+  display: block;
+  margin-bottom: 6px;
+  color: #748099;
+  font-size: 13px;
+  font-weight: 800;
+}
+.ops-enterprise-content .invoice-add-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  padding: 10px 20px;
+  border: 1px dashed #c4d4f0;
+  border-radius: 10px;
+  background: transparent;
+  color: #1f6bff;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.ops-enterprise-content .invoice-add-group:hover {
+  border-color: #1f6bff;
+  background: #edf5ff;
 }

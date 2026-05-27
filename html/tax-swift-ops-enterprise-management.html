@@ -1122,6 +1122,20 @@
         display: grid;
       }
 
+      /* ---- Edit drawer header: centered title, close at top-right ---- */
+      .edit-drawer .drawer-header {
+        position: relative;
+        display: block;
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .edit-drawer .drawer-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
       .edit-note {
         display: flex;
         gap: 10px;
@@ -1134,6 +1148,138 @@
         color: #b66b16;
         font-size: 13px;
         line-height: 1.55;
+        font-weight: 800;
+      }
+
+      /* ---- Invoice Config Section ---- */
+      .invoice-config-section {
+        display: none;
+      }
+
+      .invoice-config-section.active {
+        display: block;
+      }
+
+      .invoice-group-list {
+        display: grid;
+        gap: 16px;
+      }
+
+      .invoice-group-card {
+        padding: 18px;
+        border: 1px solid #e2eaf5;
+        border-radius: 14px;
+        background: #fbfdff;
+      }
+
+      .invoice-group-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+
+      .invoice-group-head .field {
+        flex: 1;
+        max-width: 320px;
+      }
+
+      .invoice-group-remove {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border: 1px solid #ffd0d0;
+        border-radius: 10px;
+        background: #fff;
+        color: var(--red);
+        font-size: 18px;
+        line-height: 1;
+        cursor: pointer;
+        flex-shrink: 0;
+        margin-top: 26px;
+      }
+
+      .serial-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .serial-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .serial-row .field {
+        flex: 1;
+        max-width: 380px;
+      }
+
+      .serial-remove {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border: 1px solid #ffd0d0;
+        border-radius: 8px;
+        background: #fff;
+        color: var(--red);
+        font-size: 16px;
+        line-height: 1;
+        cursor: pointer;
+        flex-shrink: 0;
+        margin-top: 26px;
+      }
+
+      .invoice-add-serial {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 4px;
+        padding: 6px 14px;
+        border: 1px dashed #c4d4f0;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--blue);
+        font-size: 13px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .invoice-add-serial:hover {
+        border-color: var(--blue);
+        background: var(--blue-soft);
+      }
+
+      .invoice-add-group {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+        padding: 10px 20px;
+        border: 1px dashed #c4d4f0;
+        border-radius: 10px;
+        background: transparent;
+        color: var(--blue);
+        font-size: 14px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .invoice-add-group:hover {
+        border-color: var(--blue);
+        background: var(--blue-soft);
+      }
+
+      .serial-label {
+        display: block;
+        margin-bottom: 6px;
+        color: #748099;
+        font-size: 13px;
         font-weight: 800;
       }
 
@@ -1608,7 +1754,7 @@
     <script>
       if (window.top !== window.self) {
         var f=document.createElement('style');
-        f.textContent='.sidebar,aside.sidebar,.topbar,header.topbar,.password-modal-overlay,#passwordModal,[class*="password-modal"],.brand-panel,.scope-switch,.sidebar-nav,.sidebar-footer,.side-footer,.user-menu,[class*="user-menu"],script{display:none!important}.ops-page{display:block!important;grid-template-columns:none!important;min-height:auto!important;height:auto!important}.main-shell,[class*="main-shell"]{width:100%!important;min-width:0!important}.drawer-overlay,#drawerOverlay,.enterprise-drawer,#enterpriseDrawer,#editEnterpriseDrawer{display:flex!important}html,body{overflow:auto!important;height:auto!important;min-height:100%!important;background:#f7f9fd!important}body{zoom:1!important}';
+        f.textContent='.sidebar,aside.sidebar,.topbar,header.topbar,.password-modal-overlay,#passwordModal,[class*="password-modal"],.brand-panel,.scope-switch,.sidebar-nav,.sidebar-footer,.side-footer,.user-menu,[class*="user-menu"],script{display:none!important}.ops-page{display:block!important;grid-template-columns:none!important;min-height:auto!important;height:auto!important}.main-shell,[class*="main-shell"]{width:100%!important;min-width:0!important}.drawer-overlay,#drawerOverlay{display:block!important}.drawer,#enterpriseDrawer,#editEnterpriseDrawer{display:block!important}html,body{overflow:auto!important;height:auto!important;min-height:100%!important;background:#f7f9fd!important}body{zoom:1!important}';
         document.head.appendChild(f);
       }
     </script>
@@ -2207,8 +2353,6 @@
       <div class="drawer-header">
         <div>
           <p class="drawer-kicker">编辑企业信息</p>
-          <h2 id="editDrawerTitle">Baiwang Malaysia Services Sdn. Bhd.</h2>
-          <p id="editDrawerSubtitle">ENT-MY-10086 / TENANT-SEA-023</p>
         </div>
         <button class="drawer-close" type="button" id="closeEditDrawer" aria-label="关闭">×</button>
       </div>
@@ -2341,6 +2485,28 @@
           </div>
         </section>
 
+        <section class="edit-form-section invoice-config-section" id="invoiceConfigSection">
+          <div class="edit-form-head">
+            <div>
+              <h3>开票配置信息</h3>
+              <p>支持多组序列号，每个序列号必须关联一个发票形式，发票形式和发票序列号成组出现。</p>
+            </div>
+          </div>
+
+          <div class="invoice-group-list" id="invoiceGroupList">
+            <!-- Dynamically populated -->
+          </div>
+
+          <button class="invoice-add-group" type="button" id="addInvoiceGroup">
+            <span aria-hidden="true">+</span> 添加
+          </button>
+
+          <div class="edit-note">
+            <span aria-hidden="true">!</span>
+            <span>发票序列号需与越南税局登记的序列号保持一致，开票时将按配置的序列号自动生成发票编号。</span>
+          </div>
+        </section>
+
         <div class="edit-actions">
           <button class="button ghost" type="button" id="cancelEditDrawer">取消</button>
           <button class="button primary" type="button">保存</button>
@@ -2378,8 +2544,6 @@
       };
 
       const editFields = {
-        title: document.getElementById("editDrawerTitle"),
-        subtitle: document.getElementById("editDrawerSubtitle"),
         code: document.getElementById("editCode"),
         tenant: document.getElementById("editTenant"),
         name: document.getElementById("editName"),
@@ -2436,7 +2600,108 @@
         editFields.taxDescription.textContent = isVietnam
           ? "越南企业需维护 MST、税局登记名称、税务注册地址和联系电话。"
           : "马来西亚企业需维护 TIN、BRN、MSIC、州/省、城市、邮编和税务注册地址。";
+        // Toggle invoice config section
+        editFields.invoiceSection.classList.toggle("active", isVietnam);
       }
+
+      // ---- Invoice Config ----
+      var invoiceSection = document.getElementById("invoiceConfigSection");
+      var invoiceGroupList = document.getElementById("invoiceGroupList");
+      var addInvoiceGroupBtn = document.getElementById("addInvoiceGroup");
+      var invoiceConfigData = {
+        "ENT-VN-20017": [
+          { form: "增值税发票", serials: [""] }
+        ],
+        "ENT-VN-20042": []
+      };
+
+      var invoiceFormOptions = [
+        "增值税发票",
+        "销售发票"
+      ];
+
+      function escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+
+      function createSerialRow(value) {
+        var div = document.createElement("div");
+        div.className = "serial-row";
+        var val = value || "";
+        div.innerHTML =
+          '<label class="field" style="flex:1;max-width:380px">' +
+            '<span class="serial-label">发票序列号 <em>*</em></span>' +
+            '<input type="text" class="serial-input" value="' + escapeHtml(val) + '" placeholder="请输入发票序列号" />' +
+          '</label>';
+        return div;
+      }
+
+      function createInvoiceGroup(data) {
+        data = data || { form: "增值税发票", serials: [""] };
+        var card = document.createElement("div");
+        card.className = "invoice-group-card";
+
+        var head = document.createElement("div");
+        head.className = "invoice-group-head";
+
+        var formOptions = invoiceFormOptions.map(function(opt) {
+          var sel = data.form === opt ? " selected" : "";
+          return '<option value="' + opt + '"' + sel + '>' + opt + '</option>';
+        }).join("");
+
+        head.innerHTML =
+          '<label class="field" style="flex:1;max-width:320px">' +
+            '<span>发票形式 <em>*</em></span>' +
+            '<span class="select-shell">' +
+              '<select class="invoice-form-select">' +
+                '<option value="">请选择发票形式</option>' +
+                formOptions +
+              '</select>' +
+            '</span>' +
+          '</label>' +
+          '<button type="button" class="invoice-group-remove" title="删除发票形式组">&times;</button>';
+
+        head.querySelector(".invoice-group-remove").addEventListener("click", function() {
+          card.remove();
+        });
+
+        card.appendChild(head);
+
+        var serialList = document.createElement("div");
+        serialList.className = "serial-list";
+
+        (data.serials || [""]).forEach(function(s) {
+          serialList.appendChild(createSerialRow(s));
+        });
+
+        card.appendChild(serialList);
+        return card;
+      }
+
+      function renderInvoiceGroups(groups) {
+        invoiceGroupList.innerHTML = "";
+        if (!groups || groups.length === 0) {
+          groups = [{ form: "增值税发票", serials: [""] }];
+        }
+        groups.forEach(function(g) {
+          invoiceGroupList.appendChild(createInvoiceGroup(g));
+        });
+      }
+
+      function getInvoiceConfigData(code) {
+        return invoiceConfigData[code] || [];
+      }
+
+      addInvoiceGroupBtn.addEventListener("click", function() {
+        invoiceGroupList.appendChild(createInvoiceGroup({ form: "增值税发票", serials: [""] }));
+      });
+
+      // Expose invoice section for country toggle
+      editFields.invoiceSection = invoiceSection;
 
       function openEnterpriseDetail(source) {
         const data = getRowData(source);
@@ -2479,8 +2744,6 @@
         const contact = splitContact(data.contact || "");
         const isVietnam = data.country === "越南";
 
-        editFields.title.textContent = data.name;
-        editFields.subtitle.textContent = `${data.code} / ${data.tenant}`;
         editFields.code.value = data.code;
         editFields.tenant.value = data.tenant;
         editFields.name.value = data.name;
@@ -2504,6 +2767,10 @@
         editFields.taxAddressVietnam.value = isVietnam ? data.address : "";
 
         setTaxCountry(data.country);
+        // Load invoice config for Vietnam enterprises
+        if (isVietnam) {
+          renderInvoiceGroups(getInvoiceConfigData(data.code));
+        }
         editDrawer.classList.add("open");
         overlay.classList.add("open");
         body.classList.add("drawer-open");

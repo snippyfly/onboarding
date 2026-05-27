@@ -35,22 +35,36 @@
           </div>
         </div>
 
-        <div class="scope-switch">
-          <span class="scope-icon" aria-hidden="true">
+        <button class="scope-switch" id="contextSwitch" type="button" aria-haspopup="dialog" aria-expanded="false">
+          <span class="scope-icon" id="contextIcon" aria-hidden="true">
             <svg viewBox="0 0 24 24">
               <path d="M12 3.2a8.8 8.8 0 1 0 0 17.6 8.8 8.8 0 0 0 0-17.6Z" />
               <path d="M3.8 12h16.4M12 3.8c2.3 2.2 3.7 5.1 3.7 8.2S14.3 18 12 20.2c-2.3-2.2-3.7-5.1-3.7-8.2S9.7 6 12 3.8Z" />
             </svg>
           </span>
-          <span>全球视角</span>
+          <span class="scope-copy">
+            <strong id="contextTitle">全球视角</strong>
+            <small id="contextSubtitle">租户域管理工作台</small>
+          </span>
           <span class="scope-chevron" aria-hidden="true">
             <svg viewBox="0 0 16 16">
               <path d="m4 6 4 4 4-4" />
             </svg>
           </span>
-        </div>
+        </button>
 
-        <nav class="sidebar-nav">
+        <section class="context-popover" id="contextPopover" hidden aria-label="切换工作视角">
+          <div class="context-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="6.5" />
+              <path d="m16 16 4 4" />
+            </svg>
+            <input id="contextSearch" type="search" placeholder="搜索企业名称 / 国家" />
+          </div>
+          <div class="context-list" id="contextList"></div>
+        </section>
+
+        <nav class="sidebar-nav" id="sidebarNav">
           <section class="nav-group">
             <h2>OVERVIEW</h2>
             <a class="nav-item active" href="#">
@@ -137,6 +151,11 @@
 
       <div class="main-shell">
         <header class="topbar">
+          <div class="top-context" id="topContext">
+            <span>当前上下文</span>
+            <strong>全球视角 / 租户域</strong>
+          </div>
+
           <div class="topbar-actions">
             <button class="top-action" type="button">
               <span class="top-action-icon" aria-hidden="true">
@@ -574,6 +593,193 @@
     </div>
 
     <script>
+
+      const contextSwitch = document.querySelector("#contextSwitch");
+      const contextPopover = document.querySelector("#contextPopover");
+      const contextSearch = document.querySelector("#contextSearch");
+      const contextList = document.querySelector("#contextList");
+      const contextTitle = document.querySelector("#contextTitle");
+      const contextSubtitle = document.querySelector("#contextSubtitle");
+      const contextIcon = document.querySelector("#contextIcon");
+      const sidebarNav = document.querySelector("#sidebarNav");
+      const topContext = document.querySelector("#topContext");
+      const pageHeading = document.querySelector(".page-title h1");
+      const pageDescription = document.querySelector(".page-title p");
+
+      const contexts = {
+        global: {
+          id: "global",
+          type: "global",
+          title: "全球视角",
+          subtitle: "租户域管理工作台",
+          top: "全球视角 / 租户域",
+          heading: "全球合规看板",
+          description: "监控全部国家和企业的电子发票合规状态",
+          icon: "globe",
+          menu: [
+            { group: "TENANT DOMAIN", items: ["全球统计", "企业管理", "用户管理", "API 应用管理"] },
+            { group: "CONFIGURATION", items: ["租户配置", "授权管理", "审计日志"] }
+          ]
+        },
+        enterprises: [
+          {
+            id: "vn-baiwang",
+            type: "enterprise",
+            country: "Vietnam",
+            flag: "🇻🇳",
+            initials: "VN",
+            title: "Baiwang Vietnam Industrial Co., Ltd.",
+            subtitle: "Vietnam · 企业发票生命周期工作台",
+            top: "Vietnam / Baiwang Vietnam Industrial Co., Ltd.",
+            heading: "Vietnam 企业发票工作台",
+            description: "处理 Baiwang Vietnam 的开票、异常、查询和税务配置",
+            menu: [
+              { group: "INVOICE LIFECYCLE", items: ["首页", "发票管理", "异常发票管理", "发票查询"] },
+              { group: "TAX OPERATION", items: ["客户管理", "商品管理", "税务信息", "集成配置"] }
+            ]
+          },
+          {
+            id: "my-test",
+            type: "enterprise",
+            country: "Malaysia",
+            flag: "🇲🇾",
+            initials: "MY",
+            title: "Malaysia Test Branch",
+            subtitle: "Malaysia · 企业发票生命周期工作台",
+            top: "Malaysia / Malaysia Test Branch",
+            heading: "Malaysia 企业发票工作台",
+            description: "处理 Malaysia Test Branch 的发票生命周期和税务配置",
+            menu: [
+              { group: "INVOICE LIFECYCLE", items: ["首页", "发票管理", "异常发票管理", "发票查询"] },
+              { group: "TAX OPERATION", items: ["客户管理", "商品管理", "税务信息", "集成配置"] }
+            ]
+          },
+          {
+            id: "sg-tech",
+            type: "enterprise",
+            country: "Singapore",
+            flag: "🇸🇬",
+            initials: "SG",
+            title: "Baiwang Technology Singapore Pte. Ltd.",
+            subtitle: "Singapore · 企业发票生命周期工作台",
+            top: "Singapore / Baiwang Technology Singapore Pte. Ltd.",
+            heading: "Singapore 企业发票工作台",
+            description: "处理 Singapore 企业的发票查询、异常跟进和税务配置",
+            menu: [
+              { group: "INVOICE LIFECYCLE", items: ["首页", "发票管理", "异常发票管理", "发票查询"] },
+              { group: "TAX OPERATION", items: ["客户管理", "商品管理", "税务信息", "集成配置"] }
+            ]
+          }
+        ]
+      };
+
+      let currentContext = contexts.global;
+
+      function iconSvg(name) {
+        if (name === "building") {
+          return '<svg viewBox="0 0 24 24"><path d="M5.5 20V5.5h8V20"/><path d="M13.5 9.5h5V20"/><path d="M8.5 8.5h2M8.5 12h2M8.5 15.5h2M16 13h1"/></svg>';
+        }
+        return '<svg viewBox="0 0 24 24"><path d="M12 3.2a8.8 8.8 0 1 0 0 17.6 8.8 8.8 0 0 0 0-17.6Z"/><path d="M3.8 12h16.4M12 3.8c2.3 2.2 3.7 5.1 3.7 8.2S14.3 18 12 20.2c-2.3-2.2-3.7-5.1-3.7-8.2S9.7 6 12 3.8Z"/></svg>';
+      }
+
+      function navIconSvg() {
+        return '<span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5.5h14v13H5Z"/><path d="M8.5 9h7M8.5 12.5h7M8.5 16h4"/></svg></span>';
+      }
+
+      function renderSidebarMenus(context) {
+        sidebarNav.innerHTML = context.menu.map((section, sectionIndex) => `
+          <section class="nav-group">
+            <h2>${section.group}</h2>
+            ${section.items.map((item, itemIndex) => `
+              <a class="nav-item ${sectionIndex === 0 && itemIndex === 0 ? "active" : ""}" href="#">
+                ${navIconSvg()}
+                <span>${item}</span>
+              </a>
+            `).join("")}
+          </section>
+        `).join("");
+      }
+
+      function applyContext(context) {
+        currentContext = context;
+        contextTitle.textContent = context.title;
+        contextSubtitle.textContent = context.subtitle;
+        contextIcon.innerHTML = iconSvg(context.type === "enterprise" ? "building" : "globe");
+        topContext.querySelector("strong").textContent = context.top;
+        pageHeading.textContent = context.heading;
+        pageDescription.textContent = context.description;
+        renderSidebarMenus(context);
+        closeContextPopover();
+      }
+
+      function renderContextList(filter = "") {
+        const normalized = filter.trim().toLowerCase();
+        const enterprises = contexts.enterprises.filter((item) => {
+          return [item.title, item.country, item.subtitle].join(" ").toLowerCase().includes(normalized);
+        });
+        const globalSelected = currentContext.id === contexts.global.id;
+        contextList.innerHTML = `
+          <div class="context-section-label">管理视角</div>
+          <button class="context-option ${globalSelected ? "selected" : ""}" type="button" data-context-id="global">
+            <span class="context-option-icon globe">${iconSvg("globe")}</span>
+            <span class="context-option-copy">
+              <strong>全球视角</strong>
+              <small>租户域统计、企业管理、用户管理、API 应用、租户配置</small>
+            </span>
+            <span class="context-check">✓</span>
+          </button>
+          <div class="context-section-label">企业视角</div>
+          ${enterprises.length ? enterprises.map((item) => `
+            <button class="context-option ${currentContext.id === item.id ? "selected" : ""}" type="button" data-context-id="${item.id}">
+              <span class="context-option-icon enterprise">${item.initials}</span>
+              <span class="context-option-copy">
+                <strong>${item.flag} ${item.title}</strong>
+                <small>${item.country} · 发票生命周期管理</small>
+              </span>
+              <span class="context-check">✓</span>
+            </button>
+          `).join("") : '<div class="context-empty">没有匹配的企业</div>'}
+        `;
+      }
+
+      function openContextPopover() {
+        renderContextList(contextSearch.value);
+        contextPopover.hidden = false;
+        contextSwitch.setAttribute("aria-expanded", "true");
+        contextSearch.focus();
+      }
+
+      function closeContextPopover() {
+        contextPopover.hidden = true;
+        contextSwitch.setAttribute("aria-expanded", "false");
+      }
+
+      contextSwitch.addEventListener("click", () => {
+        if (contextPopover.hidden) {
+          openContextPopover();
+        } else {
+          closeContextPopover();
+        }
+      });
+
+      contextSearch.addEventListener("input", () => renderContextList(contextSearch.value));
+
+      contextList.addEventListener("click", (event) => {
+        const option = event.target.closest("[data-context-id]");
+        if (!option) return;
+        const id = option.dataset.contextId;
+        const nextContext = id === "global" ? contexts.global : contexts.enterprises.find((item) => item.id === id);
+        if (nextContext) applyContext(nextContext);
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!contextPopover.hidden && !contextPopover.contains(event.target) && !contextSwitch.contains(event.target)) {
+          closeContextPopover();
+        }
+      });
+
+      applyContext(contexts.global);
+
       const passwordModal = document.querySelector("#passwordModal");
       const openPasswordModal = document.querySelector("#openPasswordModal");
       const closePasswordControls = document.querySelectorAll("[data-close-password]");

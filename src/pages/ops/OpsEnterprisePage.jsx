@@ -78,6 +78,13 @@ const ENTERPRISES = [
   },
 ];
 
+const INVOICE_CONFIG_DATA = {
+  'ENT-VN-20017': [{ form: '增值税发票', serials: [''] }],
+  'ENT-VN-20042': [],
+};
+
+const INVOICE_FORM_OPTIONS = ['增值税发票', '销售发票'];
+
 /* ── Helpers ── */
 function statusPillClass(value) {
   if (value.includes('阻断') || value.includes('暂停')) return 'danger';
@@ -162,6 +169,7 @@ export default function OpsEnterprisePage() {
   const [editDrawerOpen, setEditDrawerOpen] = useState(false);
   const [editData, setEditData] = useState(null);
   const [editCountry, setEditCountry] = useState('');
+  const [editInvoiceGroups, setEditInvoiceGroups] = useState([]);
 
   /* ── Handlers ── */
   function openDetail(ent) {
@@ -177,6 +185,8 @@ export default function OpsEnterprisePage() {
   function openEdit(ent) {
     setEditData(ent);
     setEditCountry(ent.country);
+    const groups = INVOICE_CONFIG_DATA[ent.code] || [];
+    setEditInvoiceGroups(groups.length ? groups : [{ form: '增值税发票', serials: [''] }]);
     setEditDrawerOpen(true);
   }
 
@@ -701,10 +711,6 @@ export default function OpsEnterprisePage() {
               <div className="drawer-header">
                 <div>
                   <p className="drawer-kicker">编辑企业信息</p>
-                  <h2>{editData.name}</h2>
-                  <p>
-                    {editData.code} / {editData.tenant}
-                  </p>
                 </div>
                 <button
                   className="drawer-close"
@@ -975,6 +981,93 @@ export default function OpsEnterprisePage() {
                     </span>
                   </div>
                 </section>
+
+                {/* Invoice Config Section - Vietnam only */}
+                {isVietnam && (
+                  <section className="edit-form-section invoice-config-section active">
+                    <div className="edit-form-head">
+                      <div>
+                        <h3>开票配置信息</h3>
+                        <p>支持多组序列号，每个序列号必须关联一个发票形式，发票形式和发票序列号成组出现。</p>
+                      </div>
+                    </div>
+
+                    <div className="invoice-group-list">
+                      {editInvoiceGroups.map((group, gi) => (
+                        <div className="invoice-group-card" key={gi}>
+                          <div className="invoice-group-head">
+                            <label className="field" style={{flex:1,maxWidth:320}}>
+                              <span>发票形式 <em>*</em></span>
+                              <span className="select-shell">
+                                <select
+                                  className="invoice-form-select"
+                                  value={group.form}
+                                  onChange={(e) => {
+                                    const next = [...editInvoiceGroups];
+                                    next[gi] = { ...next[gi], form: e.target.value };
+                                    setEditInvoiceGroups(next);
+                                  }}
+                                >
+                                  <option value="">请选择发票形式</option>
+                                  {INVOICE_FORM_OPTIONS.map((opt) => (
+                                    <option key={opt} value={opt}>{opt}</option>
+                                  ))}
+                                </select>
+                              </span>
+                            </label>
+                            <button
+                              type="button"
+                              className="invoice-group-remove"
+                              title="删除发票形式组"
+                              onClick={() => {
+                                setEditInvoiceGroups((prev) => prev.filter((_, i) => i !== gi));
+                              }}
+                            >
+                              &times;
+                            </button>
+                          </div>
+                          <div className="serial-list">
+                            {group.serials.map((serial, si) => (
+                              <div className="serial-row" key={si}>
+                                <label className="field" style={{flex:1,maxWidth:380}}>
+                                  <span className="serial-label">发票序列号 <em>*</em></span>
+                                  <input
+                                    type="text"
+                                    className="serial-input"
+                                    value={serial}
+                                    placeholder="请输入发票序列号"
+                                    onChange={(e) => {
+                                      const next = [...editInvoiceGroups];
+                                      const s = [...next[gi].serials];
+                                      s[si] = e.target.value;
+                                      next[gi] = { ...next[gi], serials: s };
+                                      setEditInvoiceGroups(next);
+                                    }}
+                                  />
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <button
+                      className="invoice-add-group"
+                      type="button"
+                      onClick={() => {
+                        setEditInvoiceGroups((prev) => [...prev, { form: '增值税发票', serials: [''] }]);
+                      }}
+                    >
+                      <span aria-hidden="true">+</span> 添加
+                    </button>
+
+                    <div className="edit-note">
+                      <span aria-hidden="true">!</span>
+                      <span>发票序列号需与越南税局登记的序列号保持一致，开票时将按配置的序列号自动生成发票编号。</span>
+                    </div>
+                  </section>
+                )}
 
                 <div className="edit-actions">
                   <button

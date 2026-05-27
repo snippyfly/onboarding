@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tax-Swift 企业管理</title>
+    <link rel="stylesheet" href="./tax-swift-enterprise-management.css" />
+    <script>
+      if (window.top !== window.self) {
+        var f=document.createElement('style');
+        f.textContent='.sidebar,aside.sidebar,.topbar,header.topbar,.password-modal-overlay,#passwordModal,[class*="password-modal"],.brand-panel,.scope-switch,.sidebar-nav,.sidebar-footer,.side-footer,.user-menu,[class*="user-menu"],script{display:none!important}.dashboard-page,.enterprise-page,.app-page,.ops-page,[class$="-page"]{display:block!important;grid-template-columns:none!important;min-height:auto!important;height:auto!important}.main-shell,[class*="main-shell"]{width:100%!important;min-width:0!important}html,body{overflow:auto!important;height:auto!important;min-height:100%!important;background:#f7f9fd!important}body{zoom:1!important}';
+        document.head.appendChild(f);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="enterprise-page">
+      <aside class="sidebar">
+        <div class="brand-panel">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 60 60">
+              <defs>
+                <linearGradient id="bwHex" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#3ba4ff" />
+                  <stop offset="100%" stop-color="#1655ea" />
+                </linearGradient>
+              </defs>
+              <path d="M30 2 52 14v14L30 40 8 28V14Z" fill="url(#bwHex)" />
+              <path d="M30 20 52 32v14L30 58 8 46V32Z" fill="url(#bwHex)" />
+              <path d="m19 18 11-6 11 6m-22 24 11-6 11 6" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <strong>BAIWANG 百望</strong>
+            <span>全球智能税务合规平台</span>
+          </div>
+        </div>
+
+        <div class="scope-switch">
+          <span class="scope-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z" />
+              <path d="M3.5 12h17M12 3.5c2.5 2.2 4 5.2 4 8.5s-1.5 6.3-4 8.5c-2.5-2.2-4-5.2-4-8.5s1.5-6.3 4-8.5Z" />
+            </svg>
+          </span>
+          <span>全球视角</span>
+          <span class="scope-chevron" aria-hidden="true">
+            <svg viewBox="0 0 16 16">
+              <path d="m4 6 4 4 4-4" />
+            </svg>
+          </span>
+        </div>
+
+        <nav class="sidebar-nav">
+          <section class="nav-group">
+            <h2>OVERVIEW</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4.5 4.5h6v6h-6Zm9 0h6v6h-6Zm-9 9h6v6h-6Zm9 0h6v6h-6Z" />
+                </svg>
+              </span>
+              <span>全球合规看板</span>
+            </a>
+          </section>
+
+          <section class="nav-group">
+            <h2>DATA CENTER</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M6 4.5h12v15H6Z" />
+                  <path d="M9 8h6M9 12h6M9 16h4" />
+                </svg>
+              </span>
+              <span>发票数据查询</span>
+            </a>
+            <a class="nav-item active" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 5.5h14v13H5Z" />
+                  <path d="M5 10h14M10 5.5v13M14 10v8" />
+                </svg>
+              </span>
+              <span>公司列表</span>
+            </a>
+          </section>
+
+          <section class="nav-group">
+            <h2>OPEN PLATFORM</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                  <path d="M4.8 18c1.4-2.8 3.9-4.2 7.2-4.2s5.8 1.4 7.2 4.2" />
+                  <path d="M18.6 7.3h1.8m-1.8 3.4h1.8m-3.5-1.7h5.2" />
+                </svg>
+              </span>
+              <span>API应用管理</span>
+            </a>
+          </section>
+
+          <section class="nav-group">
+            <h2>SECURITY & ACCESS</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="8" r="3.2" />
+                  <path d="M5.5 18c1.4-2.8 3.9-4.2 6.5-4.2s5.1 1.4 6.5 4.2" />
+                </svg>
+              </span>
+              <span>用户管理</span>
+            </a>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M7.5 10V8.7a4.5 4.5 0 1 1 9 0V10" />
+                  <rect x="5" y="10" width="14" height="10.5" rx="2" />
+                  <path d="M12 14v2.8" />
+                </svg>
+              </span>
+              <span>审计日志</span>
+            </a>
+          </section>
+        </nav>
+
+        <div class="sidebar-footer">
+          <a class="nav-item" href="#">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3.8 8.4 5.2 5.8 7.8 4.4 11.4l1.4 3.6 2.6 2.6 3.6 1.4 3.6-1.4 2.6-2.6 1.4-3.6-1.4-3.6-2.6-2.6Z" />
+              </svg>
+            </span>
+            <span>设置</span>
+          </a>
+          <a class="nav-item" href="#">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="8" />
+                <path d="M9.4 9.4a2.8 2.8 0 1 1 5 1.7c-.7.9-1.5 1.4-1.5 2.6M12 16.8h0" />
+              </svg>
+            </span>
+            <span>帮助与支持</span>
+          </a>
+        </div>
+      </aside>
+
+      <div class="main-shell">
+        <header class="topbar">
+          <div class="topbar-actions">
+            <button class="top-action" type="button">
+              <span class="top-action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 5.5h14v13H5Z" />
+                  <path d="M8 3.8V7M16 3.8V7M8.2 11h7.6" />
+                </svg>
+              </span>
+              <span>任务中心</span>
+              <span class="badge-dot">6</span>
+            </button>
+            <button class="top-action" type="button">
+              <span class="top-action-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 4.5a4.5 4.5 0 0 1 4.5 4.5v2.2l1.5 3v1.3h-12v-1.3l1.5-3V9A4.5 4.5 0 0 1 12 4.5Z" />
+                  <path d="M10 18a2 2 0 0 0 4 0" />
+                </svg>
+              </span>
+              <span>消息中心</span>
+              <span class="badge-dot">3</span>
+            </button>
+          </div>
+          <div class="user-summary">
+            <div class="user-text">
+              <strong>Admin User</strong>
+              <span>Global Controller</span>
+            </div>
+            <div class="avatar-wrap">
+              <div class="avatar photo-avatar"></div>
+              <span class="scope-chevron" aria-hidden="true">
+                <svg viewBox="0 0 16 16">
+                  <path d="m4 6 4 4 4-4" />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </header>
+
+        <main class="content">
+          <section class="page-title">
+            <h1>企业管理</h1>
+            <button class="button primary add-button title-add-button" id="openEnterpriseDrawer" type="button">
+              <span>＋</span>
+              <span>新增企业</span>
+            </button>
+          </section>
+
+          <section class="panel search-panel">
+            <div class="search-grid">
+              <label class="field">
+                <span>企业名称</span>
+                <input type="text" placeholder="请输入企业名称" />
+              </label>
+              <label class="field">
+                <span>国别</span>
+                <span class="select-shell">
+                  <select>
+                    <option>全部国别</option>
+                  </select>
+                </span>
+              </label>
+              <div class="search-actions">
+                <button class="button primary" type="button">查询</button>
+                <button class="button ghost" type="button">重置</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel table-panel">
+            <div class="table-header">
+              <h2>企业列表</h2>
+              <span>共 3 条记录</span>
+            </div>
+            <div class="table-scroll">
+              <div class="table-grid table-head">
+                <div>企业名称</div>
+                <div>国别</div>
+                <div>地址</div>
+                <div>税务合规信息</div>
+                <div>操作</div>
+              </div>
+
+              <div class="table-grid row">
+                <div class="company-cell">
+                  <button
+                    class="company-entry"
+                    type="button"
+                    data-company-name="百望越南工业有限公司"
+                    data-company-code="CMP-VN-0001"
+                    data-company-country="越南"
+                    data-company-email="finance.vn@baiwang.com"
+                    data-company-address="123 Nguyen Hue Street, District 1, Ho Chi Minh City, Vietnam"
+                    data-company-tax-status="已配置"
+                    data-company-mst="0312345678"
+                    data-company-tax-address="123 Nguyen Hue Street, District 1, Ho Chi Minh City, Vietnam"
+                    data-company-phone="+84 28 3822 8899"
+                  >
+                    百望越南工业有限公司
+                  </button>
+                  <span>CMP-VN-0001</span>
+                </div>
+                <div class="country-cell">
+                  <span class="pin-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 20s6-5.7 6-10a6 6 0 1 0-12 0c0 4.3 6 10 6 10Z" />
+                      <circle cx="12" cy="10" r="2.2" />
+                    </svg>
+                  </span>
+                  <span>越南</span>
+                </div>
+                <div class="address-cell">123 Nguyen Hue Street, District 1, Ho Chi Minh City, Vietnam</div>
+                <div><span class="status-pill configured">已配置</span></div>
+                <div class="action-cell">
+                  <button class="action-link" type="button" data-open-tax-detail="true">维护税务信息</button>
+                </div>
+              </div>
+
+              <div class="table-grid row">
+                <div class="company-cell">
+                  <button
+                    class="company-entry"
+                    type="button"
+                    data-company-name="Malaysia Test Branch"
+                    data-company-code="CMP-MY-0002"
+                    data-company-country="马来西亚"
+                    data-company-email="ops.my.branch@baiwang.com"
+                    data-company-address="Level 20, Menara Maxis, Kuala Lumpur City Centre, 50088"
+                    data-company-tax-status="未配置"
+                    data-company-tin="--"
+                    data-company-brn="--"
+                    data-company-sst="--"
+                    data-company-ttx="--"
+                    data-company-msic="--"
+                    data-company-region="--"
+                    data-company-city="--"
+                    data-company-address-line1="--"
+                    data-company-address-line2="--"
+                    data-company-address-line3="--"
+                    data-company-postcode="--"
+                    data-company-phone="--"
+                  >
+                    Malaysia Test Branch
+                  </button>
+                  <span>CMP-MY-0002</span>
+                </div>
+                <div class="country-cell">
+                  <span class="pin-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 20s6-5.7 6-10a6 6 0 1 0-12 0c0 4.3 6 10 6 10Z" />
+                      <circle cx="12" cy="10" r="2.2" />
+                    </svg>
+                  </span>
+                  <span>马来西亚</span>
+                </div>
+                <div class="address-cell">Level 20, Menara Maxis, Kuala Lumpur City Centre, 50088</div>
+                <div><span class="status-pill pending">未配置</span></div>
+                <div class="action-cell">
+                  <button class="action-link" type="button" data-open-tax-detail="true">维护税务信息</button>
+                </div>
+              </div>
+
+              <div class="table-grid row">
+                <div class="company-cell">
+                  <button
+                    class="company-entry"
+                    type="button"
+                    data-company-name="Baiwang Malaysia Services Sdn. Bhd."
+                    data-company-code="CMP-MY-0003"
+                    data-company-country="马来西亚"
+                    data-company-email="tax.my@baiwang.com"
+                    data-company-address="Persiaran KLCC, 50088 Kuala Lumpur"
+                    data-company-tax-status="已配置"
+                    data-company-tin="C25889412080"
+                    data-company-brn="202201018888"
+                    data-company-sst="W10-2204-32000012"
+                    data-company-ttx="TTX-2204-00078"
+                    data-company-msic="62010"
+                    data-company-region="Wilayah Persekutuan"
+                    data-company-city="Kuala Lumpur"
+                    data-company-address-line1="Persiaran KLCC"
+                    data-company-address-line2="Tower 3, Level 18"
+                    data-company-address-line3="Kuala Lumpur City Centre"
+                    data-company-postcode="50088"
+                    data-company-phone="+60 3-2382 1888"
+                  >
+                    Baiwang Malaysia Services Sdn. Bhd.
+                  </button>
+                  <span>CMP-MY-0003</span>
+                </div>
+                <div class="country-cell">
+                  <span class="pin-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 20s6-5.7 6-10a6 6 0 1 0-12 0c0 4.3 6 10 6 10Z" />
+                      <circle cx="12" cy="10" r="2.2" />
+                    </svg>
+                  </span>
+                  <span>马来西亚</span>
+                </div>
+                <div class="address-cell">Persiaran KLCC, 50088 Kuala Lumpur</div>
+                <div><span class="status-pill configured">已配置</span></div>
+                <div class="action-cell">
+                  <button class="action-link" type="button" data-open-tax-detail="true">维护税务信息</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-footer">
+              <span>显示 1-3，共 3 条</span>
+              <div class="pagination">
+                <button class="page-arrow" type="button">‹</button>
+                <button class="page-number active" type="button">1</button>
+                <button class="page-arrow" type="button">›</button>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div class="drawer-overlay" id="enterpriseDrawerOverlay"></div>
+    <aside class="enterprise-drawer detail-drawer" id="enterpriseDetailDrawer" aria-hidden="true">
+      <div class="drawer-header detail-header">
+        <div>
+          <h2 id="detailCompanyName">企业详情</h2>
+          <p id="detailCompanyCode">CMP-XXXX</p>
+        </div>
+        <button class="drawer-close" id="closeDetailDrawer" type="button" aria-label="关闭">×</button>
+      </div>
+
+      <div class="detail-tabs">
+        <button class="detail-tab active" data-detail-tab="basic" type="button">企业基本信息</button>
+        <button class="detail-tab" data-detail-tab="tax" type="button">税务合规信息</button>
+      </div>
+
+      <div class="drawer-body detail-body">
+        <section class="detail-panel active" data-detail-panel="basic">
+          <div class="detail-panel-head">
+            <div>
+              <h3>企业基本信息</h3>
+              <p>查看当前企业的基础档案信息。</p>
+            </div>
+            <button class="button ghost detail-edit-button" type="button">编辑基础信息</button>
+          </div>
+
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span>企业名称</span>
+              <strong id="detailBasicName">--</strong>
+            </div>
+            <div class="detail-item">
+              <span>企业编码</span>
+              <strong id="detailBasicCode">--</strong>
+            </div>
+            <div class="detail-item">
+              <span>国家/地区</span>
+              <strong id="detailBasicCountry">--</strong>
+            </div>
+            <div class="detail-item">
+              <span>企业联系邮箱</span>
+              <strong id="detailBasicEmail">--</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="detail-panel" data-detail-panel="tax">
+          <div class="detail-panel-head tax-view-mode">
+            <div>
+              <h3 id="detailTaxTitle">税务合规信息</h3>
+              <p id="detailTaxDescription">查看或补充该企业开票所需的税务合规资料。</p>
+            </div>
+            <button class="button ghost detail-edit-button" type="button" id="detailTaxAction">维护税务信息</button>
+          </div>
+
+          <div class="detail-grid tax-view-mode country-tax-section" id="detailTaxVietnamView" hidden aria-hidden="true">
+            <div class="detail-item">
+              <span>税务登记号（MST）</span>
+              <strong id="detailVietnamMst">--</strong>
+            </div>
+            <div class="detail-item detail-item-wide">
+              <span>地址</span>
+              <strong id="detailVietnamAddress">--</strong>
+            </div>
+            <div class="detail-item">
+              <span>联系电话</span>
+              <strong id="detailVietnamPhone">--</strong>
+            </div>
+          </div>
+
+          <div class="detail-grid tax-view-mode country-tax-section" id="detailTaxMalaysiaView" hidden aria-hidden="true">
+            <div class="detail-item">
+              <span>税务登记号（TIN）</span>
+              <strong id="detailMalaysiaTin">--</strong>
+            </div>
+            <div class="detail-item">
+              <span>商业注册号（BRN）</span>
+              <strong id="detailMalaysiaBrn">--</strong>
+            </div>
+            <div class="detail-item">
+              <span>销售与服务税注册号（SST）</span>
+              <strong id="detailMalaysiaSst">--</strong>
+            </div>
+            <div class="detail-item">
+              <span>旅游税注册号（TTX）</span>
+              <strong id="detailMalaysiaTtx">--</strong>
+            </div>
+            <div class="detail-item">
+              <span>行业代码（MSIC）</span>
+              <strong id="detailMalaysiaMsic">--</strong>
+            </div>
+            <div class="detail-item">
+              <span>州/省</span>
+              <strong id="detailMalaysiaRegion">--</strong>
+            </div>
+            <div class="detail-item">
+              <span>城市</span>
+              <strong id="detailMalaysiaCity">--</strong>
+            </div>
+            <div class="detail-item">
+              <span>邮编</span>
+              <strong id="detailMalaysiaPostcode">--</strong>
+            </div>
+            <div class="detail-item detail-item-wide">
+              <span>地址1</span>
+              <strong id="detailMalaysiaAddress1">--</strong>
+            </div>
+            <div class="detail-item detail-item-wide">
+              <span>地址2</span>
+              <strong id="detailMalaysiaAddress2">--</strong>
+            </div>
+            <div class="detail-item detail-item-wide">
+              <span>地址3</span>
+              <strong id="detailMalaysiaAddress3">--</strong>
+            </div>
+            <div class="detail-item">
+              <span>联系电话</span>
+              <strong id="detailMalaysiaPhone">--</strong>
+            </div>
+          </div>
+
+          <div class="drawer-note tax-detail-note" id="detailTaxNote">
+            <span class="note-icon" aria-hidden="true">⚠</span>
+            <span>税务合规信息不完整时，建议及时补充，避免影响开票。</span>
+          </div>
+
+          <div class="tax-edit-mode" id="detailTaxEditMode">
+            <div class="detail-panel-head">
+              <div>
+                <h3 id="detailTaxEditTitle">编辑税务合规信息</h3>
+                <p id="detailTaxEditDescription">维护企业开票所需的地址与税务资料。</p>
+              </div>
+            </div>
+
+            <div class="drawer-form-grid two-cols country-tax-section" id="detailTaxVietnamEdit" hidden aria-hidden="true">
+              <label class="field">
+                <span>税务登记号（MST） <em>*</em></span>
+                <input id="editVietnamMst" type="text" placeholder="请输入税务登记号（MST）" required />
+              </label>
+
+              <label class="field field-span-two">
+                <span>地址 <em>*</em></span>
+                <input id="editVietnamAddress" type="text" placeholder="请输入地址" required />
+              </label>
+
+              <label class="field">
+                <span>联系电话</span>
+                <input id="editVietnamPhone" type="text" placeholder="请输入联系电话" />
+              </label>
+            </div>
+
+            <div class="drawer-form-grid two-cols country-tax-section" id="detailTaxMalaysiaEdit" hidden aria-hidden="true">
+              <label class="field">
+                <span>税务登记号（TIN） <em>*</em></span>
+                <input id="editMalaysiaTin" type="text" placeholder="请输入税务登记号（TIN）" required />
+              </label>
+
+              <label class="field">
+                <span>商业注册号（BRN） <em>*</em></span>
+                <input id="editMalaysiaBrn" type="text" placeholder="请输入商业注册号（BRN）" required />
+              </label>
+
+              <label class="field">
+                <span>销售与服务税注册号（SST）</span>
+                <input id="editMalaysiaSst" type="text" placeholder="请输入销售与服务税注册号（SST）" />
+              </label>
+
+              <label class="field">
+                <span>旅游税注册号（TTX）</span>
+                <input id="editMalaysiaTtx" type="text" placeholder="请输入旅游税注册号（TTX）" />
+              </label>
+
+              <label class="field">
+                <span>行业代码（MSIC） <em>*</em></span>
+                <input id="editMalaysiaMsic" type="text" placeholder="请输入行业代码（MSIC）" required />
+              </label>
+
+              <label class="field">
+                <span>州/省 <em>*</em></span>
+                <span class="select-shell">
+                  <select id="editTaxRegion" required>
+                    <option>请选择州/省</option>
+                    <option>Wilayah Persekutuan</option>
+                    <option>Selangor</option>
+                    <option>Johor</option>
+                  </select>
+                </span>
+              </label>
+
+              <label class="field">
+                <span>城市 <em>*</em></span>
+                <input id="editTaxCity" type="text" placeholder="请输入城市" required />
+              </label>
+
+              <label class="field field-span-two">
+                <span>地址1 <em>*</em></span>
+                <input id="editMalaysiaAddress1" type="text" placeholder="请输入地址1" required />
+              </label>
+
+              <label class="field field-span-two">
+                <span>地址2</span>
+                <input id="editTaxAddress2" type="text" placeholder="补充地址，可选" />
+              </label>
+
+              <label class="field field-span-two">
+                <span>地址3</span>
+                <input id="editMalaysiaAddress3" type="text" placeholder="补充地址，可选" />
+              </label>
+
+              <label class="field">
+                <span>邮编 <em>*</em></span>
+                <input id="editTaxPostcode" type="text" placeholder="请输入邮编" required />
+              </label>
+
+              <label class="field">
+                <span>联系电话 <em>*</em></span>
+                <input id="editMalaysiaPhone" type="text" placeholder="请输入联系电话" required />
+              </label>
+            </div>
+
+            <div class="drawer-actions">
+              <button class="button ghost" id="cancelTaxEdit" type="button">取消</button>
+              <button class="button primary" id="saveTaxEdit" type="button">保存</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </aside>
+
+    <aside class="enterprise-drawer" id="enterpriseDrawer" aria-hidden="true">
+      <div class="drawer-header">
+        <h2>新增企业</h2>
+      </div>
+
+      <div class="wizard-steps">
+        <button class="wizard-step active" data-step-target="1" type="button">
+          <span class="step-badge">1</span>
+          <span>基础信息</span>
+        </button>
+        <button class="wizard-step" data-step-target="2" type="button">
+          <span class="step-badge">2</span>
+          <span>税务合规信息</span>
+        </button>
+      </div>
+
+      <div class="drawer-body">
+        <section class="drawer-panel active" data-step-panel="1">
+          <div class="drawer-panel-head">
+            <h3>企业基础信息</h3>
+            <p>基础信息仅包含国家代码、企业名称和企业联系邮箱。</p>
+          </div>
+
+          <div class="drawer-form-grid two-cols">
+            <label class="field">
+              <span>国家代码 <em>*</em></span>
+              <span class="select-shell">
+                <select id="enterpriseCountrySelect">
+                  <option>马来西亚</option>
+                  <option>越南</option>
+                </select>
+              </span>
+            </label>
+
+            <label class="field">
+              <span>企业名称 <em>*</em></span>
+              <input type="text" placeholder="例如： Baiwang Malaysia Services Sdn. Bhd." />
+            </label>
+          </div>
+
+          <label class="field field-full">
+            <span>企业联系邮箱 <em>*</em></span>
+            <span class="input-with-icon">
+              <input type="email" placeholder="请输入企业联系邮箱" />
+              <span class="field-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 20s6-5.7 6-10a6 6 0 1 0-12 0c0 4.3 6 10 6 10Z" />
+                  <circle cx="12" cy="10" r="2.2" />
+                </svg>
+              </span>
+            </span>
+          </label>
+
+          <div class="drawer-note">
+            <span class="note-icon" aria-hidden="true">⚠</span>
+            <span>下一步将根据国别展示税务合规字段。合规信息未配置将阻断开票。</span>
+          </div>
+
+          <div class="drawer-actions">
+            <button class="button ghost" data-drawer-close type="button">取消</button>
+            <button class="button primary" id="nextEnterpriseStep" type="button">下一步</button>
+          </div>
+        </section>
+
+        <section class="drawer-panel" data-step-panel="2">
+          <div class="drawer-panel-head" id="wizardTaxHead">
+            <h3 id="wizardTaxTitle">马来西亚税务合规信息</h3>
+            <p id="wizardTaxDescription">地址、邮箱和联系信息在税务合规信息中维护。TIN、BRN 和 MSIC 为马来西亚企业开票前必填信息。SST、TTX 按企业业务类型补充。</p>
+          </div>
+
+          <div class="drawer-form-grid two-cols country-tax-section active" id="wizardMalaysiaFields">
+            <label class="field">
+              <span>税务登记号（TIN） <em>*</em></span>
+              <input type="text" placeholder="请输入税务登记号（TIN）" />
+            </label>
+
+            <label class="field">
+              <span>商业注册号（BRN） <em>*</em></span>
+              <input type="text" placeholder="请输入商业注册号（BRN）" />
+            </label>
+
+            <label class="field">
+              <span>销售与服务税注册号（SST）</span>
+              <input type="text" placeholder="请输入销售与服务税注册号（SST）" />
+            </label>
+
+            <label class="field">
+              <span>旅游税注册号（TTX）</span>
+              <input type="text" placeholder="请输入旅游税注册号（TTX）" />
+            </label>
+
+            <label class="field">
+              <span>行业代码（MSIC） <em>*</em></span>
+              <input type="text" placeholder="请输入行业代码（MSIC）" />
+            </label>
+
+            <label class="field">
+              <span>州/省 <em>*</em></span>
+              <span class="select-shell">
+                <select>
+                  <option>请选择州/省</option>
+                  <option>Wilayah Persekutuan</option>
+                  <option>Selangor</option>
+                  <option>Johor</option>
+                </select>
+              </span>
+            </label>
+
+            <label class="field">
+              <span>城市 <em>*</em></span>
+              <input type="text" placeholder="请输入城市" />
+            </label>
+
+            <label class="field">
+              <span>邮编 <em>*</em></span>
+              <input type="text" placeholder="请输入邮编" />
+            </label>
+
+            <label class="field field-span-two">
+              <span>地址1 <em>*</em></span>
+              <span class="input-with-icon warning-icon">
+                <input type="text" placeholder="楼层、街道、楼宇名称" />
+                <span class="field-icon" aria-hidden="true">!</span>
+              </span>
+            </label>
+
+            <label class="field field-span-two">
+              <span>地址2</span>
+              <input type="text" placeholder="区域或补充地址，可选" />
+            </label>
+
+            <label class="field field-span-two">
+              <span>地址3</span>
+              <input type="text" placeholder="补充地址，可选" />
+            </label>
+
+            <label class="field">
+              <span>联系电话 <em>*</em></span>
+              <input type="text" placeholder="请输入联系电话" />
+            </label>
+          </div>
+
+          <div class="drawer-form-grid two-cols country-tax-section" id="wizardVietnamFields">
+            <label class="field">
+              <span>税务登记号（MST） <em>*</em></span>
+              <input type="text" placeholder="请输入税务登记号（MST）" />
+            </label>
+
+            <label class="field">
+              <span>联系电话</span>
+              <input type="text" placeholder="请输入联系电话" />
+            </label>
+
+            <label class="field field-span-two">
+              <span>地址 <em>*</em></span>
+              <input type="text" placeholder="请输入地址" />
+            </label>
+          </div>
+
+          <div class="drawer-note">
+            <span class="note-icon" aria-hidden="true">⚠</span>
+            <span>税务合规信息未配置，无法开票。可先跳过保存，后续在企业详情中补充。</span>
+          </div>
+
+          <div class="drawer-actions">
+            <button class="button ghost" id="prevEnterpriseStep" type="button">上一步</button>
+            <button class="button ghost ghost-accent" id="skipEnterpriseStep" type="button">跳过并保存</button>
+            <button class="button primary" id="saveEnterpriseStep" type="button">保存并启用开票</button>
+          </div>
+        </section>
+      </div>
+    </aside>
+
+    <script>
+      const body = document.body;
+      const detailDrawer = document.getElementById("enterpriseDetailDrawer");
+      const drawer = document.getElementById("enterpriseDrawer");
+      const overlay = document.getElementById("enterpriseDrawerOverlay");
+      const openButton = document.getElementById("openEnterpriseDrawer");
+      const nextButton = document.getElementById("nextEnterpriseStep");
+      const prevButton = document.getElementById("prevEnterpriseStep");
+      const skipButton = document.getElementById("skipEnterpriseStep");
+      const saveButton = document.getElementById("saveEnterpriseStep");
+      const closeButtons = document.querySelectorAll("[data-drawer-close]");
+      const stepButtons = document.querySelectorAll(".wizard-step");
+      const panels = document.querySelectorAll(".drawer-panel");
+      const enterpriseCountrySelect = document.getElementById("enterpriseCountrySelect");
+      const wizardTaxTitle = document.getElementById("wizardTaxTitle");
+      const wizardTaxDescription = document.getElementById("wizardTaxDescription");
+      const wizardMalaysiaFields = document.getElementById("wizardMalaysiaFields");
+      const wizardVietnamFields = document.getElementById("wizardVietnamFields");
+      const companyEntries = document.querySelectorAll(".company-entry");
+      const taxLinks = document.querySelectorAll("[data-open-tax-detail]");
+      const detailTabs = document.querySelectorAll(".detail-tab");
+      const detailPanels = document.querySelectorAll(".detail-panel");
+      const closeDetailDrawerButton = document.getElementById("closeDetailDrawer");
+      const detailTaxEditMode = document.getElementById("detailTaxEditMode");
+      const detailTaxAction = document.getElementById("detailTaxAction");
+      const cancelTaxEdit = document.getElementById("cancelTaxEdit");
+      const saveTaxEdit = document.getElementById("saveTaxEdit");
+
+      const detailFields = {
+        name: document.getElementById("detailCompanyName"),
+        code: document.getElementById("detailCompanyCode"),
+        basicName: document.getElementById("detailBasicName"),
+        basicCode: document.getElementById("detailBasicCode"),
+        basicCountry: document.getElementById("detailBasicCountry"),
+        basicEmail: document.getElementById("detailBasicEmail"),
+        taxNote: document.getElementById("detailTaxNote"),
+        taxTitle: document.getElementById("detailTaxTitle"),
+        taxDescription: document.getElementById("detailTaxDescription"),
+        taxEditTitle: document.getElementById("detailTaxEditTitle"),
+        taxEditDescription: document.getElementById("detailTaxEditDescription"),
+        vietnamView: document.getElementById("detailTaxVietnamView"),
+        vietnamMst: document.getElementById("detailVietnamMst"),
+        vietnamAddress: document.getElementById("detailVietnamAddress"),
+        vietnamPhone: document.getElementById("detailVietnamPhone"),
+        malaysiaView: document.getElementById("detailTaxMalaysiaView"),
+        malaysiaTin: document.getElementById("detailMalaysiaTin"),
+        malaysiaBrn: document.getElementById("detailMalaysiaBrn"),
+        malaysiaSst: document.getElementById("detailMalaysiaSst"),
+        malaysiaTtx: document.getElementById("detailMalaysiaTtx"),
+        malaysiaMsic: document.getElementById("detailMalaysiaMsic"),
+        malaysiaRegion: document.getElementById("detailMalaysiaRegion"),
+        malaysiaCity: document.getElementById("detailMalaysiaCity"),
+        malaysiaAddress1: document.getElementById("detailMalaysiaAddress1"),
+        malaysiaAddress2: document.getElementById("detailMalaysiaAddress2"),
+        malaysiaAddress3: document.getElementById("detailMalaysiaAddress3"),
+        malaysiaPostcode: document.getElementById("detailMalaysiaPostcode"),
+        malaysiaPhone: document.getElementById("detailMalaysiaPhone"),
+      };
+
+      const taxEditFields = {
+        vietnamMst: document.getElementById("editVietnamMst"),
+        vietnamAddress: document.getElementById("editVietnamAddress"),
+        vietnamPhone: document.getElementById("editVietnamPhone"),
+        malaysiaTin: document.getElementById("editMalaysiaTin"),
+        malaysiaBrn: document.getElementById("editMalaysiaBrn"),
+        malaysiaSst: document.getElementById("editMalaysiaSst"),
+        malaysiaTtx: document.getElementById("editMalaysiaTtx"),
+        malaysiaMsic: document.getElementById("editMalaysiaMsic"),
+        region: document.getElementById("editTaxRegion"),
+        city: document.getElementById("editTaxCity"),
+        malaysiaAddress1: document.getElementById("editMalaysiaAddress1"),
+        address2: document.getElementById("editTaxAddress2"),
+        malaysiaAddress3: document.getElementById("editMalaysiaAddress3"),
+        postcode: document.getElementById("editTaxPostcode"),
+        malaysiaPhone: document.getElementById("editMalaysiaPhone"),
+      };
+
+      const detailTaxEditSections = {
+        越南: document.getElementById("detailTaxVietnamEdit"),
+        马来西亚: document.getElementById("detailTaxMalaysiaEdit"),
+      };
+
+      let currentStep = 1;
+      let activeDetailEntry = null;
+
+      const wizardTaxConfig = {
+        马来西亚: {
+          title: "马来西亚税务合规信息",
+          description: "TIN、BRN、MSIC、州/省、城市、地址1、邮编和联系电话为必填。SST 与 TTX 可按企业业务类型补充。",
+        },
+        越南: {
+          title: "越南税务合规信息",
+          description: "越南企业需维护税务登记号（MST）和地址，联系电话可按需补充。",
+        },
+      };
+
+      const detailTaxConfig = {
+        马来西亚: {
+          title: "马来西亚税务合规信息",
+          description: "仅展示马来西亚企业所需的税务识别、注册地址与联系电话信息。",
+          editTitle: "编辑马来西亚税务合规信息",
+          editDescription: "维护 TIN、BRN、MSIC、地址、邮编与联系电话等马来西亚开票必需资料。",
+          configuredNote: "当前马来西亚税务合规信息已配置完成，可按需维护更新。",
+          pendingNote: "马来西亚税务合规信息尚未配置完成，请补充必填字段后再启用开票。",
+        },
+        越南: {
+          title: "越南税务合规信息",
+          description: "仅展示越南企业所需的 MST、注册地址与联系电话信息。",
+          editTitle: "编辑越南税务合规信息",
+          editDescription: "维护 MST、地址与联系电话等越南开票所需资料。",
+          configuredNote: "当前越南税务合规信息已配置完成，可按需维护更新。",
+          pendingNote: "越南税务合规信息尚未配置完成，请补充 MST 与地址后再启用开票。",
+        },
+      };
+
+      function displayValue(value) {
+        return value && value !== "--" ? value : "--";
+      }
+
+      function isPresent(value) {
+        return Boolean(value && value.trim() && value.trim() !== "--");
+      }
+
+      function toggleCountrySection(target, active) {
+        if (!target) return;
+        target.classList.toggle("active", active);
+        target.hidden = !active;
+        target.setAttribute("aria-hidden", String(!active));
+      }
+
+      function renderWizardTaxFields(country) {
+        const normalizedCountry = country === "越南" ? "越南" : "马来西亚";
+        const config = wizardTaxConfig[normalizedCountry];
+        wizardTaxTitle.textContent = config.title;
+        wizardTaxDescription.textContent = config.description;
+        toggleCountrySection(wizardMalaysiaFields, normalizedCountry === "马来西亚");
+        toggleCountrySection(wizardVietnamFields, normalizedCountry === "越南");
+      }
+
+      function renderDetailCountry(country) {
+        const isVietnam = country === "越南";
+        const normalizedCountry = isVietnam ? "越南" : "马来西亚";
+        const config = detailTaxConfig[normalizedCountry];
+        detailDrawer.dataset.country = normalizedCountry;
+        toggleCountrySection(detailFields.vietnamView, isVietnam);
+        toggleCountrySection(detailFields.malaysiaView, !isVietnam);
+        toggleCountrySection(detailTaxEditSections["越南"], isVietnam);
+        toggleCountrySection(detailTaxEditSections["马来西亚"], !isVietnam);
+        detailFields.taxTitle.textContent = config.title;
+        detailFields.taxDescription.textContent = config.description;
+        detailFields.taxEditTitle.textContent = config.editTitle;
+        detailFields.taxEditDescription.textContent = config.editDescription;
+      }
+
+      function getMalaysiaSummaryAddress(data) {
+        return [
+          data.companyAddressLine1,
+          data.companyAddressLine2,
+          data.companyAddressLine3,
+          data.companyPostcode,
+          data.companyCity,
+        ]
+          .filter((value) => isPresent(value))
+          .join(", ") || "--";
+      }
+
+      function getTaxConfigured(country, data) {
+        if (country === "越南") {
+          return isPresent(data.companyMst) && isPresent(data.companyTaxAddress);
+        }
+
+        return [
+          data.companyTin,
+          data.companyBrn,
+          data.companyMsic,
+          data.companyRegion,
+          data.companyCity,
+          data.companyAddressLine1,
+          data.companyPostcode,
+          data.companyPhone,
+        ].every((value) => isPresent(value));
+      }
+
+      function renderStep(step) {
+        currentStep = step;
+        stepButtons.forEach((button) => {
+          const active = Number(button.dataset.stepTarget) === step;
+          button.classList.toggle("active", active);
+          button.classList.toggle("done", Number(button.dataset.stepTarget) < step);
+        });
+        panels.forEach((panel) => {
+          panel.classList.toggle("active", Number(panel.dataset.stepPanel) === step);
+        });
+      }
+
+      function openOverlay() {
+        body.classList.add("drawer-open");
+        overlay.classList.add("open");
+      }
+
+      function closeOverlayIfIdle() {
+        if (!drawer.classList.contains("open") && !detailDrawer.classList.contains("open")) {
+          body.classList.remove("drawer-open");
+          overlay.classList.remove("open");
+        }
+      }
+
+      function openDrawer() {
+        openOverlay();
+        drawer.classList.add("open");
+        drawer.setAttribute("aria-hidden", "false");
+        renderStep(1);
+        renderWizardTaxFields(enterpriseCountrySelect.value);
+      }
+
+      function closeDrawer() {
+        drawer.classList.remove("open");
+        drawer.setAttribute("aria-hidden", "true");
+        closeOverlayIfIdle();
+      }
+
+      function renderDetailTab(tab) {
+        detailTabs.forEach((button) => {
+          button.classList.toggle("active", button.dataset.detailTab === tab);
+        });
+        detailPanels.forEach((panel) => {
+          panel.classList.toggle("active", panel.dataset.detailPanel === tab);
+        });
+      }
+
+      function setTaxEditMode(editing) {
+        detailDrawer.classList.toggle("tax-editing", editing);
+      }
+
+      function populateDetail(entry) {
+        const data = entry.dataset;
+        const isVietnam = data.companyCountry === "越南";
+        const isConfigured = getTaxConfigured(data.companyCountry, data);
+        activeDetailEntry = entry;
+
+        detailFields.name.textContent = data.companyName;
+        detailFields.code.textContent = data.companyCode;
+        detailFields.basicName.textContent = data.companyName;
+        detailFields.basicCode.textContent = data.companyCode;
+        detailFields.basicCountry.textContent = data.companyCountry;
+        detailFields.basicEmail.textContent = data.companyEmail;
+        detailFields.taxNote.querySelector("span:last-child").textContent = isConfigured
+          ? detailTaxConfig[data.companyCountry].configuredNote
+          : detailTaxConfig[data.companyCountry].pendingNote;
+        renderDetailCountry(data.companyCountry);
+
+        detailFields.vietnamMst.textContent = displayValue(data.companyMst);
+        detailFields.vietnamAddress.textContent = displayValue(data.companyTaxAddress);
+        detailFields.vietnamPhone.textContent = displayValue(data.companyPhone);
+
+        detailFields.malaysiaTin.textContent = displayValue(data.companyTin);
+        detailFields.malaysiaBrn.textContent = displayValue(data.companyBrn);
+        detailFields.malaysiaSst.textContent = displayValue(data.companySst);
+        detailFields.malaysiaTtx.textContent = displayValue(data.companyTtx);
+        detailFields.malaysiaMsic.textContent = displayValue(data.companyMsic);
+        detailFields.malaysiaRegion.textContent = displayValue(data.companyRegion);
+        detailFields.malaysiaCity.textContent = displayValue(data.companyCity);
+        detailFields.malaysiaAddress1.textContent = displayValue(data.companyAddressLine1);
+        detailFields.malaysiaAddress2.textContent = displayValue(data.companyAddressLine2);
+        detailFields.malaysiaAddress3.textContent = displayValue(data.companyAddressLine3);
+        detailFields.malaysiaPostcode.textContent = displayValue(data.companyPostcode);
+        detailFields.malaysiaPhone.textContent = displayValue(data.companyPhone);
+
+        if (isVietnam) {
+          taxEditFields.vietnamMst.value = isPresent(data.companyMst) ? data.companyMst : "";
+          taxEditFields.vietnamAddress.value = isPresent(data.companyTaxAddress) ? data.companyTaxAddress : "";
+          taxEditFields.vietnamPhone.value = isPresent(data.companyPhone) ? data.companyPhone : "";
+          return;
+        }
+
+        taxEditFields.malaysiaTin.value = isPresent(data.companyTin) ? data.companyTin : "";
+        taxEditFields.malaysiaBrn.value = isPresent(data.companyBrn) ? data.companyBrn : "";
+        taxEditFields.malaysiaSst.value = isPresent(data.companySst) ? data.companySst : "";
+        taxEditFields.malaysiaTtx.value = isPresent(data.companyTtx) ? data.companyTtx : "";
+        taxEditFields.malaysiaMsic.value = isPresent(data.companyMsic) ? data.companyMsic : "";
+        taxEditFields.region.value = isPresent(data.companyRegion) ? data.companyRegion : "请选择州/省";
+        taxEditFields.city.value = isPresent(data.companyCity) ? data.companyCity : "";
+        taxEditFields.malaysiaAddress1.value = isPresent(data.companyAddressLine1) ? data.companyAddressLine1 : "";
+        taxEditFields.address2.value = isPresent(data.companyAddressLine2) ? data.companyAddressLine2 : "";
+        taxEditFields.malaysiaAddress3.value = isPresent(data.companyAddressLine3) ? data.companyAddressLine3 : "";
+        taxEditFields.postcode.value = isPresent(data.companyPostcode) ? data.companyPostcode : "";
+        taxEditFields.malaysiaPhone.value = isPresent(data.companyPhone) ? data.companyPhone : "";
+      }
+
+      function openDetailDrawer(entry, tab = "basic", editingTax = false) {
+        populateDetail(entry);
+        openOverlay();
+        detailDrawer.classList.add("open");
+        detailDrawer.setAttribute("aria-hidden", "false");
+        renderDetailTab(tab);
+        setTaxEditMode(editingTax && tab === "tax");
+      }
+
+      function closeDetailDrawer() {
+        detailDrawer.classList.remove("open");
+        detailDrawer.setAttribute("aria-hidden", "true");
+        setTaxEditMode(false);
+        closeOverlayIfIdle();
+      }
+
+      openButton.addEventListener("click", openDrawer);
+      nextButton.addEventListener("click", () => renderStep(2));
+      prevButton.addEventListener("click", () => renderStep(1));
+      skipButton.addEventListener("click", closeDrawer);
+      saveButton.addEventListener("click", closeDrawer);
+      enterpriseCountrySelect.addEventListener("change", () => renderWizardTaxFields(enterpriseCountrySelect.value));
+      overlay.addEventListener("click", () => {
+        closeDrawer();
+        closeDetailDrawer();
+      });
+      closeButtons.forEach((button) => button.addEventListener("click", closeDrawer));
+      closeDetailDrawerButton.addEventListener("click", closeDetailDrawer);
+      stepButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const targetStep = Number(button.dataset.stepTarget);
+          if (targetStep <= 2) renderStep(targetStep);
+        });
+      });
+      detailTabs.forEach((button) => {
+        button.addEventListener("click", () => {
+          renderDetailTab(button.dataset.detailTab);
+          if (button.dataset.detailTab !== "tax") setTaxEditMode(false);
+        });
+      });
+      companyEntries.forEach((entry) => {
+        entry.addEventListener("click", () => openDetailDrawer(entry, "basic", false));
+      });
+      taxLinks.forEach((button) => {
+        button.addEventListener("click", () => {
+          const row = button.closest(".row");
+          const entry = row.querySelector(".company-entry");
+          openDetailDrawer(entry, "tax", true);
+        });
+      });
+      detailTaxAction.addEventListener("click", () => setTaxEditMode(true));
+      cancelTaxEdit.addEventListener("click", () => {
+        if (activeDetailEntry) populateDetail(activeDetailEntry);
+        setTaxEditMode(false);
+      });
+      saveTaxEdit.addEventListener("click", () => {
+        if (!activeDetailEntry) return;
+        const data = activeDetailEntry.dataset;
+
+        if (data.companyCountry === "越南") {
+          data.companyMst = taxEditFields.vietnamMst.value.trim() || "--";
+          data.companyTaxAddress = taxEditFields.vietnamAddress.value.trim() || "--";
+          data.companyPhone = taxEditFields.vietnamPhone.value.trim() || "--";
+          data.companyAddress = data.companyTaxAddress;
+        } else {
+          data.companyTin = taxEditFields.malaysiaTin.value.trim() || "--";
+          data.companyBrn = taxEditFields.malaysiaBrn.value.trim() || "--";
+          data.companySst = taxEditFields.malaysiaSst.value.trim() || "--";
+          data.companyTtx = taxEditFields.malaysiaTtx.value.trim() || "--";
+          data.companyMsic = taxEditFields.malaysiaMsic.value.trim() || "--";
+          data.companyRegion = taxEditFields.region.value === "请选择州/省" ? "--" : taxEditFields.region.value;
+          data.companyCity = taxEditFields.city.value.trim() || "--";
+          data.companyAddressLine1 = taxEditFields.malaysiaAddress1.value.trim() || "--";
+          data.companyAddressLine2 = taxEditFields.address2.value.trim() || "--";
+          data.companyAddressLine3 = taxEditFields.malaysiaAddress3.value.trim() || "--";
+          data.companyPostcode = taxEditFields.postcode.value.trim() || "--";
+          data.companyPhone = taxEditFields.malaysiaPhone.value.trim() || "--";
+          data.companyAddress = getMalaysiaSummaryAddress(data);
+        }
+
+        const statusConfigured = getTaxConfigured(data.companyCountry, data);
+        data.companyTaxStatus = statusConfigured ? "已配置" : "未配置";
+
+        const row = activeDetailEntry.closest(".row");
+        const statusPill = row.querySelector(".status-pill");
+        statusPill.textContent = data.companyTaxStatus;
+        statusPill.className = statusConfigured ? "status-pill configured" : "status-pill pending";
+        row.querySelector(".address-cell").textContent = data.companyAddress;
+        row.querySelector("[data-open-tax-detail]").textContent = "维护税务信息";
+        populateDetail(activeDetailEntry);
+        setTaxEditMode(false);
+      });
+    </script>
+  </body>
+</html>

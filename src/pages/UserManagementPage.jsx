@@ -381,20 +381,6 @@ export default function UserManagementPage() {
               <small>例如：alice@company.com, bob@company.com</small>
             </label>
 
-            <label className="invite-field">
-              <span>预分配角色</span>
-              <span className="invite-select-shell">
-                <select value={preassignedRole} onChange={(e) => setPreassignedRole(e.target.value)}>
-                  <option>激活后再分配</option>
-                  <option>管理员</option>
-                  <option>开票员</option>
-                  <option>财务审核</option>
-                  <option>销售代表</option>
-                </select>
-              </span>
-              <small>如果设置，用户在激活账号后将立即获得该角色</small>
-            </label>
-
             <label className="invite-field" id="enterpriseFieldTenant">
               <span>所属企业</span>
               <span className="invite-select-shell">

@@ -345,20 +345,6 @@
             <small>例如：alice@company.com, bob@company.com</small>
           </label>
 
-          <label class="invite-field">
-            <span>预分配角色</span>
-            <span class="invite-select-shell">
-              <select>
-                <option>激活后再分配</option>
-                <option>管理员</option>
-                <option>开票员</option>
-                <option>财务审核</option>
-                <option>销售代表</option>
-              </select>
-            </span>
-            <small>如果设置，用户在激活账号后将立即获得该角色</small>
-          </label>
-
           <label class="invite-field" id="enterpriseFieldTenant" hidden>
             <span>所属企业</span>
             <span class="invite-select-shell">
@@ -455,6 +441,11 @@
           </aside>
 
           <section class="scope-pane">
+            <div class="selected-role-badge" id="selectedRoleBadge">
+              <span class="selected-role-label">当前选中的角色</span>
+              <span class="selected-role-name" id="selectedRoleName">租户管理员</span>
+              <span class="selected-role-desc" id="selectedRoleDesc">Tenant Admin</span>
+            </div>
             <div class="scope-head">
               <div>
                 <h3>选择数据范围 <span>(SELECT DATA SCOPE)</span></h3>
@@ -521,6 +512,8 @@
       var authTabs = document.querySelectorAll(".auth-tab[data-auth-panel]");
       var authContents = document.querySelectorAll("[data-auth-content]");
       var roleItems = document.querySelectorAll(".role-item");
+      var selectedRoleName = document.querySelector("#selectedRoleName");
+      var selectedRoleDesc = document.querySelector("#selectedRoleDesc");
       var tabs = document.querySelectorAll(".tab[data-filter]");
       var rows = document.querySelectorAll(".data-row[data-status]");
       var tableSummary = document.querySelector("#tableSummary");
@@ -626,6 +619,15 @@
           const group = item.closest(".role-list");
           group.querySelectorAll(".role-item").forEach((role) => role.classList.remove("active"));
           item.classList.add("active");
+
+          const nameEl = item.querySelector("strong");
+          const descEl = item.querySelector("span");
+          if (selectedRoleName && nameEl) {
+            selectedRoleName.textContent = nameEl.textContent;
+          }
+          if (selectedRoleDesc && descEl) {
+            selectedRoleDesc.textContent = descEl.textContent;
+          }
         });
       });
 

@@ -5,8 +5,8 @@ const APPS = [
   {
     id: 'app_9f3kd72xmq',
     name: '生产系统对接',
-    type: '企业内部应用',
-    titleType: 'ISV 类型',
+    type: '企业应用',
+    titleType: '企业应用',
     enabled: true,
     credentials: '3',
     created: '2026-05-20 10:30:15',
@@ -16,8 +16,8 @@ const APPS = [
   {
     id: 'app_isv_1455',
     name: 'ISV 对接应用',
-    type: '外途服务应用',
-    titleType: 'ISV 类型',
+    type: 'ISV应用',
+    titleType: 'ISV应用',
     enabled: true,
     credentials: '1',
     created: '2026-05-18 16:20:31',
@@ -27,7 +27,7 @@ const APPS = [
   {
     id: 'app_disabled_8820',
     name: '已停用应用',
-    type: '外途服务应用',
+    type: 'ISV应用',
     titleType: '历史应用',
     enabled: false,
     credentials: '0',
@@ -107,7 +107,7 @@ export default function ApiDetailPage() {
   const [inviteModalOpen, setInviteModalOpen] = useState(false);
   const [inviteForm, setInviteForm] = useState({ country: '', company: '', reason: '' });
   const [createAppOpen, setCreateAppOpen] = useState(false);
-  const [createAppForm, setCreateAppForm] = useState({ name: '', desc: '', type: '内部集成应用' });
+  const [createAppForm, setCreateAppForm] = useState({ name: '', desc: '', type: '企业应用' });
   const menuRef = useRef(null);
 
   const activeApp = apps.find((a) => a.id === activeAppId) || apps[0];
@@ -207,7 +207,7 @@ export default function ApiDetailPage() {
       id: `app_${Date.now().toString(36)}`,
       name,
       type,
-      titleType: type === '外途服务应用' ? 'ISV 类型' : '内部应用',
+      titleType: type === 'ISV应用' ? 'ISV应用' : '企业应用',
       enabled: true,
       credentials: '0',
       created: '2026-05-20 11:30:00',
@@ -217,7 +217,7 @@ export default function ApiDetailPage() {
     setApps((prev) => [...prev, newApp]);
     setActiveAppId(newApp.id);
     setCreateAppOpen(false);
-    setCreateAppForm({ name: '', desc: '', type: '内部集成应用' });
+    setCreateAppForm({ name: '', desc: '', type: '企业应用' });
   };
 
   return (
@@ -440,7 +440,7 @@ export default function ApiDetailPage() {
                 <p>配置该 API 应用可访问的企业主体范围。您可以添加当前租户下的企业，或邀请外部合作伙伴授权。</p>
               </div>
               <div className="scope-actions">
-                {activeApp.type.includes('内部') ? (
+                {activeApp.type === '企业应用' ? (
                   <button className="primary-button" type="button" onClick={() => setTenantModalOpen(true)}>
                     <span className="button-icon" aria-hidden="true">
                       <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></svg>
@@ -555,14 +555,12 @@ export default function ApiDetailPage() {
               <div className="whitelist-row whitelist-table-head" role="row">
                 <div role="columnheader">IP 地址 / CIDR</div>
                 <div role="columnheader">描述</div>
-                <div role="columnheader">添加时间</div>
                 <div role="columnheader">操作</div>
               </div>
               {whitelist.map((w, i) => (
                 <div className="whitelist-row" role="row" key={i}>
                   <div className="mono" role="cell">{w.ip}</div>
                   <div role="cell">{w.desc}</div>
-                  <div role="cell">{w.time}</div>
                   <div className="whitelist-actions" role="cell">
                     <button type="button" onClick={() => openWlForm(i)}>编辑</button>
                     <button className="danger" type="button" onClick={() => setWhitelist((prev) => prev.filter((_, j) => j !== i))}>删除</button>
@@ -751,20 +749,20 @@ export default function ApiDetailPage() {
                 </label>
                 <fieldset>
                   <legend>应用类型 <em>*</em></legend>
-                  <label className={`app-type-option${createAppForm.type === '内部集成应用' ? ' selected' : ''}`}>
-                    <input type="radio" name="createAppType" value="内部集成应用" checked={createAppForm.type === '内部集成应用'}
+                  <label className={`app-type-option${createAppForm.type === '企业应用' ? ' selected' : ''}`}>
+                    <input type="radio" name="createAppType" value="企业应用" checked={createAppForm.type === '企业应用'}
                       onChange={(e) => setCreateAppForm({ ...createAppForm, type: e.target.value })} />
                     <span>
-                      <strong>内部集成应用</strong>
-                      <small>用于 ERP、触点系统、订单系统、BI 等内部系统对接</small>
+                      <strong>企业应用</strong>
+                      <small>企业客户为自身业务系统创建的 API 应用，只服务本企业/本租户</small>
                     </span>
                   </label>
-                  <label className={`app-type-option${createAppForm.type === '外途服务应用' ? ' selected' : ''}`}>
-                    <input type="radio" name="createAppType" value="外途服务应用" checked={createAppForm.type === '外途服务应用'}
+                  <label className={`app-type-option${createAppForm.type === 'ISV应用' ? ' selected' : ''}`}>
+                    <input type="radio" name="createAppType" value="ISV应用" checked={createAppForm.type === 'ISV应用'}
                       onChange={(e) => setCreateAppForm({ ...createAppForm, type: e.target.value })} />
                     <span>
-                      <strong>外途服务应用</strong>
-                      <small>面向 ISV、服务商、集团共享服务中心等场景</small>
+                      <strong>ISV应用</strong>
+                      <small>ISV客户企业创建的 API 应用，通用用于授权服务企业调用</small>
                     </span>
                   </label>
                 </fieldset>

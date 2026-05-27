@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tax-Swift 运营后台租户管理</title>
+    <link rel="stylesheet" href="./tax-swift-ops-tenant-management.css" />
+    <script>
+      if (window.top !== window.self) {
+        var f=document.createElement('style');
+        f.textContent='.sidebar,aside.sidebar,.topbar,header.topbar,.password-modal-overlay,#passwordModal,[class*="password-modal"],.brand-panel,.scope-switch,.sidebar-nav,.sidebar-footer,.side-footer,.user-menu,[class*="user-menu"],script{display:none!important}.ops-page{display:block!important;grid-template-columns:none!important;min-height:auto!important;height:auto!important}.main-shell,[class*="main-shell"]{width:100%!important;min-width:0!important}html,body{overflow:auto!important;height:auto!important;min-height:100%!important;background:#f7f9fd!important}body{zoom:1!important}';
+        document.head.appendChild(f);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="ops-page">
+      <aside class="sidebar" aria-label="运营后台导航">
+        <div class="brand-panel">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4.8 7.5 12 3.5l7.2 4v8.8L12 20.5l-7.2-4.2Z" />
+              <path d="M8 9.4h8M8 12.3h8M8 15.2h5" />
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <strong>Tax-Swift</strong>
+            <span>运营管理后台</span>
+          </div>
+        </div>
+
+        <button class="scope-switch" type="button">
+          <span class="scope-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="8.6" />
+              <path d="M3.7 12h16.6M12 3.8c2.2 2.2 3.5 5.1 3.5 8.2s-1.3 6-3.5 8.2c-2.2-2.2-3.5-5.1-3.5-8.2s1.3-6 3.5-8.2Z" />
+            </svg>
+          </span>
+          <span>运营全局视角</span>
+          <span class="chevron" aria-hidden="true">
+            <svg viewBox="0 0 16 16"><path d="m4 6 4 4 4-4" /></svg>
+          </span>
+        </button>
+
+        <nav class="sidebar-nav">
+          <section class="nav-group">
+            <h2>OPERATIONS</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4.5 19.5V11m5 8.5v-15m5 15V7.5m5 12v-10" />
+                  <path d="M3.5 19.5h17" />
+                </svg>
+              </span>
+              <span>运营总览</span>
+            </a>
+            <a class="nav-item active" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5.3 18.9V7.5a2 2 0 0 1 2-2h9.4a2 2 0 0 1 2 2v11.4" />
+                  <path d="M3.8 18.9h16.4M8.2 9.3h2.2M8.2 12.3h2.2M13.5 9.3h2.2M13.5 12.3h2.2M10 18.8v-3.2h4v3.2" />
+                </svg>
+              </span>
+              <span>租户管理</span>
+            </a>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5.4 19.5v-10a2 2 0 0 1 2-2h2.5v12M14.1 19.5V5.8a2 2 0 0 1 2-2h.6a2 2 0 0 1 2 2v13.7" />
+                  <path d="M3.8 19.5h16.4M7.8 10.8h.1M7.8 14h.1M16.5 7.1h.1M16.5 10.4h.1M16.5 13.7h.1" />
+                </svg>
+              </span>
+              <span>企业管理</span>
+            </a>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5.5 6.5h13v11h-13Z" />
+                  <path d="M8.2 10h7.6M8.2 14h4.2" />
+                </svg>
+              </span>
+              <span>工单中心</span>
+            </a>
+          </section>
+
+          <section class="nav-group">
+            <h2>PARTNER</h2>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="9" cy="8" r="3" />
+                  <path d="M3.8 19c1.1-3.2 2.9-4.8 5.2-4.8s4.1 1.6 5.2 4.8" />
+                  <circle cx="17" cy="9.5" r="2.2" />
+                  <path d="M15 14.5c1.9.3 3.4 1.8 4.4 4.5" />
+                </svg>
+              </span>
+              <span>ISV伙伴</span>
+            </a>
+            <a class="nav-item" href="#">
+              <span class="nav-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 5.5h14v13H5Z" />
+                  <path d="M8 9h8M8 13h5M8 16h7" />
+                </svg>
+              </span>
+              <span>授权审核</span>
+            </a>
+          </section>
+        </nav>
+
+        <div class="sidebar-footer">
+          <a class="nav-item" href="#">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3.7 8.6 5.1 6.1 7.6l-1.4 3.4 1.4 3.4 2.5 2.5 3.4 1.4 3.4-1.4 2.5-2.5 1.4-3.4-1.4-3.4-2.5-2.5Z" />
+                <circle cx="12" cy="11" r="2.4" />
+              </svg>
+            </span>
+            <span>后台设置</span>
+          </a>
+        </div>
+      </aside>
+
+      <div class="main-shell">
+        <header class="topbar">
+          <div class="breadcrumb">
+            <span>运营后台</span>
+            <span>/</span>
+            <strong>租户管理</strong>
+          </div>
+          <div class="topbar-right">
+            <div class="topbar-actions">
+              <button class="top-action" type="button">
+                <span class="top-action-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M7 4.8h10v15H7Z" />
+                    <path d="M9.2 3.5h5.6v3H9.2ZM9.4 11.4l1.7 1.7 3.6-4" />
+                  </svg>
+                </span>
+                <span>待办</span>
+                <span class="badge">9</span>
+              </button>
+              <button class="top-action" type="button">
+                <span class="top-action-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 4.4a4.6 4.6 0 0 1 4.6 4.6v2.4l1.5 3v1.2H5.9v-1.2l1.5-3V9A4.6 4.6 0 0 1 12 4.4Z" />
+                    <path d="M10 18a2 2 0 0 0 4 0" />
+                  </svg>
+                </span>
+                <span>消息</span>
+                <span class="badge">4</span>
+              </button>
+            </div>
+            <div class="user-summary">
+              <div class="user-text">
+                <strong>Ops Admin</strong>
+                <span>Partner Operations</span>
+              </div>
+              <div class="avatar" aria-hidden="true">O</div>
+            </div>
+          </div>
+        </header>
+
+        <main class="content">
+          <section class="hero-row">
+            <div class="page-title">
+              <h1>租户管理</h1>
+            </div>
+            <div class="hero-actions">
+              <button class="button primary add-button" id="openTenantModal" type="button">
+                <span class="button-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></svg>
+                </span>
+                <span>新增租户</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="panel toolbar" aria-label="租户筛选">
+            <div class="tenant-filter-grid">
+              <label class="field">
+                <span>租户名称</span>
+                <span class="input-shell">
+                  <span class="field-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <circle cx="10.7" cy="10.7" r="5.9" />
+                      <path d="m15.2 15.2 4.4 4.4" />
+                    </svg>
+                  </span>
+                  <input type="text" placeholder="输入租户关键字..." />
+                </span>
+              </label>
+
+              <label class="field status-field">
+                <span>状态</span>
+                <span class="select-shell">
+                  <select>
+                    <option>全部</option>
+                    <option>启用</option>
+                    <option>禁用</option>
+                  </select>
+                </span>
+              </label>
+
+              <label class="field type-field">
+                <span>上户类型</span>
+                <span class="select-shell">
+                  <select>
+                    <option>全部</option>
+                    <option>客户上户</option>
+                    <option>ISV上户</option>
+                  </select>
+                </span>
+              </label>
+
+              <div class="filter-actions">
+                <button class="button ghost" type="button">重置</button>
+                <button class="button primary" type="button">查询</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel table-panel" aria-label="租户列表">
+            <div class="table-scroll">
+              <div class="tenant-table table-head">
+                <div>租户名称</div>
+                <div>租户联系人邮箱</div>
+                <div>关联企业名称</div>
+                <div>上户类型</div>
+                <div>状态</div>
+                <div>操作</div>
+              </div>
+
+              <div class="tenant-table table-row">
+                <div class="tenant-cell" data-label="租户名称">
+                  <button class="tenant-name" type="button">Alpha Services</button>
+                  <span>ID: TX-100293</span>
+                </div>
+                <div class="email-cell" data-label="租户联系人邮箱">admin@alpha.vn</div>
+                <div class="company-cell" data-label="关联企业名称">Alpha Tech Group</div>
+                <div data-label="上户类型">
+                  <span class="type-pill direct">客户上户</span>
+                </div>
+                <div data-label="状态">
+                  <span class="status-pill success">启用</span>
+                </div>
+                <div class="action-cell" data-label="操作">
+                  <button class="action-link" type="button" data-open-edit data-tenant="Alpha Services" data-admin-email="admin@alpha.vn" data-country="越南 VN" data-company="Alpha Tech Group" data-company-email="admin@alpha.vn" data-tenant-type="direct">编辑</button>
+                  <span class="action-divider" aria-hidden="true"></span>
+                  <button class="action-link" type="button">重发邀请</button>
+                  <span class="action-divider" aria-hidden="true"></span>
+                  <button class="action-link muted" type="button">禁用</button>
+                </div>
+              </div>
+
+              <div class="tenant-table table-row">
+                <div class="tenant-cell" data-label="租户名称">
+                  <button class="tenant-name" type="button">Beta Logistics</button>
+                  <span>ID: TX-100294</span>
+                </div>
+                <div class="email-cell" data-label="租户联系人邮箱">contact@beta.my</div>
+                <div class="company-cell" data-label="关联企业名称">Beta MY Corp</div>
+                <div data-label="上户类型">
+                  <span class="type-pill isv">ISV上户</span>
+                </div>
+                <div data-label="状态">
+                  <span class="status-pill neutral">禁用</span>
+                </div>
+                <div class="action-cell" data-label="操作">
+                  <button class="action-link" type="button" data-open-edit data-tenant="Beta Logistics" data-admin-email="contact@beta.my" data-country="马来西亚 MY" data-company="Beta MY Corp" data-company-email="contact@beta.my" data-tenant-type="isv">编辑</button>
+                  <span class="action-divider" aria-hidden="true"></span>
+                  <button class="action-link" type="button">重发邀请</button>
+                  <span class="action-divider" aria-hidden="true"></span>
+                  <button class="action-link" type="button">启用</button>
+                </div>
+              </div>
+
+              <div class="tenant-table table-row">
+                <div class="tenant-cell" data-label="租户名称">
+                  <button class="tenant-name" type="button">Gamma Consulting</button>
+                  <span>ID: TX-100295</span>
+                </div>
+                <div class="email-cell" data-label="租户联系人邮箱">ops@gamma.sg</div>
+                <div class="company-cell" data-label="关联企业名称">Gamma Global Holdings</div>
+                <div data-label="上户类型">
+                  <span class="type-pill direct">客户上户</span>
+                </div>
+                <div data-label="状态">
+                  <span class="status-pill success">启用</span>
+                </div>
+                <div class="action-cell" data-label="操作">
+                  <button class="action-link" type="button" data-open-edit data-tenant="Gamma Consulting" data-admin-email="ops@gamma.sg" data-country="新加坡 SG" data-company="Gamma Global Holdings" data-company-email="ops@gamma.sg" data-tenant-type="direct">编辑</button>
+                  <span class="action-divider" aria-hidden="true"></span>
+                  <button class="action-link" type="button">重发邀请</button>
+                  <span class="action-divider" aria-hidden="true"></span>
+                  <button class="action-link muted" type="button">禁用</button>
+                </div>
+              </div>
+            </div>
+
+            <footer class="table-footer">
+              <span>显示 1 到 3 条，共 24 条记录</span>
+              <nav class="pagination" aria-label="分页">
+                <button class="page-button icon-only" type="button" aria-label="上一页">
+                  <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></svg>
+                </button>
+                <button class="page-button active" type="button">1</button>
+                <button class="page-button" type="button">2</button>
+                <button class="page-button" type="button">3</button>
+                <button class="page-button icon-only" type="button" aria-label="下一页">
+                  <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></svg>
+                </button>
+              </nav>
+            </footer>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="tenantModalOverlay" aria-hidden="true">
+      <section class="tenant-modal" role="dialog" aria-modal="true" aria-labelledby="addTenantTitle">
+        <header class="modal-header">
+          <h2 id="addTenantTitle">新增租户</h2>
+          <button class="modal-close" id="closeTenantModal" type="button" aria-label="关闭新增租户弹层">
+            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></svg>
+          </button>
+        </header>
+
+        <form class="modal-body">
+          <section class="modal-section" aria-labelledby="tenantInfoTitle">
+            <h3 id="tenantInfoTitle">租户信息</h3>
+            <label class="modal-field">
+              <span>租户名称</span>
+              <input type="text" placeholder="请输入租户名称" />
+            </label>
+            <label class="modal-field">
+              <span>租户管理员邮箱</span>
+              <input type="email" placeholder="请输入管理员邮箱" />
+            </label>
+
+            <fieldset class="modal-field tenant-type-group">
+              <legend>上户类型</legend>
+              <div class="type-radio-row">
+                <label class="type-radio-card">
+                  <input type="radio" name="tenantType" value="direct" checked />
+                  <span class="type-radio-body">
+                    <strong>客户上户</strong>
+                    <small>企业客户直接签约上户，API 应用默认为企业应用</small>
+                  </span>
+                </label>
+                <label class="type-radio-card">
+                  <input type="radio" name="tenantType" value="isv" />
+                  <span class="type-radio-body">
+                    <strong>ISV上户</strong>
+                    <small>ISV/服务商接入上户，API 应用默认为ISV应用</small>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+
+            <label class="invite-card">
+              <span class="invite-copy">
+                <strong>是否自动创建 API 应用</strong>
+                <span>开启后将根据上户类型自动创建对应的 API 应用</span>
+              </span>
+              <input class="switch-input" id="autoCreateApiApp" type="checkbox" checked aria-label="是否自动创建 API 应用" />
+              <span class="switch-track" aria-hidden="true"></span>
+            </label>
+
+            <label class="invite-card">
+              <span class="invite-copy">
+                <strong>是否自动发送租户管理员邀请</strong>
+                <span>开启后将自动向管理员邮箱发送激活链接</span>
+              </span>
+              <input class="switch-input" type="checkbox" aria-label="是否自动发送租户管理员邀请" />
+              <span class="switch-track" aria-hidden="true"></span>
+            </label>
+          </section>
+
+          <section class="modal-section" aria-labelledby="enterpriseInfoTitle">
+            <h3 id="enterpriseInfoTitle">关联企业信息</h3>
+            <label class="modal-field">
+              <span>国家/地区 <em style="color:#e84b4b;font-style:normal">*</em></span>
+              <span class="modal-select">
+                <select required>
+                  <option>越南 VN</option>
+                  <option>马来西亚 MY</option>
+                  <option>新加坡 SG</option>
+                </select>
+              </span>
+            </label>
+            <label class="modal-field">
+              <span>企业编码 <em style="color:#e84b4b;font-style:normal">*</em></span>
+              <input type="text" placeholder="请输入企业编码" required />
+            </label>
+            <label class="modal-field">
+              <span>企业名称 <em style="color:#e84b4b;font-style:normal">*</em></span>
+              <input type="text" placeholder="请输入企业名称" required />
+            </label>
+            <label class="modal-field">
+              <span>企业联系邮箱 <em style="color:#e84b4b;font-style:normal">*</em></span>
+              <input type="email" placeholder="请输入企业联系邮箱" required />
+            </label>
+          </section>
+        </form>
+
+        <footer class="modal-footer">
+          <button class="button ghost modal-action" id="cancelTenantModal" type="button">取消</button>
+          <button class="button primary modal-action" type="button">确认创建</button>
+        </footer>
+      </section>
+    </div>
+
+    <div class="modal-overlay" id="editTenantModalOverlay" aria-hidden="true">
+      <section class="tenant-modal" id="editTenantModal" role="dialog" aria-modal="true" aria-labelledby="editTenantTitle">
+        <header class="modal-header">
+          <h2 id="editTenantTitle">编辑租户</h2>
+          <button class="modal-close" id="closeEditTenantModal" type="button" aria-label="关闭编辑租户弹层">
+            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></svg>
+          </button>
+        </header>
+
+        <form class="modal-body">
+          <section class="modal-section" aria-labelledby="editTenantInfoTitle">
+            <h3 id="editTenantInfoTitle">租户信息</h3>
+            <label class="modal-field">
+              <span>租户名称</span>
+              <input id="editTenantName" type="text" value="Alpha Services" />
+            </label>
+            <label class="modal-field">
+              <span>租户管理员邮箱</span>
+              <input id="editTenantAdminEmail" type="email" value="admin@alpha.vn" />
+            </label>
+            <label class="modal-field">
+              <span>上户类型</span>
+              <span class="select-shell">
+                <select id="editTenantType" disabled>
+                  <option value="direct">客户上户</option>
+                  <option value="isv">ISV上户</option>
+                </select>
+              </span>
+              <span class="field-hint">上户类型创建后不可修改</span>
+            </label>
+          </section>
+
+          <section class="modal-section" aria-labelledby="editEnterpriseInfoTitle">
+            <h3 id="editEnterpriseInfoTitle">关联企业信息</h3>
+            <label class="modal-field">
+              <span>国家/地区</span>
+              <span class="modal-select">
+                <select id="editTenantCountry">
+                  <option>越南 VN</option>
+                  <option>马来西亚 MY</option>
+                  <option>新加坡 SG</option>
+                </select>
+              </span>
+            </label>
+            <label class="modal-field">
+              <span>企业名称</span>
+              <input id="editTenantCompany" type="text" value="Alpha Tech Group" />
+            </label>
+            <label class="modal-field">
+              <span>企业联系邮箱</span>
+              <input id="editTenantCompanyEmail" type="email" value="admin@alpha.vn" />
+            </label>
+          </section>
+        </form>
+
+        <footer class="modal-footer">
+          <button class="button ghost modal-action" id="cancelEditTenantModal" type="button">取消</button>
+          <button class="button primary modal-action" type="button">保存修改</button>
+        </footer>
+      </section>
+    </div>
+
+    <script>
+      const openTenantModal = document.getElementById("openTenantModal");
+      const tenantModalOverlay = document.getElementById("tenantModalOverlay");
+      const closeTenantModal = document.getElementById("closeTenantModal");
+      const cancelTenantModal = document.getElementById("cancelTenantModal");
+      const editTenantModalOverlay = document.getElementById("editTenantModalOverlay");
+      const closeEditTenantModal = document.getElementById("closeEditTenantModal");
+      const cancelEditTenantModal = document.getElementById("cancelEditTenantModal");
+      const editTenantName = document.getElementById("editTenantName");
+      const editTenantAdminEmail = document.getElementById("editTenantAdminEmail");
+      const editTenantCountry = document.getElementById("editTenantCountry");
+      const editTenantCompany = document.getElementById("editTenantCompany");
+      const editTenantCompanyEmail = document.getElementById("editTenantCompanyEmail");
+      const editTenantType = document.getElementById("editTenantType");
+      let lastEditTrigger = null;
+
+      function setTenantModal(open) {
+        tenantModalOverlay.classList.toggle("open", open);
+        tenantModalOverlay.setAttribute("aria-hidden", String(!open));
+        document.body.classList.toggle("modal-open", open);
+
+        if (open) {
+          tenantModalOverlay.querySelector("input").focus();
+        } else {
+          openTenantModal.focus();
+        }
+      }
+
+      function setEditTenantModal(open, trigger) {
+        editTenantModalOverlay.classList.toggle("open", open);
+        editTenantModalOverlay.setAttribute("aria-hidden", String(!open));
+        document.body.classList.toggle("modal-open", open);
+
+        if (open && trigger) {
+          lastEditTrigger = trigger;
+          editTenantName.value = trigger.dataset.tenant || "";
+          editTenantAdminEmail.value = trigger.dataset.adminEmail || "";
+          editTenantCountry.value = trigger.dataset.country || "越南 VN";
+          editTenantCompany.value = trigger.dataset.company || "";
+          editTenantCompanyEmail.value = trigger.dataset.companyEmail || "";
+          editTenantType.value = trigger.dataset.tenantType || "direct";
+          editTenantName.focus();
+        } else if (!open && lastEditTrigger) {
+          lastEditTrigger.focus();
+        }
+      }
+
+      openTenantModal.addEventListener("click", () => setTenantModal(true));
+      closeTenantModal.addEventListener("click", () => setTenantModal(false));
+      cancelTenantModal.addEventListener("click", () => setTenantModal(false));
+      tenantModalOverlay.addEventListener("click", (event) => {
+        if (event.target === tenantModalOverlay) {
+          setTenantModal(false);
+        }
+      });
+      document.querySelectorAll("[data-open-edit]").forEach((button) => {
+        button.addEventListener("click", () => setEditTenantModal(true, button));
+      });
+      closeEditTenantModal.addEventListener("click", () => setEditTenantModal(false));
+      cancelEditTenantModal.addEventListener("click", () => setEditTenantModal(false));
+      editTenantModalOverlay.addEventListener("click", (event) => {
+        if (event.target === editTenantModalOverlay) {
+          setEditTenantModal(false);
+        }
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && tenantModalOverlay.classList.contains("open")) {
+          setTenantModal(false);
+        }
+        if (event.key === "Escape" && editTenantModalOverlay.classList.contains("open")) {
+          setEditTenantModal(false);
+        }
+      });
+    </script>
+  </body>
+</html>

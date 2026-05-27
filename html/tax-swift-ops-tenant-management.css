@@ -1397,12 +1397,12 @@ svg {
   white-space: nowrap;
 }
 
-.type-pill.customer {
+.type-pill.direct {
   background: #e7f0ff;
   color: #1463ff;
 }
 
-.type-pill.partner {
+.type-pill.isv {
   background: #fef3e4;
   color: #d88516;
 }
